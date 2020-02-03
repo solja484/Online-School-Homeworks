@@ -1,8 +1,22 @@
+body{
+    background-image: url("../bg.jpg");!important;
+    background-repeat: repeat!important;
+    background-size: 500px!important;
+}
+
 #registrypanel,#entrypanel {
-    background: #94ed34;
-    margin:5% 30%!important;
-    padding: 3% 5%!important;
+
+/*green lizard #94ed34; festival #fee96a  salmon #fd7172 spray #7cdeeb */
+    margin:5% 30%;
+    padding:0;
     width: 40%;
+}
+#registryform,#entryform{
+    padding: 3% 5%;
+    background: #7cdeeb;
+}
+#entrypanel{
+    margin-top:7%;
 }
 #registrypanel div{
     margin: 5px 0!important;
@@ -10,9 +24,38 @@
 #entrypanel div{
     margin: 5px 0!important;
 }
+
+#entry_pupil_button,#reg_pupil_button{
+    background: #7cdeeb;
+    color:black;
+    margin: 0!important;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+#entry_teacher_button,#reg_teacher_button{
+     background: #fee96a;
+     color:black;
+     border-bottom-right-radius: 0;
+     border-bottom-left-radius: 0;
+     margin:0 0 0 -5px!important;
+
+
+ }
+#entry_admin_button{
+    background: #fd7172;
+    color:black;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin:0 0 0 -5px!important;
+
+
+}
 @media   (max-width: 750px){
     #registrypanel,#entrypanel {
-        margin:5% 20%!important;
+        margin:5% 20%;
         width: 60%;
+    }
+    #entrypanel{
+        margin-top:20%;
     }
 }
