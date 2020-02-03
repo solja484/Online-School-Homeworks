@@ -1,12 +1,18 @@
 #registrypanel,#entrypanel {
     background: #94ed34;
-    margin:5% 20%!important;
+    margin:5% 30%!important;
     padding: 3% 5%!important;
-    width: 60%;
+    width: 40%;
 }
 #registrypanel div{
     margin: 5px 0!important;
 }
 #entrypanel div{
     margin: 5px 0!important;
+}
+@media   (max-width: 750px){
+    #registrypanel,#entrypanel {
+        margin:5% 20%!important;
+        width: 60%;
+    }
 }
