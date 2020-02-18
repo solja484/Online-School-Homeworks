@@ -1,23 +1,28 @@
 body{
-    background-image: url("../bg.jpg");!important;
+   /* background-image: url("../bg.jpg");!important;
     background-repeat: repeat!important;
-    background-size: 500px!important;
+    background-size: 300px!important;*/
+    background: #ececec;
 }
-
+#entryblock, #registerblock{
+    width: 100%;
+    margin:0;
+    padding:0;
+    min-height:100vh;!important;
+    background: rgba(0, 0, 0, 0.16);
+}
 #registrypanel,#entrypanel {
 
 /*green lizard #94ed34; festival #fee96a  salmon #fd7172 spray #7cdeeb */
-    margin:5% 30%;
-    padding:0;
+    margin:0 30%;
+    padding:7% 0;
     width: 40%;
 }
 #registryform,#entryform{
     padding: 3% 5%;
     background: #7cdeeb;
 }
-#entrypanel{
-    margin-top:7%;
-}
+
 #registrypanel div{
     margin: 5px 0!important;
 }
@@ -47,9 +52,50 @@ body{
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     margin:0 0 0 -5px!important;
-
-
 }
+
+#container{
+    margin:0;!important;
+}
+#content {
+margin:0;
+    width:100%;
+    padding-top: 5%;
+}
+
+#menu{
+    margin:0;
+    padding: 0;
+}
+
+#navbar{
+    background: white;
+}
+#admin_page{
+    background: white;
+    padding: 3% ;
+}
+
+#brand{
+   padding:30px;
+    background: #7cdeeb;
+    color: white; width:100%;
+    text-align: center;
+}
+
+#entry_li{
+    text-align: center;
+}
+#entry_tab{
+    background: #fee96a;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+
+
+
+
 @media   (max-width: 750px){
     #registrypanel,#entrypanel {
         margin:5% 20%;

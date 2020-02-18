@@ -3,67 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <title>School</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="css/main.css" rel="stylesheet" media="screen">
 </head>
-<body >
-<div id="registrypanel"  >
-    <div style="padding:0;">
-        <a id="reg_pupil_button" class="btn" onclick="change_reg_type(2)">Учень</a>
-        <a id="reg_teacher_button" onclick="change_reg_type(1)" class="btn ">Вчитель</a>
-    <form class="sm" id="registryform">
-        <div class="form-group">
-        <label for="reg_lastname">Прізвище:</label>
-        <input type="text" class="form-control" id="reg_lastname" >
-    </div>
-        <div class="form-group">
-            <label for="reg_firstname">Ім'я:</label>
-            <input type="text" class="form-control" id="reg_firstname" >
-        </div>
-        <div class="form-group">
-            <label for="reg_fathername">По-батькові:</label>
-            <input type="text" class="form-control" id="reg_fathername" >
-        </div>
-        <div class="form-group">
-            <label for="reg_code">Код школи:</label>
-            <input type="text" class="form-control" id="reg_code" >
-        </div>
-        <div class="form-group">
-            <label for="reg_email">Електронна пошта:</label>
-            <input type="email" class="form-control" id="reg_email" >
-        </div>
-        <div class="form-group">
-            <label for="reg_password">Пароль:</label>
-            <input type="password" class="form-control" id="reg_password" >
-        </div>
-        <button  class="btn btn-secondary btn-block" style="margin-top:15px;">Зареєструвати мене!</button>
-    </form>
-    </div></div>
+<body>
 
-<div id="entrypanel" style="display: none;">
-    <div style="padding:0;">
-    <a id="entry_pupil_button" class="btn" onclick="change_entry_type(2)">Учень</a>
-        <a id="entry_teacher_button" onclick="change_entry_type(1)" class="btn ">Вчитель</a>
-        <a id="entry_admin_button" onclick="change_entry_type(0)" class="btn ">Адмін</a>
-    <form class="sm" id="entryform">
+<div id="container" class="panel panel-default row">
+    <div id="menu" class="col-md-3 ">
+        <div id="navbar">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a id="brand" class=" navbar-brand"> Homework App</a>
+                </li>
 
-        <div class="form-group">
-            <label for="entry_email">Логін:</label>
-            <input type="email" class="form-control" id="entry_email" >
+                <li class="nav-item" id="entry_li">
+                    <br>
+                    <button class=" btn btn-warning" id="entry_tab"
+                            data-toggle="pill" role="tab" > Вхід</button>
+                    <a class="nav-link "  role="tab"> Реєстрація</a>
+                    <br>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-light" data-toggle="pill" role="tab"> Особистий кабінет</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link btn-light" data-toggle="pill" role="tab">Предмети</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-light " id="admin_page_tab" aria-controls="admin_page"
+                       data-toggle="pill" role="tab" href="#admin_page" style="color: #fd7172">Адміністратор</a>
+                </li>
+            </ul>
         </div>
-        <div class="form-group">
-            <label for="entry_password">Пароль:</label>
-            <input type="password" class="form-control" id="entry_password" >
-        </div>
-        <button  class="btn btn-secondary btn-block" style="margin-top:15px;">Вхід</button>
-    </form>
     </div>
 
+    <div id="content" class="col-md-9 row">
+        <div class="col-md-1"></div>
+        <div id="admin_page" class="col-md-10 border rounded tab-pane fade " role="tabpanel"
+             aria-labelledby="admin_page_tab">
+            <h4 id="adminLabel" class="font-left col-md-12 panel-heading">Hello admin!</h4>
+            <button id="add_school" class="btn btn-info col-md-3" style="background: #7cdeeb;">Додати адміна</button>
+
+            <button id="add_admin" type="button" class="btn btn-danger col-md-3"
+                    data-target="#myModal" data-toggle="modal" style="background: #fd7172;">Додати школу
+            </button>
+
+            <!-- Modal for add school-->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Додати школу</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group row">
+                                    <label for="input_school_code" class="col-sm-2 col-form-label">Код:</label>
+                                    <div class="col-sm-10">
+                                        <input id="input_school_code" type="text" class="form-control"
+                                               placeholder="Код школи">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="input_school_name" class="col-sm-2 col-form-label">Назва:</label>
+                                    <div class="col-sm-10">
+                                        <input id="input_school_name" type="text" class="form-control"
+                                               placeholder="Назва школи">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="input_school_address" class="col-sm-2 col-form-label">Адреса:</label>
+                                    <div class="col-sm-10">
+                                        <input id="input_school_address" type="text" class="form-control"
+                                               placeholder="Адреса">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon">+380</span>
+                                        </div>
+                                        <input id=input_school_phone type="text" class="form-control"
+                                               placeholder="(_ _)_ _ _ _ _ _ _"
+                                               aria-describedby="basic-addon">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <input id="input_school_photo" type="file">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <textarea class="form-control" placeholder="Примітки"></textarea>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="addSchoolButton" type="submit" class="btn btn-outline-info"
+                                    data-dismiss="modal" onclick="alert('content->admin_page line 105');">Додати
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="cabinet_page" class="col-md-10 border rounded tab-pane fade " role="tabpanel"
+             aria-labelledby="cabinet_page_tab" >
+    </div>
 </div>
 
+<div id="entryblock" style="display: none;">
+    <div id="entrypanel">
+        <div style="padding:0;">
+            <a id="entry_pupil_button" class="btn" onclick="change_entry_type(2)">Учень</a>
+            <a id="entry_teacher_button" onclick="change_entry_type(1)" class="btn ">Вчитель</a>
+            <a id="entry_admin_button" onclick="change_entry_type(0)" class="btn ">Адмін</a>
+            <form class="sm" id="entryform">
+
+                <div class="form-group">
+                    <label for="entry_email">Логін:</label>
+                    <input type="email" class="form-control" id="entry_email">
+                </div>
+                <div class="form-group">
+                    <label for="entry_password">Пароль:</label>
+                    <input type="password" class="form-control text-muted" id="entry_password">
+                </div>
+                <button class="btn btn-secondary btn-block" style="margin-top:15px;">Вхід</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div id="registryblock" style="display: none;">
+    <div id="registrypanel">
+        <div style="padding:0;">
+            <a id="reg_pupil_button" class="btn" onclick="change_reg_type(2)">Учень</a>
+            <a id="reg_teacher_button" onclick="change_reg_type(1)" class="btn ">Вчитель</a>
+            <form class="sm" id="registryform">
+                <div class="form-group">
+                    <label for="reg_lastname">Прізвище:</label>
+                    <input type="text" class="form-control" id="reg_lastname">
+                </div>
+                <div class="form-group">
+                    <label for="reg_firstname">Ім'я:</label>
+                    <input type="text" class="form-control" id="reg_firstname">
+                </div>
+                <div class="form-group">
+                    <label for="reg_fathername">По-батькові:</label>
+                    <input type="text" class="form-control" id="reg_fathername">
+                </div>
+                <div class="form-group">
+                    <label for="reg_code">Код школи:</label>
+                    <input type="text" class="form-control" id="reg_code">
+                </div>
+                <div class="form-group">
+                    <label for="reg_email">Електронна пошта:</label>
+                    <input type="email" class="form-control" id="reg_email">
+                </div>
+                <div class="form-group">
+                    <label for="reg_password">Пароль:</label>
+                    <input type="password" class="form-control text-muted" id="reg_password">
+                </div>
+                <button class="btn btn-secondary btn-block" style="margin-top:15px;">Зареєструвати мене!</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <script src="js/main.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>
