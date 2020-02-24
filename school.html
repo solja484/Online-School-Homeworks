@@ -8,178 +8,306 @@
     <link href="css/main.css" rel="stylesheet" media="screen">
 </head>
 <body>
-
 <div id="container" class="panel panel-default row">
-    <div id="menu" class="col-md-3 ">
-        <div id="navbar">
+    <div id="menu" class="col-md-3 row">
+        <div id="navbar" class="col-md-9" style="padding: 0!important; background: #ececec">
             <ul class="nav flex-column">
                 <li class="nav-item">
                     <a id="brand" class=" navbar-brand"> Homework App</a>
                 </li>
 
-                <li class="nav-item" id="entry_li">
+                <li class="nav-item entry_li">
                     <br>
-                    <button class=" btn btn-warning" id="entry_tab"
-                            data-toggle="pill" role="tab" > Вхід</button>
-                    <a class="nav-link "  role="tab"> Реєстрація</a>
+                    <button class="btn btn-md btn-warning entrymenu" type="button" data-target="#entry_modal"
+                            data-toggle="modal"
+                    >&#128274;Вхід
+                    </button>
+                    <br>
+                    <a class="registry_menu" type="button" data-target="#registry_modal" data-toggle="modal">
+                        Реєстрація</a>
+                    <br>
                     <br>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn-light" data-toggle="pill" role="tab"> Особистий кабінет</a>
+                    <a class="nav-link btn-light " id="cabinet_page_tab" onclick="shoW('cabinet_page');"
+                       aria-controls="cabinet_page" data-toggle="pill" role="tab" href="#cabinet_page">
+                        Особистий кабінет</a>
                 </li>
-
-
                 <li class="nav-item">
-                    <a class="nav-link btn-light" data-toggle="pill" role="tab">Предмети</a>
+                    <a class="nav-link btn-light " id="subject_page_tab" aria-controls="subject_page"
+                       data-toggle="pill" role="tab" href="#subject_page"
+                       onclick="shoW('subject_page');">Предмети</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn-light " id="admin_page_tab" aria-controls="admin_page"
-                       data-toggle="pill" role="tab" href="#admin_page" style="color: #fd7172">Адміністратор</a>
+                       data-toggle="pill" role="tab" href="#admin_page" style="color: #fd7172"
+                       onclick="shoW('admin_page');">Адміністратор</a>
+                </li>
+
+                <li class="nav-item entry_li">
+                    <a class="exit_menu" type="button">
+                        Вихід</a>
                 </li>
             </ul>
         </div>
-    </div>
 
+    </div>
     <div id="content" class="col-md-9 row">
         <div class="col-md-1"></div>
-        <div id="admin_page" class="col-md-10 border rounded tab-pane fade " role="tabpanel"
+        <div id="subject_page" class="col-md-10 border rounded tab-pane fade page show" role="tabpanel"
+             aria-labelledby="subject_page_tab">
+            <div class="panel-header"><h4> Предмети</h4></div>
+            <div class="panel-body">
+                <form class="input-group mb-3">
+                    <input type="text" class="form-control " placeholder="Пошук" aria-describedby="button-button">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary " type="button" id="search_button">&#128269;</button>
+
+                    </div>
+                </form>
+                <h5> Мої предмети</h5>
+                <div class="list-group" id="subject_list">
+
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list" role="tab">Алгебра 10 клас</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list" role="tab">Геометрія 10 клас</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list" role="tab">English </a>
+                       </div>
+
+
+            </div>
+        </div>
+        <div id="admin_page" class="col-md-10 border rounded panel tab-pane fade page" role="tabpanel"
              aria-labelledby="admin_page_tab">
             <h4 id="adminLabel" class="font-left col-md-12 panel-heading">Hello admin!</h4>
-            <button id="add_school" class="btn btn-info col-md-3" style="background: #7cdeeb;">Додати адміна</button>
-
-            <button id="add_admin" type="button" class="btn btn-danger col-md-3"
-                    data-target="#myModal" data-toggle="modal" style="background: #fd7172;">Додати школу
+            <button id="add_admin" type="button" class="btn btn-info col-md-3" data-toggle="modal"
+                    data-target="#add_admin_modal" style="background: #7cdeeb;">Додати адміна
             </button>
 
-            <!-- Modal for add school-->
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
+            <button id="add_school" type="button" class="btn btn-danger col-md-3"
+                    data-target="#add_school_modal" data-toggle="modal" style="background: #fd7172;">Додати школу
+            </button>
+            <div class="panel" style="overflow: auto!important;">
 
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Додати школу</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Ключ</th>
+                            <th scope="col">Назва школи</th>
+                            <th scope="col">Адреса</th>
+                            <th scope="col">Телефон</th>
+                            <th scope="col">Дії</th>
+                        </tr>
+                        </thead>
 
+                        <tbody>
+                        <tr>
+                            <th scope="row">#A76FD&6f&T</th>
+                            <td>Києво-Могилянська академія</td>
+                            <td>Контрактова площа</td>
+                            <td>+0445354213</td>
+                            <td>
+                                <button class="btn btn-sm btn-info" style="background: #7cdeeb">edit</button>
+                                <button class="btn btn-sm btn-danger" style="background: #fd7172">delete</button>
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="cabinet_page" class="col-md-10 border rounded tab-pane panel panel-default fade page" role="tabpanel"
+             aria-labelledby="cabinet_page_tab">
+            <div class="panel-header"><h5> Особистий кабінет</h5></div>
+        </div>
+
+
+</div>
+</div>
+<!-- Modal for add school-->
+<div class="modal fade" id="add_school_modal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Додати школу</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="input_school_code" class="col-sm-2 col-form-label">Код:</label>
+                        <div class="col-sm-10">
+                            <input id="input_school_code" type="text" class="form-control"
+                                   placeholder="Код школи">
                         </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group row">
-                                    <label for="input_school_code" class="col-sm-2 col-form-label">Код:</label>
-                                    <div class="col-sm-10">
-                                        <input id="input_school_code" type="text" class="form-control"
-                                               placeholder="Код школи">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="input_school_name" class="col-sm-2 col-form-label">Назва:</label>
-                                    <div class="col-sm-10">
-                                        <input id="input_school_name" type="text" class="form-control"
-                                               placeholder="Назва школи">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="input_school_address" class="col-sm-2 col-form-label">Адреса:</label>
-                                    <div class="col-sm-10">
-                                        <input id="input_school_address" type="text" class="form-control"
-                                               placeholder="Адреса">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon">+380</span>
-                                        </div>
-                                        <input id=input_school_phone type="text" class="form-control"
-                                               placeholder="(_ _)_ _ _ _ _ _ _"
-                                               aria-describedby="basic-addon">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <input id="input_school_photo" type="file">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <textarea class="form-control" placeholder="Примітки"></textarea>
-                                    </div>
-                                </div>
-
-                            </form>
+                    </div>
+                    <div class="form-group row">
+                        <label for="input_school_name" class="col-sm-2 col-form-label">Назва:</label>
+                        <div class="col-sm-10">
+                            <input id="input_school_name" type="text" class="form-control"
+                                   placeholder="Назва школи">
                         </div>
-                        <div class="modal-footer">
-                            <button id="addSchoolButton" type="submit" class="btn btn-outline-info"
-                                    data-dismiss="modal" onclick="alert('content->admin_page line 105');">Додати
-                            </button>
+                    </div>
+                    <div class="form-group row">
+                        <label for="input_school_address" class="col-sm-2 col-form-label">Адреса:</label>
+                        <div class="col-sm-10">
+                            <input id="input_school_address" type="text" class="form-control"
+                                   placeholder="Адреса">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon">+380</span>
+                            </div>
+                            <input id=input_school_phone type="text" class="form-control"
+                                   placeholder="(_ _)_ _ _ _ _ _ _"
+                                   aria-describedby="basic-addon">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input id="input_school_photo" type="file">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" placeholder="Примітки"></textarea>
                         </div>
                     </div>
 
-                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--TODO add_school_button-->
+                <button id="add_school_button" type="submit" class="btn btn-outline-info"
+                        data-dismiss="modal" onclick="alert('id #add_school_button');">Додати
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal for add admin-->
+<div class="modal fade" id="add_admin_modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Додати адміна</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="input_admin_login" class="col-sm-2 col-form-label">Код:</label>
+                        <div class="col-sm-10">
+                            <input id="input_admin_login" type="text" class="form-control"
+                                   placeholder="Логін">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="input_admin_password" class="col-sm-2 col-form-label">Код:</label>
+                        <div class="col-sm-10">
+                            <input id="input_admin_password" type="password" class="form-control"
+                                   placeholder="Логін">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="add_admin_button" type="submit" class="btn btn-outline-info"
+                        data-dismiss="modal" onclick="alert('content->admin_page->add_admin_modal');">Додати
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--modal for entry-->
+<div class="modal fade" id="entry_modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background: transparent!important; border: none">
+
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <a id="entry_pupil_button" class="btn" onclick="change_entry_type(2)">Учень</a>
+                <a id="entry_teacher_button" onclick="change_entry_type(1)" class="btn ">Вчитель</a>
+                <a id="entry_admin_button" onclick="change_entry_type(0)" class="btn ">Адмін</a>
+                <form class="sm rounded-right rounded-bottom registryform" id="entryform">
+
+                    <div class="form-group">
+                        <label for="entry_email">Логін:</label>
+                        <input type="email" class="form-control" id="entry_email">
+                    </div>
+                    <div class="form-group">
+                        <label for="entry_password">Пароль:</label>
+                        <input type="password" class="form-control text-muted" id="entry_password">
+                    </div>
+
+                    <!--TODO entry_button-->
+                    <button id="entry_button" type="submit" class="btn btn-secondary btn-block"
+                            data-dismiss="modal" onclick="alert('id #entry_button');">Вхід
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--modal for registry-->
+<div class="modal fade" id="registry_modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background: transparent!important; border: none">
+
+
+            <div class="modal-body">
+
+                <a id="reg_pupil_button" class="btn" onclick="change_reg_type(2)">Учень</a>
+                <a id="reg_teacher_button" onclick="change_reg_type(1)" class="btn ">Вчитель</a>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <form class="sm rounded-right rounded-bottom registryform" id="registryform">
+
+                    <div class="form-group">
+                        <label for="reg_lastname">Прізвище:</label>
+                        <input type="text" class="form-control" id="reg_lastname">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg_firstname">Ім'я:</label>
+                        <input type="text" class="form-control" id="reg_firstname">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg_fathername">По-батькові:</label>
+                        <input type="text" class="form-control" id="reg_fathername">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg_code">Код школи:</label>
+                        <input type="text" class="form-control" id="reg_code">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg_email">Електронна пошта:</label>
+                        <input type="email" class="form-control" id="reg_email">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg_password">Пароль:</label>
+                        <input type="password" class="form-control text-muted" id="reg_password">
+                    </div>
+
+                    <!--TODO registry_button-->
+                    <button id="registry_button" type="submit" class="btn btn-secondary btn-block"
+                            data-dismiss="modal" onclick="alert('id registry_button');"> Зареєструвати мене!
+                    </button>
+                </form>
             </div>
 
         </div>
-        <div id="cabinet_page" class="col-md-10 border rounded tab-pane fade " role="tabpanel"
-             aria-labelledby="cabinet_page_tab" >
-    </div>
-</div>
 
-<div id="entryblock" style="display: none;">
-    <div id="entrypanel">
-        <div style="padding:0;">
-            <a id="entry_pupil_button" class="btn" onclick="change_entry_type(2)">Учень</a>
-            <a id="entry_teacher_button" onclick="change_entry_type(1)" class="btn ">Вчитель</a>
-            <a id="entry_admin_button" onclick="change_entry_type(0)" class="btn ">Адмін</a>
-            <form class="sm" id="entryform">
-
-                <div class="form-group">
-                    <label for="entry_email">Логін:</label>
-                    <input type="email" class="form-control" id="entry_email">
-                </div>
-                <div class="form-group">
-                    <label for="entry_password">Пароль:</label>
-                    <input type="password" class="form-control text-muted" id="entry_password">
-                </div>
-                <button class="btn btn-secondary btn-block" style="margin-top:15px;">Вхід</button>
-            </form>
-        </div>
-
-    </div>
-</div>
-
-<div id="registryblock" style="display: none;">
-    <div id="registrypanel">
-        <div style="padding:0;">
-            <a id="reg_pupil_button" class="btn" onclick="change_reg_type(2)">Учень</a>
-            <a id="reg_teacher_button" onclick="change_reg_type(1)" class="btn ">Вчитель</a>
-            <form class="sm" id="registryform">
-                <div class="form-group">
-                    <label for="reg_lastname">Прізвище:</label>
-                    <input type="text" class="form-control" id="reg_lastname">
-                </div>
-                <div class="form-group">
-                    <label for="reg_firstname">Ім'я:</label>
-                    <input type="text" class="form-control" id="reg_firstname">
-                </div>
-                <div class="form-group">
-                    <label for="reg_fathername">По-батькові:</label>
-                    <input type="text" class="form-control" id="reg_fathername">
-                </div>
-                <div class="form-group">
-                    <label for="reg_code">Код школи:</label>
-                    <input type="text" class="form-control" id="reg_code">
-                </div>
-                <div class="form-group">
-                    <label for="reg_email">Електронна пошта:</label>
-                    <input type="email" class="form-control" id="reg_email">
-                </div>
-                <div class="form-group">
-                    <label for="reg_password">Пароль:</label>
-                    <input type="password" class="form-control text-muted" id="reg_password">
-                </div>
-                <button class="btn btn-secondary btn-block" style="margin-top:15px;">Зареєструвати мене!</button>
-            </form>
-        </div>
     </div>
 </div>
 

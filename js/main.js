@@ -1,5 +1,6 @@
 let usertypes=["admin","teacher","pupil"];
 let usertype=0;
+
 function change_entry_type(t){
      if(t===0){
         document.getElementById('entryform').style.background =  '#fd7172';
@@ -25,3 +26,17 @@ function change_reg_type(t){
         usertype=2;
     }
 }
+
+function shoW(except){
+    $("#admin_page").hide();
+    $("#cabinet_page").hide();
+    $("#subject_page").hide();
+    $("#"+except).show();
+}
+
+
+
+document.getElementById("#subject_list a").on('click', function (e) {
+    alert('SSSSSSSSSSSSSS');
+});
+
