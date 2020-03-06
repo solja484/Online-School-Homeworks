@@ -8,49 +8,45 @@
     <link href="css/main.css" rel="stylesheet" media="screen">
 </head>
 <body>
-<div id="container" class="panel panel-default row">
+<div id="container" class="panel panel-default row ">
     <div id="menu" class="col-md-3 row">
         <div id="navbar" class="col-md-9" style="padding: 0!important; background: #ececec">
-            <ul class="nav flex-column">
+            <div style="min-height:99vh; background: white;">
+            <ul class="nav flex-column" >
                 <li class="nav-item">
                     <a id="brand" class=" navbar-brand"> Homework App</a>
                 </li>
 
                 <li class="nav-item entry_li">
                     <br>
-                    <button class="btn btn-md btn-warning entrymenu" type="button" data-target="#entry_modal"
-                            data-toggle="modal"
-                    >&#128274;Вхід
-                    </button>
+
                     <br>
-                    <a class="registry_menu" type="button" data-target="#registry_modal" data-toggle="modal">
-                        Реєстрація</a>
-                    <br>
+
                     <br>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn-light " id="cabinet_page_tab" onclick="shoW('cabinet_page');"
                        aria-controls="cabinet_page" data-toggle="pill" role="tab" href="#cabinet_page">
-                        Особистий кабінет</a>
+                        👤Особистий кабінет</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn-light " id="subject_page_tab" aria-controls="subject_page"
                        data-toggle="pill" role="tab" href="#subject_page"
-                       onclick="shoW('subject_page');">Предмети</a>
+                       onclick="shoW('subject_page');">📚Предмети</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn-light " id="admin_page_tab" aria-controls="admin_page"
                        data-toggle="pill" role="tab" href="#admin_page" style="color: #fd7172"
-                       onclick="shoW('admin_page');">Адміністратор</a>
+                       onclick="shoW('admin_page');">👩‍💻Адміністратор</a>
                 </li>
 
                 <li class="nav-item entry_li">
-                    <a class="exit_menu" type="button">
-                        Вихід</a>
+                    <a id="exit_button" class="exit_menu" type="button" onclick="exit()">
+                        ❌Вихід</a>
                 </li>
             </ul>
         </div>
-
+        </div>
     </div>
     <div id="content" class="col-md-9 row">
         <div class="col-md-1"></div>
@@ -89,9 +85,9 @@
             <div class="panel" style="overflow: auto!important;">
 
                 <div class="panel-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped" style="font-size: 13px!important;">
                         <thead>
-                        <tr>
+                        <tr >
                             <th scope="col">Ключ</th>
                             <th scope="col">Назва школи</th>
                             <th scope="col">Адреса</th>
@@ -101,13 +97,15 @@
                         </thead>
 
                         <tbody>
-                        <tr>
+                        <tr class="tableelements">
                             <th scope="row">#A76FD&6f&T</th>
                             <td>Києво-Могилянська академія</td>
                             <td>Контрактова площа</td>
                             <td>+0445354213</td>
                             <td>
-                                <button class="btn btn-sm btn-info" style="background: #7cdeeb">edit</button>
+                                <button id="edit_school" type="button" class="btn btn-sm btn-info" data-toggle="modal"
+                                        data-target="#edit_school_modal" style="background: #7cdeeb;">
+                                    ️edit </button>
                                 <button class="btn btn-sm btn-danger" style="background: #fd7172">delete</button>
 
                             </td>
@@ -204,17 +202,15 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group row">
-                        <label for="input_admin_login" class="col-sm-2 col-form-label">Код:</label>
+                        <label for="input_admin_login" class="col-sm-2 col-form-label">Логін:</label>
                         <div class="col-sm-10">
-                            <input id="input_admin_login" type="text" class="form-control"
-                                   placeholder="Логін">
+                            <input id="input_admin_login" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="input_admin_password" class="col-sm-2 col-form-label">Код:</label>
+                        <label for="input_admin_password" class="col-sm-2 col-form-label">Пароль:</label>
                         <div class="col-sm-10">
-                            <input id="input_admin_password" type="password" class="form-control"
-                                   placeholder="Логін">
+                            <input id="input_admin_password" type="password" class="form-control">
                         </div>
                     </div>
                 </form>
@@ -229,90 +225,139 @@
     </div>
 </div>
 
-<!--modal for entry-->
-<div class="modal fade" id="entry_modal" role="dialog">
+<!--Modal for edit school-->
+<div class="modal fade" id="edit_school_modal" role="dialog">
     <div class="modal-dialog">
-        <div class="modal-content" style="background: transparent!important; border: none">
 
-            <div class="modal-body">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Редагувати школу</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <a id="entry_pupil_button" class="btn" onclick="change_entry_type(2)">Учень</a>
-                <a id="entry_teacher_button" onclick="change_entry_type(1)" class="btn ">Вчитель</a>
-                <a id="entry_admin_button" onclick="change_entry_type(0)" class="btn ">Адмін</a>
-                <form class="sm rounded-right rounded-bottom registryform" id="entryform">
 
-                    <div class="form-group">
-                        <label for="entry_email">Логін:</label>
-                        <input type="email" class="form-control" id="entry_email">
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="edit_school_code" class="col-sm-2 col-form-label">Код:</label>
+                        <div class="col-sm-10">
+                            <input id="edit_school_code" type="text" class="form-control"
+                                   placeholder="Код школи">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="edit_school_name" class="col-sm-2 col-form-label">Назва:</label>
+                        <div class="col-sm-10">
+                            <input id="edit_school_name" type="text" class="form-control"
+                                   placeholder="Назва школи">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="edit_school_address" class="col-sm-2 col-form-label">Адреса:</label>
+                        <div class="col-sm-10">
+                            <input id="edit_school_address" type="text" class="form-control"
+                                   placeholder="Адреса">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="entry_password">Пароль:</label>
-                        <input type="password" class="form-control text-muted" id="entry_password">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon2">+380</span>
+                            </div>
+                            <input id=edit_school_phone type="text" class="form-control"
+                                   placeholder="(_ _)_ _ _ _ _ _ _"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input id="edit_school_photo" type="file">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" placeholder="Примітки"></textarea>
+                        </div>
                     </div>
 
-                    <!--TODO entry_button-->
-                    <button id="entry_button" type="submit" class="btn btn-secondary btn-block"
-                            data-dismiss="modal" onclick="alert('id #entry_button');">Вхід
-                    </button>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <!--TODO edit_school_button-->
+                <button id="edit_school_button" type="submit" class="btn btn-outline-info"
+                        data-dismiss="modal" onclick="alert('id #edit_school_button');">Зберегти
+                </button>
             </div>
         </div>
 
     </div>
 </div>
 
-<!--modal for registry-->
-<div class="modal fade" id="registry_modal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background: transparent!important; border: none">
-
-
-            <div class="modal-body">
-
-                <a id="reg_pupil_button" class="btn" onclick="change_reg_type(2)">Учень</a>
-                <a id="reg_teacher_button" onclick="change_reg_type(1)" class="btn ">Вчитель</a>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <form class="sm rounded-right rounded-bottom registryform" id="registryform">
-
-                    <div class="form-group">
-                        <label for="reg_lastname">Прізвище:</label>
-                        <input type="text" class="form-control" id="reg_lastname">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg_firstname">Ім'я:</label>
-                        <input type="text" class="form-control" id="reg_firstname">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg_fathername">По-батькові:</label>
-                        <input type="text" class="form-control" id="reg_fathername">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg_code">Код школи:</label>
-                        <input type="text" class="form-control" id="reg_code">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg_email">Електронна пошта:</label>
-                        <input type="email" class="form-control" id="reg_email">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg_password">Пароль:</label>
-                        <input type="password" class="form-control text-muted" id="reg_password">
-                    </div>
-
-                    <!--TODO registry_button-->
-                    <button id="registry_button" type="submit" class="btn btn-secondary btn-block"
-                            data-dismiss="modal" onclick="alert('id registry_button');"> Зареєструвати мене!
-                    </button>
-                </form>
+<!--panel for registry-->
+<div id="registrypanel" class="registrypanel  row mg-0 " >
+    <div class="col-md-3"></div>
+    <div  class="col-md-6 pd-0 mg-v-15">
+        <a id="reg_pupil_button" class="btn" onclick="change_reg_type(2)">Учень</a>
+        <a id="reg_teacher_button" onclick="change_reg_type(1)" class="btn ">Вчитель</a>
+        <form id="registryform" class="sm registryform ">
+            <div class="form-group">
+                <label for="reg_lastname">Прізвище:</label>
+                <input type="text" class="form-control" id="reg_lastname" >
             </div>
-
-        </div>
-
+            <div class="form-group">
+                <label for="reg_firstname">Ім'я:</label>
+                <input type="text" class="form-control" id="reg_firstname" >
+            </div>
+            <div class="form-group">
+                <label for="reg_fathername">По-батькові:</label>
+                <input type="text" class="form-control" id="reg_fathername" >
+            </div>
+            <div class="form-group">
+                <label for="reg_code">Код школи:</label>
+                <input type="text" class="form-control" id="reg_code" >
+            </div>
+            <div class="form-group">
+                <label for="reg_email">Електронна пошта:</label>
+                <input type="email" class="form-control" id="reg_email" >
+            </div>
+            <div class="form-group">
+                <label for="reg_password">Пароль:</label>
+                <input type="password" class="form-control" id="reg_password" >
+            </div>
+            <button id="reg_button" class="btn btn-secondary btn-block mg-v-15" onclick="register();">Зареєструвати мене!</button>
+            <a class="link btn btn-block registry_menu" style="margin-top:15px;" onclick="gotologin()" >Увійти</a>
+        </form>
     </div>
 </div>
+<div id="entrypanel" class="registrypanel row mg-0">
+
+    <div class="col-md-3"></div>
+    <div  class="col-md-6 pd-0 mg-v-15 ">
+        <a id="entry_pupil_button" class="btn" onclick="change_entry_type(2)">Учень</a>
+        <a id="entry_teacher_button" onclick="change_entry_type(1)" class="btn ">Вчитель</a>
+        <a id="entry_admin_button" onclick="change_entry_type(0)" class="btn ">Адмін</a>
+        <form id="entryform" class="sm registryform " >
+
+            <div class="form-group">
+                <label for="entry_email">Логін:</label>
+                <input type="email" class="form-control" id="entry_email">
+            </div>
+            <div class="form-group">
+                <label for="entry_password">Пароль:</label>
+                <input type="password" class="form-control text-muted" id="entry_password">
+            </div>
+            <button class="btn btn-secondary btn-block" style="margin-top:15px;" onclick="login()">Вхід</button>
+            <a class="link btn btn-block registry_menu" style="margin-top:15px;" onclick="gotoregistration()" >Зареєструватись</a>
+    </form>
+
+</div>
+</div>
+
+
+
 
 
 <script src="js/main.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
@@ -322,5 +367,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
 </body>
 </html>

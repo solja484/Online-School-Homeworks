@@ -5,15 +5,48 @@ body{
     background: #ececec;
 }
 
+
 /*green lizard #94ed34; festival #fee96a  salmon #fd7172 spray #7cdeeb */
 
-.registryform{
-    padding: 3% 5%;
-    background: #7cdeeb;
+.registrypanel{
+    background-image: url("../bg.jpg");!important;
+    background-repeat: repeat!important;
+    background-size: 300px!important;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    min-height:100%;
+    overflow: auto;
+    padding-top: 80px;
 }
 
+.registryform{
+    padding: 3% 5% ;
+    background: #7cdeeb;
+    border-radius:5px;
+}
 
+.mg-0{
+   margin: 0!important;
+}
+.mg-v-15{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 
+.pd-0{
+    padding: 0;
+}
+.pd-15{
+    padding-bottom: 7px 15px;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
 #entry_pupil_button,#reg_pupil_button{
     background: #7cdeeb;
     color:black;
@@ -75,13 +108,12 @@ margin:0;
 }
 
 .registry_menu{
-    color:gray!important;
     border-bottom:2px solid #fee96a;
     padding: 5px;
+
 }
 .registry_menu:hover,.registry_menu:focus,.registry_menu:active{
     border-bottom:2px solid #7cdeeb;
-    color: black!important;
 }
 
 .exit_menu{
@@ -97,3 +129,18 @@ margin:0;
     margin-bottom:15px;
 }
 
+#exit_button{
+    float: bottom;
+}
+
+.tableelements > td{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+@media(min-height:375px){
+    .registrypanel{
+        padding: 0 20px;
+
+    }
+}

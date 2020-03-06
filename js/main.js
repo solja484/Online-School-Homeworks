@@ -36,7 +36,50 @@ function shoW(except){
 
 
 
-document.getElementById("#subject_list a").on('click', function (e) {
-    alert('SSSSSSSSSSSSSS');
-});
+let authentication=false;
+$("#entrypanel").show();
+$("#registrypanel").hide();
+$("#admin_page").hide();
+$("#admin_page_tab").hide();
+$("#container").hide();
 
+
+function register() {
+    authentication = true;
+    $("#registrypanel").hide();
+    $("#admin_page").hide();
+    $("#admin_page_tab").hide();
+    $("#entrypanel").hide();
+    $("#container").show();
+}
+function login() {
+    authentication = true;
+    $("#entrypanel").hide();
+    $("#registrypanel").hide();
+    $("#container").show();
+    if(usertype==0){
+        $("#admin_page").show();
+        $("#admin_page_tab").show();
+    }else{
+        $("#admin_page").hide();
+        $("#admin_page_tab").hide();
+    }
+    $("#container").show();
+}
+function exit() {
+    authentication=false;
+    $("#container").hide();
+    $("#entrypanel").show();
+}
+
+function gotoregistration(){
+    $("#registrypanel").show();
+    $("#entrypanel").hide();
+    $("#container").hide();
+}
+
+function gotologin(){
+    $("#registrypanel").hide();
+    $("#entrypanel").show();
+    $("#container").hide();
+}
