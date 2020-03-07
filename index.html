@@ -12,40 +12,40 @@
     <div id="menu" class="col-md-3 row">
         <div id="navbar" class="col-md-9" style="padding: 0!important; background: #ececec">
             <div style="min-height:99vh; background: white;">
-            <ul class="nav flex-column" >
-                <li class="nav-item">
-                    <a id="brand" class=" navbar-brand"> Homework App</a>
-                </li>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a id="brand" class=" navbar-brand"> Homework App</a>
+                    </li>
 
-                <li class="nav-item entry_li">
-                    <br>
+                    <li class="nav-item entry_li">
+                        <br>
 
-                    <br>
+                        <br>
 
-                    <br>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-light " id="cabinet_page_tab" onclick="shoW('cabinet_page');"
-                       aria-controls="cabinet_page" data-toggle="pill" role="tab" href="#cabinet_page">
-                        👤Особистий кабінет</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-light " id="subject_page_tab" aria-controls="subject_page"
-                       data-toggle="pill" role="tab" href="#subject_page"
-                       onclick="shoW('subject_page');">📚Предмети</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-light " id="admin_page_tab" aria-controls="admin_page"
-                       data-toggle="pill" role="tab" href="#admin_page" style="color: #fd7172"
-                       onclick="shoW('admin_page');">👩‍💻Адміністратор</a>
-                </li>
+                        <br>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-light " id="cabinet_page_tab" onclick="shoW('cabinet_page');"
+                           aria-controls="cabinet_page" data-toggle="pill" role="tab" href="#cabinet_page">
+                            👤Особистий кабінет</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-light " id="subject_page_tab" aria-controls="subject_page"
+                           data-toggle="pill" role="tab" href="#subject_page"
+                           onclick="shoW('subject_page');">📚Предмети</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-light " id="admin_page_tab" aria-controls="admin_page"
+                           data-toggle="pill" role="tab" href="#admin_page" style="color: #fd7172"
+                           onclick="shoW('admin_page');">👩‍💻Адміністратор</a>
+                    </li>
 
-                <li class="nav-item entry_li">
-                    <a id="exit_button" class="exit_menu" type="button" onclick="exit()">
-                        ❌Вихід</a>
-                </li>
-            </ul>
-        </div>
+                    <li class="nav-item entry_li">
+                        <a id="exit_button" class="exit_menu" type="button" onclick="exit()">
+                            ❌Вихід</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div id="content" class="col-md-9 row">
@@ -64,10 +64,13 @@
                 <h5> Мої предмети</h5>
                 <div class="list-group" id="subject_list">
 
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list" role="tab">Алгебра 10 клас</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list" role="tab">Геометрія 10 клас</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list" role="tab">English </a>
-                       </div>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
+                       role="tab">Алгебра 10 клас</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
+                       role="tab">Геометрія 10 клас</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
+                       role="tab">English </a>
+                </div>
 
 
             </div>
@@ -87,7 +90,7 @@
                 <div class="panel-body">
                     <table class="table table-striped" style="font-size: 13px!important;">
                         <thead>
-                        <tr >
+                        <tr>
                             <th scope="col">Ключ</th>
                             <th scope="col">Назва школи</th>
                             <th scope="col">Адреса</th>
@@ -105,7 +108,8 @@
                             <td>
                                 <button id="edit_school" type="button" class="btn btn-sm btn-info" data-toggle="modal"
                                         data-target="#edit_school_modal" style="background: #7cdeeb;">
-                                    ️edit </button>
+                                    ️edit
+                                </button>
                                 <button class="btn btn-sm btn-danger" style="background: #fd7172">delete</button>
 
                             </td>
@@ -122,7 +126,7 @@
         </div>
 
 
-</div>
+    </div>
 </div>
 <!-- Modal for add school-->
 <div class="modal fade" id="add_school_modal" role="dialog">
@@ -293,49 +297,55 @@
 </div>
 
 <!--panel for registry-->
-<div id="registrypanel" class="registrypanel  row mg-0 " >
+<div id="registrypanel" class="registrypanel  row mg-0 ">
     <div class="col-md-3"></div>
-    <div  class="col-md-6 pd-0 mg-v-15">
+    <div class="col-md-6 pd-0 mg-v-15">
         <a id="reg_pupil_button" class="btn" onclick="change_reg_type(2)">Учень</a>
         <a id="reg_teacher_button" onclick="change_reg_type(1)" class="btn ">Вчитель</a>
         <form id="registryform" class="sm registryform ">
             <div class="form-group">
                 <label for="reg_lastname">Прізвище:</label>
-                <input type="text" class="form-control" id="reg_lastname" >
+                <input type="text" class="form-control" id="reg_lastname">
             </div>
             <div class="form-group">
                 <label for="reg_firstname">Ім'я:</label>
-                <input type="text" class="form-control" id="reg_firstname" >
+                <input type="text" class="form-control" id="reg_firstname">
             </div>
             <div class="form-group">
                 <label for="reg_fathername">По-батькові:</label>
-                <input type="text" class="form-control" id="reg_fathername" >
+                <input type="text" class="form-control" id="reg_fathername">
             </div>
             <div class="form-group">
                 <label for="reg_code">Код школи:</label>
-                <input type="text" class="form-control" id="reg_code" >
+                <input type="text" class="form-control" id="reg_code">
             </div>
             <div class="form-group">
                 <label for="reg_email">Електронна пошта:</label>
-                <input type="email" class="form-control" id="reg_email" >
+                <input type="email" class="form-control" id="reg_email">
             </div>
             <div class="form-group">
                 <label for="reg_password">Пароль:</label>
-                <input type="password" class="form-control" id="reg_password" >
+                <input type="password" class="form-control" id="reg_password">
             </div>
-            <button id="reg_button" class="btn btn-secondary btn-block mg-v-15" onclick="register();">Зареєструвати мене!</button>
-            <a class="link btn btn-block registry_menu" style="margin-top:15px;" onclick="gotologin()" >Увійти</a>
+            <div class="form-group">
+                <label for="reg_password">Пдтвердіть пароль:</label>
+                <input type="password" class="form-control" id="reg_password2">
+            </div>
+            <button type="submit" id="reg_button" class="btn btn-secondary btn-block mg-v-15"
+                    onclick="return register()">Зареєструвати мене!
+            </button>
+            <a class="link btn btn-block registry_menu" style="margin-top:15px;" onclick="gotologin()">Увійти</a>
         </form>
     </div>
 </div>
 <div id="entrypanel" class="registrypanel row mg-0">
 
     <div class="col-md-3"></div>
-    <div  class="col-md-6 pd-0 mg-v-15 ">
+    <div class="col-md-6 pd-0 mg-v-15 ">
         <a id="entry_pupil_button" class="btn" onclick="change_entry_type(2)">Учень</a>
         <a id="entry_teacher_button" onclick="change_entry_type(1)" class="btn ">Вчитель</a>
         <a id="entry_admin_button" onclick="change_entry_type(0)" class="btn ">Адмін</a>
-        <form id="entryform" class="sm registryform " >
+        <form id="entryform" class="sm registryform ">
 
             <div class="form-group">
                 <label for="entry_email">Логін:</label>
@@ -346,20 +356,19 @@
                 <input type="password" class="form-control text-muted" id="entry_password">
             </div>
             <button class="btn btn-secondary btn-block" style="margin-top:15px;" onclick="login()">Вхід</button>
-            <a class="link btn btn-block registry_menu" style="margin-top:15px;" onclick="gotoregistration()" >Зареєструватись</a>
-    </form>
+            <a class="link btn btn-block registry_menu" style="margin-top:15px;" onclick="gotoregistration()">Зареєструватись</a>
+        </form>
 
+    </div>
 </div>
-</div>
 
 
-
-
-
-<script src="js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="js/main.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/onkeyup.js"></script>
 
 </body>
 </html>

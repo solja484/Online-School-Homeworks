@@ -1,145 +1,157 @@
-body{
-   /* background-image: url("../bg.jpg");!important;
-    background-repeat: repeat!important;
-    background-size: 300px!important;*/
+body {
+    /* background-image: url("../images/bg.jpg");!important;
+     background-repeat: repeat!important;
+     background-size: 300px!important;*/
     background: #ececec;
 }
 
-
 /*green lizard #94ed34; festival #fee96a  salmon #fd7172 spray #7cdeeb */
 
-.registrypanel{
-    background-image: url("../bg.jpg");!important;
-    background-repeat: repeat!important;
-    background-size: 300px!important;
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    min-height:100%;
+.registrypanel {
+    background-image: url("../images/bg.jpg");
+!important;
+    background-repeat: repeat !important;
+    background-size: 300px !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
     overflow: auto;
     padding-top: 80px;
 }
 
-.registryform{
-    padding: 3% 5% ;
+.registryform {
+    padding: 3% 5%;
     background: #7cdeeb;
-    border-radius:5px;
+    border-radius: 5px;
 }
 
-.mg-0{
-   margin: 0!important;
+.mg-0 {
+    margin: 0 !important;
 }
-.mg-v-15{
+
+.mg-v-15 {
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
-.pd-0{
+.pd-0 {
     padding: 0;
 }
-.pd-15{
-    padding-bottom: 7px 15px;
+
+.pd-15 {
+    padding-bottom: 7px;
 }
-.hide{
+
+.hide {
     display: none;
 }
-.show{
+
+.show {
     display: block;
 }
-#entry_pupil_button,#reg_pupil_button{
+
+#entry_pupil_button, #reg_pupil_button {
     background: #7cdeeb;
-    color:black;
-    margin: 0!important;
+    color: black;
+    margin: 0 !important;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
-#entry_teacher_button,#reg_teacher_button{
-     background: #fee96a;
-     color:black;
-     border-bottom-right-radius: 0;
-     border-bottom-left-radius: 0;
-     margin:0 0 0 -5px!important;
 
+#entry_teacher_button, #reg_teacher_button {
+    background: #fee96a;
+    color: black;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin: 0 0 0 -5px !important;
 
- }
-#entry_admin_button{
+}
+
+#entry_admin_button {
     background: #fd7172;
-    color:black;
+    color: black;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    margin:0 0 0 -5px!important;
+    margin: 0 0 0 -5px !important;
 }
 
-#container{
-    margin:0;!important;
+#container {
+    margin: 0;
+!important;
 }
+
 #content {
-margin:0;
-    width:100%;
+    margin: 0;
+    width: 100%;
     padding-top: 5%;
 }
 
-#menu{
-    margin:0;
+#menu {
+    margin: 0;
     padding: 0;
 }
 
-#navbar{
+#navbar {
     background: white;
 }
-.page{
+
+.page {
     background: white;
-    padding: 3% ;
+    padding: 3%;
 }
 
-
-#brand{
-   padding:30px;
+#brand {
+    padding: 30px;
     background: #7cdeeb;
-    color: white; width:100%;
+    color: white;
+    width: 100%;
     text-align: center;
-    margin-right: 0!important;
+    margin-right: 0 !important;
 }
 
-.entry_li{
+.entry_li {
     text-align: center;
     background: white;
 }
 
-.registry_menu{
-    border-bottom:2px solid #fee96a;
+.registry_menu {
+    border-bottom: 2px solid #fee96a;
     padding: 5px;
 
 }
-.registry_menu:hover,.registry_menu:focus,.registry_menu:active{
-    border-bottom:2px solid #7cdeeb;
+
+.registry_menu:hover, .registry_menu:focus, .registry_menu:active {
+    border-bottom: 2px solid #7cdeeb;
 }
 
-.exit_menu{
+.exit_menu {
     padding: 15px 5px;
-    color: #fd7172!important;
+    color: #fd7172 !important;
 }
-.exit_menu:hover,.exit_menu:focus, .exit_menu:active{
+
+.exit_menu:hover, .exit_menu:focus, .exit_menu:active {
 
 }
-.entrymenu{
-    background: #fee96a!important;
+
+.entrymenu {
+    background: #fee96a !important;
     padding: 7px 37px 7px 27px;
-    margin-bottom:15px;
+    margin-bottom: 15px;
 }
 
-#exit_button{
+#exit_button {
     float: bottom;
 }
 
-.tableelements > td{
+.tableelements > td {
     padding-left: 5px;
     padding-right: 5px;
 }
 
-@media(min-height:375px){
-    .registrypanel{
+@media (min-height: 375px) {
+    .registrypanel {
         padding: 0 20px;
 
     }
