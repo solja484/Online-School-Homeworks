@@ -74,26 +74,54 @@ function register() {
         contentType: 'application/json',
         success: function (data, status) {
             alert(data.error);
+            authentication = true;
+            $("#registrypanel").hide();
+            $("#admin_page").hide();
+            $("#admin_page_tab").hide();
+            $("#entrypanel").hide();
+            $("#container").show();
         },
         data: JSON.stringify(data)
     });
 
-
 }
 
 function login() {
-    authentication = true;
-    $("#entrypanel").hide();
-    $("#registrypanel").hide();
-    $("#container").show();
-    if (usertype == 0) {
-        $("#admin_page").show();
-        $("#admin_page_tab").show();
-    } else {
-        $("#admin_page").hide();
-        $("#admin_page_tab").hide();
+    var login = $("#entry_email").val();
+    var pass = $("#entry_password").val();
+    if(pass=="" || login==""){
+        alert("Поля не можуть бути пустими");
+        return;
     }
-    $("#container").show();
+    var data = {
+        "login": login,
+        "password": pass
+    };
+    $.ajax({
+        url: 'http://localhost:2303/registerpupil',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data, status) {
+            authentication = true;
+            $("#entrypanel").hide();
+            $("#registrypanel").hide();
+            $("#container").show();
+            if (usertype == 0) {
+                $("#admin_page").show();
+                $("#admin_page_tab").show();
+            } else {
+                $("#admin_page").hide();
+                $("#admin_page_tab").hide();
+            }
+            $("#container").show();
+        },
+        error: function(data, status){
+            alert("Переконайтесь в правильності введених даних");
+        },
+        data: JSON.stringify(data)
+    });
+
 }
 
 function exit() {
