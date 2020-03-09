@@ -49,7 +49,7 @@ function register() {
     var pass = $('#reg_password').val();
     var pass2 = $('#reg_password2').val();
     if (!validName("reg_lastname") || !validName("reg_firstname") ||
-        !validPass("reg_password")) {
+        !validPass("reg_password") || !validEmail("reg_email") || !validCode("reg_code")) {
         return;
     }
     if (pass2 != pass) {

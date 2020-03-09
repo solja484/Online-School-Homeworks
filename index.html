@@ -306,23 +306,23 @@
         <form id="registryform" class="sm registryform ">
             <div class="form-group">
                 <label for="reg_lastname">Прізвище:</label>
-                <input type="text" class="form-control" id="reg_lastname" name="surname">
+                <input type="text" class="form-control" id="reg_lastname" name="surname" maxlength="45">
             </div>
             <div class="form-group">
                 <label for="reg_firstname">Ім'я:</label>
-                <input type="text" class="form-control" id="reg_firstname" name="name">
+                <input type="text" class="form-control" id="reg_firstname" name="name" maxlength="45">
             </div>
             <div class="form-group">
                 <label for="reg_fathername">По-батькові:</label>
-                <input type="text" class="form-control" id="reg_fathername" name="patronymic">
+                <input type="text" class="form-control" id="reg_fathername" name="patronymic" maxlength="45">
             </div>
             <div class="form-group">
                 <label for="reg_code">Код школи:</label>
-                <input type="text" class="form-control" id="reg_code" name="school_id">
+                <input type="text" class="form-control" id="reg_code" name="school_id" maxlength="10" minlength="10">
             </div>
             <div class="form-group">
                 <label for="reg_code">Клас:</label>
-                <input type="number" class="form-control" id="reg_class" name="class">
+                <input type="number" class="form-control" id="reg_class" name="class" max="11" min="1">
             </div>
             <div class="form-group">
                 <label for="reg_code">Дата народження:</label>
@@ -330,7 +330,7 @@
             </div>
             <div class="form-group">
                 <label for="reg_email">Електронна пошта:</label>
-                <input type="email" class="form-control" id="reg_email" name="email">
+                <input type="email" class="form-control" id="reg_email" name="email"  maxlength="45">
             </div>
             <div class="form-group">
                 <label for="reg_email">Телефон:</label>
@@ -338,11 +338,11 @@
             </div>
             <div class="form-group">
                 <label for="reg_password">Пароль:</label>
-                <input type="password" class="form-control" id="reg_password" name="password">
+                <input type="password" class="form-control" id="reg_password" name="password" minlength="6">
             </div>
             <div class="form-group">
                 <label for="reg_password">Пдтвердіть пароль:</label>
-                <input type="password" class="form-control" id="reg_password2">
+                <input type="password" class="form-control" id="reg_password2" minlength="6">
             </div>
             <input type="button" id="reg_button" class="btn btn-secondary btn-block mg-v-15"
                    onclick="register()" value="Зареєструвати мене!">
