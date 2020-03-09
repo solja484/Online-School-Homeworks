@@ -18,8 +18,7 @@ function validName(str) {
     }
 }
 
-//only eng letter or numbers
-// at least 6 character
+//at least 6 characters eng letter number and symbol
 function validPass(str) {
     var pass = $("#" + str).val();
     var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/;

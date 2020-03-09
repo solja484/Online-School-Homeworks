@@ -37,7 +37,7 @@ function shoW(except) {
 
 
 let authentication = false;
-// $("#entrypanel").show();
+$("#entrypanel").show();
 $("#registrypanel").hide();
 $("#admin_page").hide();
 $("#admin_page_tab").hide();
@@ -45,24 +45,40 @@ $("#container").hide();
 
 
 function register() {
+    console.log("try");
     var pass = $('#reg_password').val();
     var pass2 = $('#reg_password2').val();
     if (!validName("reg_lastname") || !validName("reg_firstname") ||
         !validPass("reg_password")) {
-        return false;
+        return;
     }
     if (pass2 != pass) {
-        $('#reg_password').css("background-color", "rgba(253, 113, 114, 0.5)");
-        return false;
+        $('#reg_password2').css("background-color", "rgba(253, 113, 114, 0.5)");
+        return;
     }
+    var data = {
+        "name": $("#reg_firstname").val(),
+        "surname": $("#reg_lastname").val(),
+        "patronymic": $("#reg_fathername").val(),
+        "email": $("#reg_email").val(),
+        "password": $("#reg_password").val(),
+        "phone": $("#reg_phone").val(),
+        "birth_date": $("#reg_birth_date").val(),
+        "class": $("#reg_class").val(),
+        "school_id": $("#reg_code").val()
+    };
+    $.ajax({
+        url: 'http://localhost:2303/registerpupil',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data, status) {
+            alert(data.error);
+        },
+        data: JSON.stringify(data)
+    });
 
-    authentication = true;
-    $("#registrypanel").hide();
-    $("#admin_page").hide();
-    $("#admin_page_tab").hide();
-    $("#entrypanel").hide();
-    $("#container").show();
-    return true;
+
 }
 
 function login() {
