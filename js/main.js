@@ -37,7 +37,7 @@ function shoW(except) {
 
 
 let authentication = false;
-// $("#entrypanel").show();
+$("#entrypanel").show();
 $("#registrypanel").hide();
 $("#admin_page").hide();
 $("#admin_page_tab").hide();
