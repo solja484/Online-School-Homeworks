@@ -45,39 +45,83 @@ $("#container").hide();
 
 
 function register() {
+    console.log("try");
     var pass = $('#reg_password').val();
     var pass2 = $('#reg_password2').val();
     if (!validName("reg_lastname") || !validName("reg_firstname") ||
-        !validPass("reg_password")) {
-        return false;
+        !validPass("reg_password") || !validEmail("reg_email") || !validCode("reg_code")) {
+        return;
     }
     if (pass2 != pass) {
-        $('#reg_password').css("background-color", "rgba(253, 113, 114, 0.5)");
-        return false;
+        $('#reg_password2').css("background-color", "rgba(253, 113, 114, 0.5)");
+        return;
     }
+    var data = {
+        "name": $("#reg_firstname").val(),
+        "surname": $("#reg_lastname").val(),
+        "patronymic": $("#reg_fathername").val(),
+        "email": $("#reg_email").val(),
+        "password": $("#reg_password").val(),
+        "phone": $("#reg_phone").val(),
+        "birth_date": $("#reg_birth_date").val(),
+        "class": $("#reg_class").val(),
+        "school_id": $("#reg_code").val()
+    };
+    $.ajax({
+        url: 'http://localhost:2303/registerpupil',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data, status) {
+            alert(data.error);
+            authentication = true;
+            $("#registrypanel").hide();
+            $("#admin_page").hide();
+            $("#admin_page_tab").hide();
+            $("#entrypanel").hide();
+            $("#container").show();
+        },
+        data: JSON.stringify(data)
+    });
 
-    authentication = true;
-    $("#registrypanel").hide();
-    $("#admin_page").hide();
-    $("#admin_page_tab").hide();
-    $("#entrypanel").hide();
-    $("#container").show();
-    return true;
 }
 
 function login() {
-    authentication = true;
-    $("#entrypanel").hide();
-    $("#registrypanel").hide();
-    $("#container").show();
-    if (usertype == 0) {
-        $("#admin_page").show();
-        $("#admin_page_tab").show();
-    } else {
-        $("#admin_page").hide();
-        $("#admin_page_tab").hide();
+    var login = $("#entry_email").val();
+    var pass = $("#entry_password").val();
+    if(pass=="" || login==""){
+        alert("Поля не можуть бути пустими");
+        return;
     }
-    $("#container").show();
+    var data = {
+        "login": login,
+        "password": pass
+    };
+    $.ajax({
+        url: 'http://localhost:2303/registerpupil',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data, status) {
+            authentication = true;
+            $("#entrypanel").hide();
+            $("#registrypanel").hide();
+            $("#container").show();
+            if (usertype == 0) {
+                $("#admin_page").show();
+                $("#admin_page_tab").show();
+            } else {
+                $("#admin_page").hide();
+                $("#admin_page_tab").hide();
+            }
+            $("#container").show();
+        },
+        error: function(data, status){
+            alert("Переконайтесь в правильності введених даних");
+        },
+        data: JSON.stringify(data)
+    });
+
 }
 
 function exit() {

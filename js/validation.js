@@ -1,6 +1,16 @@
-function validEmail(email) {
+function validEmail(str) {
+    var name = $("#" + str).val();
+    if (name.length < 1 || name.length > 100) {
+        $("#" + str).css("background-color", "rgba(253, 113, 114, 0.5)");
+        return false;
+    }
     var pattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return !pattern.test(email);
+    if (name.match(pattern)) {
+        return true;
+    } else {
+        $("#" + str).css("background", "rgba(253, 113, 114, 0.5)");
+        return false;
+    }
 }
 
 function validName(str) {
@@ -18,8 +28,7 @@ function validName(str) {
     }
 }
 
-//only eng letter or numbers
-// at least 6 character
+//at least 6 characters eng letter number and symbol
 function validPass(str) {
     var pass = $("#" + str).val();
     var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/;
@@ -28,4 +37,13 @@ function validPass(str) {
         return false;
     }
     return true;
+}
+
+function validCode(str) {
+    var code = $("#" + str).val();
+    if (code.length==10){
+        return true;
+    }
+    $("#" + str).css("background-color", "rgba(253, 113, 114, 0.5)");
+    return false
 }

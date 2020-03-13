@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           crossorigin="anonymous">
     <link href="css/main.css" rel="stylesheet" media="screen">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <div id="container" class="panel panel-default row ">
@@ -305,35 +306,46 @@
         <form id="registryform" class="sm registryform ">
             <div class="form-group">
                 <label for="reg_lastname">Прізвище:</label>
-                <input type="text" class="form-control" id="reg_lastname">
+                <input type="text" class="form-control" id="reg_lastname" name="surname" maxlength="45">
             </div>
             <div class="form-group">
                 <label for="reg_firstname">Ім'я:</label>
-                <input type="text" class="form-control" id="reg_firstname">
+                <input type="text" class="form-control" id="reg_firstname" name="name" maxlength="45">
             </div>
             <div class="form-group">
                 <label for="reg_fathername">По-батькові:</label>
-                <input type="text" class="form-control" id="reg_fathername">
+                <input type="text" class="form-control" id="reg_fathername" name="patronymic" maxlength="45">
             </div>
             <div class="form-group">
                 <label for="reg_code">Код школи:</label>
-                <input type="text" class="form-control" id="reg_code">
+                <input type="text" class="form-control" id="reg_code" name="school_id" maxlength="10" minlength="10">
+            </div>
+            <div class="form-group">
+                <label for="reg_code">Клас:</label>
+                <input type="number" class="form-control" id="reg_class" name="class" max="11" min="1">
+            </div>
+            <div class="form-group">
+                <label for="reg_code">Дата народження:</label>
+                <input type="date" class="form-control" id="reg_birth_date" name="birth_date">
             </div>
             <div class="form-group">
                 <label for="reg_email">Електронна пошта:</label>
-                <input type="email" class="form-control" id="reg_email">
+                <input type="email" class="form-control" id="reg_email" name="email"  maxlength="45">
+            </div>
+            <div class="form-group">
+                <label for="reg_email">Телефон:</label>
+                <input type="tel" class="form-control" id="reg_phone" name="phone">
             </div>
             <div class="form-group">
                 <label for="reg_password">Пароль:</label>
-                <input type="password" class="form-control" id="reg_password">
+                <input type="password" class="form-control" id="reg_password" name="password" minlength="6">
             </div>
             <div class="form-group">
                 <label for="reg_password">Пдтвердіть пароль:</label>
-                <input type="password" class="form-control" id="reg_password2">
+                <input type="password" class="form-control" id="reg_password2" minlength="6">
             </div>
-            <button type="submit" id="reg_button" class="btn btn-secondary btn-block mg-v-15"
-                    onclick="return register()">Зареєструвати мене!
-            </button>
+            <input type="button" id="reg_button" class="btn btn-secondary btn-block mg-v-15"
+                   onclick="register()" value="Зареєструвати мене!">
             <a class="link btn btn-block registry_menu" style="margin-top:15px;" onclick="gotologin()">Увійти</a>
         </form>
     </div>
@@ -346,7 +358,6 @@
         <a id="entry_teacher_button" onclick="change_entry_type(1)" class="btn ">Вчитель</a>
         <a id="entry_admin_button" onclick="change_entry_type(0)" class="btn ">Адмін</a>
         <form id="entryform" class="sm registryform ">
-
             <div class="form-group">
                 <label for="entry_email">Логін:</label>
                 <input type="email" class="form-control" id="entry_email">
@@ -355,7 +366,8 @@
                 <label for="entry_password">Пароль:</label>
                 <input type="password" class="form-control text-muted" id="entry_password">
             </div>
-            <button class="btn btn-secondary btn-block" style="margin-top:15px;" onclick="login()">Вхід</button>
+            <input type="button" class="btn btn-secondary btn-block" style="margin-top:15px;" onclick="login()"
+                   value="Вхід">
             <a class="link btn btn-block registry_menu" style="margin-top:15px;" onclick="gotoregistration()">Зареєструватись</a>
         </form>
 
@@ -363,7 +375,6 @@
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="js/main.js"></script>
