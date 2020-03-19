@@ -6,23 +6,22 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           crossorigin="anonymous">
     <link href="css/main.css" rel="stylesheet" media="screen">
+    <link href="css/registry.css" rel="stylesheet" media="screen">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <div id="container" class="panel panel-default row ">
     <div id="menu" class="col-md-3 row">
-        <div id="navbar" class="col-md-9" style="padding: 0!important; background: #ececec">
-            <div style="min-height:99vh; background: white;">
+        <div id="navbar" class="col-md-9 pd-0">
+            <div class="navbar-container">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a id="brand" class=" navbar-brand"> Homework App</a>
                     </li>
 
-                    <li class="nav-item entry_li">
+                    <li id="role" class="nav-item entry_li ">
                         <br>
-
                         <br>
-
                         <br>
                     </li>
                     <li class="nav-item">
@@ -42,7 +41,7 @@
                     </li>
 
                     <li class="nav-item entry_li">
-                        <a id="exit_button" class="exit_menu" type="button" onclick="exit()">
+                        <a id="exit_button" class="exit_menu " type="button" onclick="exit()">
                             ❌Вихід</a>
                     </li>
                 </ul>
@@ -79,17 +78,17 @@
         <div id="admin_page" class="col-md-10 border rounded panel tab-pane fade page" role="tabpanel"
              aria-labelledby="admin_page_tab">
             <h4 id="adminLabel" class="font-left col-md-12 panel-heading">Hello admin!</h4>
-            <button id="add_admin" type="button" class="btn btn-info col-md-3" data-toggle="modal"
-                    data-target="#add_admin_modal" style="background: #7cdeeb;">Додати адміна
+            <button id="add_admin" type="button" class="btn btn-info col-md-3 bg-blue" data-toggle="modal"
+                    data-target="#add_admin_modal">Додати адміна
             </button>
 
-            <button id="add_school" type="button" class="btn btn-danger col-md-3"
-                    data-target="#add_school_modal" data-toggle="modal" style="background: #fd7172;">Додати школу
+            <button id="add_school" type="button" class="btn btn-danger col-md-3 bg-red"
+                    data-target="#add_school_modal" data-toggle="modal">Додати школу
             </button>
-            <div class="panel" style="overflow: auto!important;">
+            <div class="panel ov-auto">
 
                 <div class="panel-body">
-                    <table class="table table-striped" style="font-size: 13px!important;">
+                    <table class="table table-striped text-13">
                         <thead>
                         <tr>
                             <th scope="col">Ключ</th>
@@ -108,10 +107,10 @@
                             <td>+0445354213</td>
                             <td>
                                 <button id="edit_school" type="button" class="btn btn-sm btn-info" data-toggle="modal"
-                                        data-target="#edit_school_modal" style="background: #7cdeeb;">
+                                        data-target="#edit_school_modal bg-blue">
                                     ️edit
                                 </button>
-                                <button class="btn btn-sm btn-danger" style="background: #fd7172">delete</button>
+                                <button class="btn btn-sm btn-danger bg-red">delete</button>
 
                             </td>
                         </tr>
@@ -303,72 +302,151 @@
     <div class="col-md-6 pd-0 mg-v-15">
         <a id="reg_pupil_button" class="btn" onclick="change_reg_type(2)">Учень</a>
         <a id="reg_teacher_button" onclick="change_reg_type(1)" class="btn ">Вчитель</a>
-        <form id="registryform" class="sm registryform ">
-            <div class="form-group">
-                <label for="reg_lastname">Прізвище:</label>
-                <input type="text" class="form-control" id="reg_lastname" name="surname" maxlength="45">
+        <form id="registryform" class="sm registryform needs-validation" novalidate>
+            <div class="form-row">
+
+                <div class="form-group col-md-12">
+                    <label for="reg_email">Електронна пошта:</label>
+                    <input type="email" class="form-control " id="reg_email" name="email" maxlength="45" required>
+                    <div class="invalid-feedback">Некоректна адреса електронної пошти</div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="reg_code">Код школи:</label>
+                    <input type="text" class="form-control" id="reg_code" name="school_id" maxlength="10"
+                           minlength="10" required>
+                    <div class="invalid-feedback">Код школи - 10 символів</div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="reg_lastname">Прізвище:</label>
+                    <input type="text" class="form-control" id="reg_lastname" name="surname" maxlength="45" required>
+                    <div class="invalid-feedback">Прізвище може містити тільки літери</div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="reg_firstname">Ім'я:</label>
+                    <input type="text" class="form-control" id="reg_firstname" name="name" maxlength="45" required>
+                    <div class="invalid-feedback">Ім'я може містити тільки літери</div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="reg_fathername">По-батькові:</label>
+                    <input type="text" class="form-control" id="reg_fathername" name="patronymic" maxlength="45">
+                    <small class="text-muted">Необов'язкове поле</small>
+                    <div class="invalid-feedback">По-батькові може містити тільки літери</div>
+
+                </div>
+
+                <div class="form-group col-md-6 ">
+                    <label for="reg_phone">Телефон:</label>
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">+38</div>
+                        </div>
+                        <input type="tel" class="form-control" id="reg_phone" name="phone">
+                    </div>
+                    <small class="text-muted">Необов'язкове поле</small>
+                    <div class="invalid-feedback">Некоректний телефон</div>
+                </div>
+
+                <div id="pupil_form" class=" col-md-12">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="reg_student_code">Номер учнівського:</label>
+                            <input type="text" class="form-control" id="reg_student_code" name="pupil_code"
+                                   maxlength="8"
+                                   minlength="8" required>
+                            <small class="text-muted">Номер учнівського - 8 цифр</small>
+                            <div class="invalid-feedback">Некоректний номер учнівського</div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="reg_code">Дата народження:</label>
+                            <input type="date" class="form-control" id="reg_birth_date" name="birth_date"
+                                   min="2002-12-31" max="2014-01-01" required>
+                            <div class="invalid-feedback">Некоректна дата</div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="reg_code">Клас:</label>
+                            <input type="number" class="form-control" id="reg_class" name="class" max="11" min="1"
+                                   required>
+                            <div class="invalid-feedback">Неправильно введений клас</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="teacher_form" class=" col-md-12 hide">
+                    <div class="row ">
+
+                        <div class="form-group col-md-6">
+                            <label for="reg_teacher_code">Табельний номер:</label>
+                            <input type="text" class="form-control" id="reg_teacher_code" name="teacher_code"
+                                   maxlength="8"
+                                   minlength="8" required>
+                            <small class="text-muted">Табельний номер - 8 цифр</small>
+                            <div class="invalid-feedback">Некоректний табельний номер</div>
+                        </div>
+
+                        <div class="form-check col-md-6 pd-left-35">
+                            <br>
+                            <input type="checkbox" class="custom-control-input" id="reg_phd" name="phd" value="yes">
+                            <label for="reg_phd" class="custom-control-label">Є науковий ступінь</label>
+
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="reg_education">Освіта:</label>
+                            <input type="text" class="form-control" id="reg_education" name="education" required>
+                            <div class="invalid-feedback">Введіть навчальний заклад</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group form-check col-md-12">
+                    <label for="reg_password">Пароль:</label>
+                    <input type="password" class="form-control" id="reg_password" name="password" minlength="6"
+                           required>
+                    <small class="text-muted">Пароль мусить містити латинські літери і цифри та бути довжиною не менше 6
+                        символів
+                    </small>
+                    <div class="invalid-feedback">Некоректний пароль</div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="reg_password2">Підтвердіть пароль:</label>
+                    <input type="password" class="form-control" id="reg_password2" minlength="6" required>
+                    <div class="invalid-feedback">Паролі не збігаються</div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="reg_firstname">Ім'я:</label>
-                <input type="text" class="form-control" id="reg_firstname" name="name" maxlength="45">
-            </div>
-            <div class="form-group">
-                <label for="reg_fathername">По-батькові:</label>
-                <input type="text" class="form-control" id="reg_fathername" name="patronymic" maxlength="45">
-            </div>
-            <div class="form-group">
-                <label for="reg_code">Код школи:</label>
-                <input type="text" class="form-control" id="reg_code" name="school_id" maxlength="10" minlength="10">
-            </div>
-            <div class="form-group">
-                <label for="reg_code">Клас:</label>
-                <input type="number" class="form-control" id="reg_class" name="class" max="11" min="1">
-            </div>
-            <div class="form-group">
-                <label for="reg_code">Дата народження:</label>
-                <input type="date" class="form-control" id="reg_birth_date" name="birth_date">
-            </div>
-            <div class="form-group">
-                <label for="reg_email">Електронна пошта:</label>
-                <input type="email" class="form-control" id="reg_email" name="email"  maxlength="45">
-            </div>
-            <div class="form-group">
-                <label for="reg_email">Телефон:</label>
-                <input type="tel" class="form-control" id="reg_phone" name="phone">
-            </div>
-            <div class="form-group">
-                <label for="reg_password">Пароль:</label>
-                <input type="password" class="form-control" id="reg_password" name="password" minlength="6">
-            </div>
-            <div class="form-group">
-                <label for="reg_password">Пдтвердіть пароль:</label>
-                <input type="password" class="form-control" id="reg_password2" minlength="6">
-            </div>
+
             <input type="button" id="reg_button" class="btn btn-secondary btn-block mg-v-15"
                    onclick="register()" value="Зареєструвати мене!">
-            <a class="link btn btn-block registry_menu" style="margin-top:15px;" onclick="gotologin()">Увійти</a>
+            <a class="link btn btn-block registry_menu mg-0" onclick="gotologin()">Увійти</a>
         </form>
     </div>
 </div>
-<div id="entrypanel" class="registrypanel row mg-0">
+<div id="entrypanel" class="registrypanel row mg-0 ">
 
     <div class="col-md-3"></div>
     <div class="col-md-6 pd-0 mg-v-15 ">
         <a id="entry_pupil_button" class="btn" onclick="change_entry_type(2)">Учень</a>
         <a id="entry_teacher_button" onclick="change_entry_type(1)" class="btn ">Вчитель</a>
         <a id="entry_admin_button" onclick="change_entry_type(0)" class="btn ">Адмін</a>
-        <form id="entryform" class="sm registryform ">
-            <div class="form-group">
-                <label for="entry_email">Логін:</label>
-                <input type="email" class="form-control" id="entry_email">
+        <form id="entryform" class="sm registryform needs-validation" novalidate>
+            <div class="form-group row">
+                <label for="entry_email" class="col-md-2">Логін:</label>
+                <div class="col-md-10">
+                <input type="email" class="form-control mg-0" id="entry_email" required>
+                <div class="invalid-feedback">Заповніть це поле</div>
             </div>
-            <div class="form-group">
-                <label for="entry_password">Пароль:</label>
-                <input type="password" class="form-control text-muted" id="entry_password">
             </div>
-            <input type="button" class="btn btn-secondary btn-block" style="margin-top:15px;" onclick="login()"
-                   value="Вхід">
-            <a class="link btn btn-block registry_menu" style="margin-top:15px;" onclick="gotoregistration()">Зареєструватись</a>
+            <div class="form-group row">
+                <label for="entry_password" class="col-md-2">Пароль:</label>
+                <div class="col-md-10">
+                <input type="password" class="form-control text-muted " id="entry_password" required>
+                <div class="invalid-feedback ">Заповніть це поле</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+            <button type="button" class="btn btn-secondary btn-block mg-v-15 " onclick="login()">Вхід</button></div>
+            <a class="link btn btn-block registry_menu mg-0 " onclick="gotoregistration()">Зареєструватись</a>
+            </div>
         </form>
 
     </div>
