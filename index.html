@@ -25,15 +25,21 @@
                         <br>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link btn-light " id="teacher_page_tab" onclick="shoW('teacher_page');"
+                           aria-controls="teacher_page" data-toggle="pill" role="tab" href="#teacher_page">
+                            👩‍🏫Вчитель</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link btn-light " id="cabinet_page_tab" onclick="shoW('cabinet_page');"
                            aria-controls="cabinet_page" data-toggle="pill" role="tab" href="#cabinet_page">
                             👤Особистий кабінет</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn-light " id="subject_page_tab" aria-controls="subject_page"
-                           data-toggle="pill" role="tab" href="#subject_page"
-                           onclick="shoW('subject_page');">📚Предмети</a>
+                        <a class="nav-link btn-light " id="subject_list_page_tab" aria-controls="subject_list_page"
+                           data-toggle="pill" role="tab" href="#subject_list_page"
+                           onclick="shoW('subject_list_page');">📚Предмети</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link btn-light " id="admin_page_tab" aria-controls="admin_page"
                            data-toggle="pill" role="tab" href="#admin_page" style="color: #fd7172"
@@ -50,8 +56,8 @@
     </div>
     <div id="content" class="col-md-9 row">
         <div class="col-md-1"></div>
-        <div id="subject_page" class="col-md-10 border rounded tab-pane fade page show" role="tabpanel"
-             aria-labelledby="subject_page_tab">
+        <div id="subject_list_page" class="col-md-10 border rounded tab-pane panel fade page show" role="tabpanel"
+             aria-labelledby="subject_list_page_tab">
             <div class="panel-header"><h4> Предмети</h4></div>
             <div class="panel-body">
                 <form class="input-group mb-3">
@@ -120,11 +126,78 @@
                 </div>
             </div>
         </div>
-        <div id="cabinet_page" class="col-md-10 border rounded tab-pane panel panel-default fade page" role="tabpanel"
+        <div id="cabinet_page" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
              aria-labelledby="cabinet_page_tab">
             <div class="panel-header"><h5> Особистий кабінет</h5></div>
         </div>
+        <div id="teacher_page" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
+             aria-labelledby="teacher_page_tab">
+            <div class="panel-header"><h5 id="teacher_pib"> Шкаровська Наталія Сергіївна</h5></div>
+            <div class="panel-body row">
 
+                <p id="teacher_id" class="text-muted col-md-4">00201868</p>
+                <p id="teacher_school_code" class="text-muted col-md-4">SH2FG223FR</p>
+
+                <button id="add_subject" type="button" class="btn btn-info col-md-3 bg-blue"
+                        data-target="#add_subject_modal" data-toggle="modal">Додати предмет
+                </button>
+
+
+                <div class="list-group col-md-12 mg-v-15" id="teacher_list" >
+
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
+                       role="tab" onclick="show_subject()">Алгебра 10 клас</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
+                       role="tab" onclick="show_subject()" >Геометрія 10 клас</a>
+
+                </div>
+            </div>
+        </div>
+        <div id="subject_page" class="col-md-10 border rounded panel page">
+            <p>Algebra 9 klass</p>
+        </div>
+    </div>
+</div>
+
+<!--Modal for add subject-->
+<div class="modal fade" id="add_subject_modal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Додати предмет</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label for="new_subject_name">Назва предмету:</label>
+                            <input id="new_subject_name" class="form-control" required>
+                            <div class="invalid-feedback">Це обов'язкове поле</div>
+                        </div>
+                        <div class="col-sm-12">
+                            <label for="new_subject_description">Опис предмету:</label>
+                            <textarea id="new_subject_description" class="form-control" ></textarea>
+                        </div>
+                        <div class="col-sm-12">
+                            <label for="new_subject_class">Клас:</label>
+                            <input id="new_subject_class" type="number" min="1" max = "11" class="form-control" >
+                            <div class="invalid-feedback">Клас вказаний невірно</div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--TODO add_subject_button-->
+                <button id="add_subject_button" type="button" class="btn btn-outline-info"
+                         onclick="addSubject();">Зберегти
+                </button>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -458,6 +531,7 @@
 <script src="js/main.js"></script>
 <script src="js/validation.js"></script>
 <script src="js/onkeyup.js"></script>
+<script src="js/add.js"></script>
 
 </body>
 </html>

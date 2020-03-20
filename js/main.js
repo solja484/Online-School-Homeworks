@@ -35,27 +35,33 @@ function change_reg_type(t) {
     }
 }
 
+
+
 function shoW(except) {
     $("#admin_page").hide();
     $("#cabinet_page").hide();
+    $("#subject_list_page").hide();
     $("#subject_page").hide();
+    $("#teacher_page").hide();
     $("#" + except).show();
 }
 
 
-/*
-$("#entrypanel").show();
-$("#registrypanel").hide();
-$("#admin_page").hide();
-$("#admin_page_tab").hide();
-$("#container").hide();*/
-let authentication = false;
-$("#entrypanel").show();
-$("#registrypanel").hide();
-$("#admin_page").hide();
-$("#admin_page_tab").hide();
-$("#container").hide();
+function show_subject(){
+    shoW('subject_list_page');
+    $("#subject_list_page").hide();
+    $("#subject_page").show();
+}
 
+let authentication = false;
+$("#entrypanel").hide();
+$("#registrypanel").hide();
+$("#admin_page").hide();
+$("#admin_page_tab").hide();
+$("#subject_page").hide();
+$("#container").show();
+
+shoW('subject_list_page');
 
 function checkValidity(){
     let res=[];

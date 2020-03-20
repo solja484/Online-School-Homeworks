@@ -96,6 +96,16 @@ function validClass(str) {
 
 }
 
+function validFreeClass(str){
+    let val = $("#" + str).val();
+    if(val==""){
+        document.getElementById(str).classList.remove('is-invalid');
+        document.getElementById(str).classList.add('is-valid');
+        return true;
+    }
+    return validClass(str);
+}
+
 function validDocument(str) {
     let val = $("#" + str).val();
     let pattern = /^\d+$/;//^[0-9]*$
