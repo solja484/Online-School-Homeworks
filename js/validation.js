@@ -25,7 +25,6 @@ function validName(str) {
     if (name.length < 1 || name.length > 45) {
         selctor.removeClass('is-valid');
         selctor.addClass('is-invalid');
-
         return false;
     }
     let letters = /^[A-Za-zА-Яа-яі]+$/;
@@ -36,7 +35,6 @@ function validName(str) {
     } else {
         selctor.removeClass('is-valid');
         selctor.addClass('is-invalid');
-
         return false;
     }
 }
