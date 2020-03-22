@@ -62,7 +62,7 @@
             <div class="panel-body">
                 <form class="input-group mb-3">
                     <input type="text" class="form-control " placeholder="Пошук" aria-describedby="button-button">
-                    <div class="input-group-append">
+                    <div class="input-group-append" maxlength=45>
                         <button class="btn btn-outline-secondary " type="button" id="search_button">&#128269;</button>
 
                     </div>
@@ -255,7 +255,7 @@
                             </div>
                             <input id="input_school_phone" type="text" class="form-control"
                                    placeholder="(_ _ _)_ _ _ _ _ _ _"
-                                   aria-describedby="basic-addon">
+                                   aria-describedby="basic-addon"  maxlength=11>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -357,14 +357,14 @@
                         <label for="edit_school_code" class="col-sm-2 col-form-label">Код:</label>
                         <div class="col-sm-10">
                             <input id="edit_school_code" type="text" class="form-control"
-                                   placeholder="Код школи">
+                                   placeholder="Код школи" maxlength=11>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="edit_school_name" class="col-sm-2 col-form-label">Назва:</label>
                         <div class="col-sm-10">
                             <input id="edit_school_name" type="text" class="form-control"
-                                   placeholder="Назва школи">
+                                   placeholder="Назва школи"  maxlength=255>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -381,7 +381,7 @@
                             </div>
                             <input id=edit_school_phone type="text" class="form-control"
                                    placeholder="(_ _ _)_ _ _ _ _ _ _"
-                                   aria-describedby="basic-addon2">
+                                   aria-describedby="basic-addon2" maxlength=11>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -424,24 +424,24 @@
                 </div>
                 <div class="form-group col-md-12">
                     <label for="reg_code">Код школи:</label>
-                    <input type="text" class="form-control" id="reg_code" name="school_id" maxlength="10"
+                    <input type="text" class="form-control" id="reg_code" name="school_id" maxlength=10
                            minlength="10" required>
                     <div class="invalid-feedback">Код школи - 10 символів</div>
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="reg_lastname">Прізвище:</label>
-                    <input type="text" class="form-control" id="reg_lastname" name="surname" maxlength="45" required>
+                    <input type="text" class="form-control" id="reg_lastname" name="surname" maxlength=45 required>
                     <div class="invalid-feedback">Прізвище може містити тільки літери</div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="reg_firstname">Ім'я:</label>
-                    <input type="text" class="form-control" id="reg_firstname" name="name" maxlength="45" required>
+                    <input type="text" class="form-control" id="reg_firstname" name="name" maxlength=45 required>
                     <div class="invalid-feedback">Ім'я може містити тільки літери</div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="reg_fathername">По-батькові:</label>
-                    <input type="text" class="form-control" id="reg_fathername" name="patronymic" maxlength="45">
+                    <input type="text" class="form-control" id="reg_fathername" name="patronymic" maxlength=45>
                     <small class="text-muted">Необов'язкове поле</small>
                     <div class="invalid-feedback">По-батькові може містити тільки літери</div>
 
@@ -464,7 +464,7 @@
                         <div class="form-group col-md-12">
                             <label for="reg_student_code">Номер учнівського:</label>
                             <input type="text" class="form-control" id="reg_student_code" name="pupil_code"
-                                   maxlength="8"
+                                   maxlength=8
                                    minlength="8" required>
                             <small class="text-muted">Номер учнівського - 8 цифр</small>
                             <div class="invalid-feedback">Некоректний номер учнівського</div>
@@ -490,7 +490,7 @@
                         <div class="form-group col-md-6">
                             <label for="reg_teacher_code">Табельний номер:</label>
                             <input type="text" class="form-control" id="reg_teacher_code" name="teacher_code"
-                                   maxlength="8"
+                                   maxlength=8
                                    minlength="8" required>
                             <small class="text-muted">Табельний номер - 8 цифр</small>
                             <div class="invalid-feedback">Некоректний табельний номер</div>
@@ -504,7 +504,7 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="reg_education">Освіта:</label>
-                            <input type="text" class="form-control" id="reg_education" name="education" required>
+                            <input type="text" class="form-control" id="reg_education" name="education" required maxlength=255>
                             <div class="invalid-feedback">Введіть навчальний заклад</div>
                         </div>
                     </div>
@@ -513,7 +513,7 @@
                 <div class="form-group form-check col-md-12">
                     <label for="reg_password">Пароль:</label>
                     <input type="password" class="form-control" id="reg_password" name="password" minlength="6"
-                           required>
+                           required maxlength=45>
                     <small class="text-muted">Пароль мусить містити латинські літери і цифри та бути довжиною не менше 6
                         символів
                     </small>
@@ -521,7 +521,7 @@
                 </div>
                 <div class="form-group col-md-12">
                     <label for="reg_password2">Підтвердіть пароль:</label>
-                    <input type="password" class="form-control" id="reg_password2" minlength="6" required>
+                    <input type="password"  maxlength=45 class="form-control" id="reg_password2" minlength="6" required>
                     <div class="invalid-feedback">Паролі не збігаються</div>
                 </div>
             </div>

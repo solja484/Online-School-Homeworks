@@ -1,3 +1,26 @@
+function addNewCity() {
+    if(!validName("new_added_city")){
+        return false;
+    }
+    let data = { "city": $("#new_added_city").val()};
+    const notes = $("#new_added_city_notes").val();
+    if(notes!=="")
+        data['notes'] = notes;
+    $.ajax({
+        url: 'http://localhost:2303/addCity',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function () {
+            $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
+                "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
+                " <strong>Вітаємо</strong> Місто <u>"+city+"</u>додано!" +
+                "</div>");
+            setClear(["#new_added_city"]);
+        },
+        data: JSON.stringify(data)
+    });
+}
 function addSchool() {
     if(!validName("input_school_name") || !validFName("input_school_region") ||
         !validName("input_school_street") || !validPhone("input_school_phone") ||
