@@ -214,33 +214,47 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group row">
-                        <label for="input_school_code" class="col-sm-2 col-form-label">Код:</label>
-                        <div class="col-sm-10">
-                            <input id="input_school_code" type="text" class="form-control"
-                                   placeholder="Код школи">
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="input_school_name" class="col-sm-2 col-form-label">Назва:</label>
                         <div class="col-sm-10">
                             <input id="input_school_name" type="text" class="form-control"
-                                   placeholder="Назва школи">
+                                   placeholder="Технічний ліцей" maxlength=255>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="input_school_address" class="col-sm-2 col-form-label">Адреса:</label>
+                        <label for="input_school_city" class="col-sm-2 col-form-label">Місто:</label>
                         <div class="col-sm-10">
-                            <input id="input_school_address" type="text" class="form-control"
-                                   placeholder="Адреса">
+                            <select id="input_school_city" class="form-control"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="input_school_region" class="col-sm-2 col-form-label">Район:</label>
+                        <div class="col-sm-10">
+                            <input id="input_school_region" type="text" class="form-control" maxlength=45>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="input_school_street" class="col-sm-2 col-form-label">Вулиця:</label>
+                        <div class="col-sm-10">
+                            <input id="input_school_street" type="text" class="form-control"
+                                   placeholder="проспект Сагайдачного" maxlength=45>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="input_school_house" class="col-sm-2 col-form-label">Будинок:</label>
+                        <div class="col-sm-10">
+                            <input id="input_school_house" type="text" class="form-control"
+                                   placeholder="10-А" maxlength=9>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon">+380</span>
+                                <span class="input-group-text" id="basic-addon">+38</span>
                             </div>
-                            <input id=input_school_phone type="text" class="form-control"
-                                   placeholder="(_ _)_ _ _ _ _ _ _"
+                            <input id="input_school_phone" type="text" class="form-control"
+                                   placeholder="(_ _ _)_ _ _ _ _ _ _"
                                    aria-describedby="basic-addon">
                         </div>
                     </div>
@@ -251,7 +265,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <textarea class="form-control" placeholder="Примітки"></textarea>
+                            <textarea id="input_school_notes" class="form-control" placeholder="Примітки"></textarea>
                         </div>
                     </div>
 
@@ -260,7 +274,7 @@
             <div class="modal-footer">
                 <!--TODO add_school_button-->
                 <button id="add_school_button" type="submit" class="btn btn-outline-info"
-                        data-dismiss="modal" onclick="alert('id #add_school_button');">Додати
+                        data-dismiss="modal" onclick="addSchool();">Додати
                 </button>
             </div>
         </div>
@@ -281,32 +295,32 @@
                     <div class="form-group row">
                         <label for="input_admin_login" class="col-sm-2 col-form-label">Логін:</label>
                         <div class="col-sm-10">
-                            <input id="input_admin_login" type="text" class="form-control">
+                            <input id="input_admin_login" type="text" class="form-control" maxlength=45>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="input_admin_fname" class="col-sm-2 col-form-label">Ім'я:</label>
                         <div class="col-sm-10">
-                            <input id="input_admin_fname" type="text" class="form-control">
+                            <input id="input_admin_fname" type="text" class="form-control" maxlength=45>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="input_admin_lname" class="col-sm-2 col-form-label">Прізвище:</label>
                         <div class="col-sm-10">
-                            <input id="input_admin_lname" type="text" class="form-control">
+                            <input id="input_admin_lname" type="text" class="form-control" maxlength=45>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="input_admin_login" class="col-sm-2 col-form-label">Email:</label>
                         <div class="col-sm-10">
-                            <input id="input_admin_email" type="text" class="form-control">
+                            <input id="input_admin_email" type="text" class="form-control" maxlength=45>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="input_admin_password" class="col-sm-2 col-form-label">Пароль:</label>
                         <div class="col-sm-10">
-                            <input id="input_admin_password" type="password" class="form-control">
+                            <input id="input_admin_password" type="password" class="form-control" maxlength=45>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -363,10 +377,10 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon2">+380</span>
+                                <span class="input-group-text" id="basic-addon2">+38</span>
                             </div>
                             <input id=edit_school_phone type="text" class="form-control"
-                                   placeholder="(_ _)_ _ _ _ _ _ _"
+                                   placeholder="(_ _ _)_ _ _ _ _ _ _"
                                    aria-describedby="basic-addon2">
                         </div>
                     </div>
@@ -386,7 +400,7 @@
             <div class="modal-footer">
                 <!--TODO edit_school_button-->
                 <button id="edit_school_button" type="submit" class="btn btn-outline-info"
-                        data-dismiss="modal" onclick="alert('id #edit_school_button');">Зберегти
+                        onclick="alert('id #edit_school_button');">Зберегти
                 </button>
             </div>
         </div>
@@ -554,10 +568,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
-<script src="js/main.js"></script>
 <script src="js/validation.js"></script>
+<script src="js/requests.js"></script>
 <script src="js/onkeyup.js"></script>
 <script src="js/add.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 </html>

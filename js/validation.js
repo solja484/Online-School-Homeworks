@@ -1,25 +1,13 @@
+function validHouse(str) {
+    const selector = $("#" + str);
+    let house = selector.val();
+    //TODO @solia
+    // максимум 4 чифри у всьому тексті, всі знаки окрім літер і пробілу, коми, тире (дефіс) недопустимі
+    return house !== "";
 
-function checkValidity() {
-    if (!validName("reg_lastname") || !validName("reg_firstname") || !validFName("reg_fathername") ||
-        !validEmail("reg_email") || !validPass("reg_password") || !validCode("reg_code") || !validPhone("reg_phone")){
-        return false
-    }
-    var cur_user_type = localStorage.getItem("usertype");
-    if (cur_user_type === 'teacher') {
-        if(!validDocument("reg_teacher_code") || !validEmpty("reg_education")){
-            return false;
-        }
-    } else if (cur_user_type === 'pupil') {
-        if(!validClass("reg_class") || !validDocument("reg_student_code") || !validEmpty("reg_birth_date")){
-            return false;
-        }
-    }
-    return true;
 }
-
-
 function validEmail(str) {
-    var selector = $("#" + str);
+    const selector = $("#" + str);
     let name = selector.val();
     if (name.length < 1 || name.length > 100) {
         selector.removeClass('is-valid');
@@ -40,14 +28,14 @@ function validEmail(str) {
 }
 
 function validName(str) {
-    var selector = $("#" + str);
+    const selector = $("#" + str);
     let name = selector.val();
     if (name.length < 1 || name.length > 45) {
         selector.removeClass('is-valid');
         selector.addClass('is-invalid');
         return false;
     }
-    let letters = /^[A-Za-zА-Яа-яі]+$/;
+    let letters = /^[A-Za-zА-Яа-яіІ]+$/;
     if (name.match(letters)) {
         selector.removeClass('is-invalid');
         selector.addClass('is-valid');
@@ -60,7 +48,7 @@ function validName(str) {
 }
 
 function validFName(str) {
-    var selector = $("#" + str);
+    const selector = $("#" + str);
     let name = selector.val();
     if (name === "") {
         selector.removeClass('is-invalid');
@@ -72,7 +60,7 @@ function validFName(str) {
 
 //at least 6 characters eng letter number and symbol
 function validPass(str) {
-    var selector = $("#" + str);
+    const selector = $("#" + str);
     let pass = selector.val();
     let pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/;
     if (!pattern.test(pass)) {
@@ -86,7 +74,7 @@ function validPass(str) {
 }
 
 function validCode(str) {
-    var selector = $("#" + str);
+    const selector = $("#" + str);
     let code = selector.val();
     if (code.length === 10) {
         selector.removeClass('is-invalid');
@@ -99,7 +87,7 @@ function validCode(str) {
 }
 
 function validClass(str) {
-    var selector = $("#" + str);
+    const selector = $("#" + str);
     let klass = selector.val();
     let isNum = /^\d+$/.test(klass);
     let value = -1;
@@ -116,7 +104,7 @@ function validClass(str) {
 }
 
 function validFreeClass(str) {
-    var selector = $("#" + str);
+    const selector = $("#" + str);
     let val = selector.val();
     if (val === "") {
         selector.removeClass('is-invalid');
@@ -127,7 +115,7 @@ function validFreeClass(str) {
 }
 
 function validDocument(str) {
-    var selector = $("#" + str);
+    const selector = $("#" + str);
     let val = selector.val();
     let pattern = /^\d+$/;//^[0-9]*$
     if (val.length === 8 && val.match(pattern)) {
@@ -141,7 +129,7 @@ function validDocument(str) {
 }
 
 function validPhone(str) {
-    var selector = $("#" + str);
+    const selector = $("#" + str);
     let phone = selector.val();
     let pattern = /^\d+$/;
     let pattern2 = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;
@@ -159,7 +147,7 @@ function validPhone(str) {
 }
 
 function validEmpty(str) {
-    var selector = $("#" + str);
+    const selector = $("#" + str);
     let edu = selector.val();
     if (edu === "") {
         selector.removeClass('is-valid');
