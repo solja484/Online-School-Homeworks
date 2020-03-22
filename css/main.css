@@ -6,7 +6,7 @@ body {
 }
 
 /*green lizard #94ed34; festival #fee96a  salmon #fd7172 spray #7cdeeb */
-*{
+* {
     font-size: 17px;
 }
 
@@ -31,25 +31,32 @@ body {
     display: none;
 }
 
-.pd-left-35{
-    padding-left:35px;
+.pd-left-35 {
+    padding-left: 35px;
 }
-
 
 .show {
     display: block;
 }
-.bg-blue{
-    background: #7cdeeb;!important;
+
+.bg-blue {
+    background: #7cdeeb;
+!important;
 }
-.bg-red{
-    background: #fd7172;!important;
+
+.bg-red {
+    background: #fd7172;
+!important;
 }
-.bg-yellow{
-    background: #fee96a;!important;
+
+.bg-yellow {
+    background: #fee96a;
+!important;
 }
-.bg-light{
-    background: #ececec;!important;
+
+.bg-light {
+    background: #ececec;
+!important;
 }
 
 #container {
@@ -69,14 +76,15 @@ body {
 }
 
 #navbar {
-    background: white;!important;
-}
-.navbar-container{
-    min-height:99vh;
     background: white;
-    position:relative;
+!important;
 }
 
+.navbar-container {
+    min-height: 99vh;
+    background: white;
+    position: relative;
+}
 
 .page {
     background: white;
@@ -97,18 +105,17 @@ body {
     background: white;
 }
 
-
 .exit_menu {
     padding: 15px 5px;
-    color: #fd7172 ;
-    position:absolute;
-    left:5%;
-    right:10%;
-    bottom:1%;
+    color: #fd7172;
+    position: absolute;
+    left: 5%;
+    right: 10%;
+    bottom: 1%;
 }
 
 .exit_menu:hover, .exit_menu:focus, .exit_menu:active {
-border-bottom: 2px solid #fd7172;
+    border-bottom: 2px solid #fd7172;
 
 }
 
@@ -117,10 +124,10 @@ border-bottom: 2px solid #fd7172;
     padding-right: 5px;
 }
 
-.text-13{
-    font-size: 13px!important;
+.text-13 {
+    font-size: 13px !important;
 }
 
-.ov-auto{
-    overflow: auto!important;
+.ov-auto {
+    overflow: auto !important;
 }

@@ -1,50 +1,52 @@
 function validEmail(str) {
-    let name = $("#" + str).val();
+    var selctor = $("#" + str);
+    let name = selector.val();
     if (name.length < 1 || name.length > 100) {
-        document.getElementById(str).classList.remove('is-valid');
-        document.getElementById(str).classList.add('is-invalid');
-
+        selctor.removeClass('is-valid');
+        selctor.addClass('is-invalid');
         return false;
     }
     let pattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (name.match(pattern)) {
-        document.getElementById(str).classList.remove('is-invalid');
-        document.getElementById(str).classList.add('is-valid');
+        selctor.removeClass('is-invalid');
+        selctor.addClass('is-valid');
         return true;
     } else {
-        document.getElementById(str).classList.remove('is-valid');
-        document.getElementById(str).classList.add('is-invalid');
+        selctor.removeClass('is-valid');
+        selctor.addClass('is-invalid');
 
         return false;
     }
 }
 
 function validName(str) {
-    let name = $("#" + str).val();
+    var selctor = $("#" + str);
+    let name = selector.val();
     if (name.length < 1 || name.length > 45) {
-        document.getElementById(str).classList.remove('is-valid');
-        document.getElementById(str).classList.add('is-invalid');
+        selctor.removeClass('is-valid');
+        selctor.addClass('is-invalid');
 
         return false;
     }
     let letters = /^[A-Za-zА-Яа-яі]+$/;
     if (name.match(letters)) {
-        document.getElementById(str).classList.remove('is-invalid');
-        document.getElementById(str).classList.add('is-valid');
+        selctor.removeClass('is-invalid');
+        selctor.addClass('is-valid');
         return true;
     } else {
-        document.getElementById(str).classList.remove('is-valid');
-        document.getElementById(str).classList.add('is-invalid');
+        selctor.removeClass('is-valid');
+        selctor.addClass('is-invalid');
 
         return false;
     }
 }
 
 function validFName(str) {
-    let name = $("#" + str).val();
+    var selctor = $("#" + str);
+    let name = selector.val();
     if (name === "") {
-        document.getElementById(str).classList.remove('is-invalid');
-        document.getElementById(str).classList.add('is-valid');
+        selctor.removeClass('is-invalid');
+        selctor.addClass('is-valid');
         return true;
     }
     return validName(str);
@@ -53,107 +55,100 @@ function validFName(str) {
 
 //at least 6 characters eng letter number and symbol
 function validPass(str) {
-    let pass = $("#" + str).val();
+    var selctor = $("#" + str);
+    let pass = selector.val();
     let pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/;
     if (!pattern.test(pass)) {
-        document.getElementById(str).classList.remove('is-valid');
-        document.getElementById(str).classList.add('is-invalid');
+        selector.removeClass('is-valid');
+        selctor.addClass('is-invalid');
 
         return false;
     }
-    document.getElementById(str).classList.remove('is-invalid');
-    document.getElementById(str).classList.add('is-valid');
+    selector.removeClass('is-invalid');
+    selctor.addClass('is-valid');
     return true;
 }
 
 function validCode(str) {
-    let code = $("#" + str).val();
-    if (code.length == 10) {
-        document.getElementById(str).classList.remove('is-invalid');
-        document.getElementById(str).classList.add('is-valid');
+    var selctor = $("#" + str);
+    let code = selector.val();
+    if (code.length === 10) {
+        selector.removeClass('is-invalid');
+        selctor.addClass('is-valid');
         return true;
     }
-
-    document.getElementById(str).classList.remove('is-valid');
-    document.getElementById(str).classList.add('is-invalid');
+    selector.removeClass('is-valid');
+    selctor.addClass('is-invalid');
     return false
 }
 
 function validClass(str) {
-    let klass = $("#" + str).val();
+    var selctor = $("#" + str);
+    let klass = selctor.val();
     let isNum = /^\d+$/.test(klass);
     let value = -1;
     if (isNum) value = parseInt(klass);
     if (isNum && value > 0 && value < 12) {
-        document.getElementById(str).classList.remove('is-invalid');
-        document.getElementById(str).classList.add('is-valid');
+        selctor.removeClass('is-invalid');
+        selctor.addClass('is-valid');
         return true;
     }
-
-    document.getElementById(str).classList.remove('is-valid');
-    document.getElementById(str).classList.add('is-invalid');
+    selector.removeClass('is-valid');
+    selctor.addClass('is-invalid');
     return false;
 
 }
 
-function validFreeClass(str){
-    let val = $("#" + str).val();
-    if(val==""){
-        document.getElementById(str).classList.remove('is-invalid');
-        document.getElementById(str).classList.add('is-valid');
+function validFreeClass(str) {
+    var selctor = $("#" + str);
+    let val = selctor.val();
+    if (val === "") {
+        selctor.removeClass('is-invalid');
+        selctor.addClass('is-valid');
         return true;
     }
     return validClass(str);
 }
 
 function validDocument(str) {
-    let val = $("#" + str).val();
+    var selector = $("#" + str);
+    let val = selector.val();
     let pattern = /^\d+$/;//^[0-9]*$
-    if (val.length == 8 && val.match(pattern)) {
-        document.getElementById(str).classList.remove('is-invalid');
-        document.getElementById(str).classList.add('is-valid');
+    if (val.length === 8 && val.match(pattern)) {
+        selector.removeClass('is-invalid');
+        selector.addClass('is-valid');
         return true;
     }
-    document.getElementById(str).classList.remove('is-valid');
-    document.getElementById(str).classList.add('is-invalid');
+    selector.removeClass('is-valid');
+    dselector.addClass('is-invalid');
     return false;
 }
 
 function validPhone(str) {
-    let phone = $("#" + str).val();
-    let pattern=/^\d+$/;
-    let pattern2=/^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;
-    if (phone === ""){
-        document.getElementById(str).classList.remove('is-invalid');
-        document.getElementById(str).classList.add('is-valid');
-        return true;
-
-    }else if(phone.match(pattern)&&phone.length===10) {
-        document.getElementById(str).classList.remove('is-invalid');
-        document.getElementById(str).classList.add('is-valid');
-        return true
-    }else if(phone.match(pattern2)){
-        document.getElementById(str).classList.remove('is-invalid');
-        document.getElementById(str).classList.add('is-valid');
+    var selector = $("#" + str);
+    let phone = selector.val();
+    let pattern = /^\d+$/;
+    let pattern2 = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;
+    if ((phone === "") || phone.match(pattern) && phone.length === 10 || phone.match(pattern2)) {
+        selector.removeClass('is-invalid');
+        if (phone === "")
+            selector.removeClass('is-valid');
+        else
+            selector.addClass('is-valid');
         return true
     }
-        document.getElementById(str).classList.remove('is-valid');
-        document.getElementById(str).classList.add('is-invalid');
-
-        return false;
-
+    selector.removeClass('is-valid');
+    selector.addClass('is-invalid');
+    return false;
 }
 
-
-
 function validEmpty(str) {
-    let edu = $("#" + str).val();
+    var selctor = $("#" + str);
+    let edu = selector.val();
     if (edu === "") {
-        document.getElementById(str).classList.remove('is-valid');
-        document.getElementById(str).classList.add('is-invalid');
+        selector.removeClass('is-valid');
+        selctor.addClass('is-invalid');
         return false;
     }
-    document.getElementById(str).classList.remove('is-invalid');
-    document.getElementById(str).classList.add('is-valid');
     return true;
 }

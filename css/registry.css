@@ -17,6 +17,7 @@
     background: #7cdeeb;
     border-radius: 5px;
 }
+
 #entry_pupil_button, #reg_pupil_button {
     background: #7cdeeb;
     color: black;
@@ -41,11 +42,13 @@
     border-bottom-left-radius: 0;
     margin: 0 0 0 -5px !important;
 }
+
 .entrymenu {
     background: #fee96a !important;
     padding: 7px 37px 7px 27px;
     margin-bottom: 15px;
 }
+
 @media (min-height: 375px) {
     .registrypanel {
         padding: 0 20px;
