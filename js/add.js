@@ -1,11 +1,11 @@
-function addSubject() {
+function addCityModal(){
+    //короче, мені надо щоб тут красиво заповнювався список міст
+    //або не так, або не тут, але щоб воно було
+    //нічого полезного в цьому немає, чисто щоб перед очима був список існуючих міст коли додаєш нове
+    $("#add_city_current").append("<option disabled> Київ</option>");
+}
 
-    document.getElementById("new_subject_description").classList.add('is-valid');
-    let name = $("#new_subject_name").val();
-    if (validEmpty("new_subject_name") && validFreeClass("new_subject_class")) {
-        $("#teacher_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' data-toggle='list'" +
-            "role='tab' onclick='show_subject()'>" + name + "</a>");
-        $("#add_subject_modal").modal('hide');
-
-    }
+function editSchoolModal(id) {
+    //витягнути інфу про школу з заданим ід
+    //записати всі значення у поля value
 }

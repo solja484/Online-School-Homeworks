@@ -34,7 +34,9 @@ body {
 .pd-left-35 {
     padding-left: 35px;
 }
-
+.pd-right-0{
+    padding-right: 0!important;
+}
 .show {
     display: block;
 }
@@ -54,6 +56,9 @@ body {
 !important;
 }
 
+.text-white{
+    color:white!important;
+}
 .bg-light {
     background: #ececec;
 !important;
@@ -90,7 +95,9 @@ body {
     background: white;
     padding: 3%;
 }
-
+.width-100{
+    width: 100% !important;
+}
 #brand {
     padding: 30px;
     background: #7cdeeb;
@@ -130,4 +137,17 @@ body {
 
 .ov-auto {
     overflow: auto !important;
+}
+
+@media(max-width:950px){
+    .text-a{
+
+        font-size:15px;!important;
+    }
+}
+
+@media(max-width:770px){
+    .text-a{
+        font-size:20px;!important;
+    }
 }

@@ -15,32 +15,32 @@
         <div id="navbar" class="col-md-9 pd-0">
             <div class="navbar-container">
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a id="brand" class=" navbar-brand"> Homework App</a>
+                    <li class="nav-item width-100 text-center">
+                        <a id="brand" class=" navbar-brand text-a"> Homework App</a>
                     </li>
 
-                    <li id="role" class="nav-item entry_li ">
+                    <li id="role" class="entry_li width-100">
                         <br>
                         <br>
                         <br>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="teacher_page_tab" onclick="shoW('teacher_page');"
                            aria-controls="teacher_page" data-toggle="pill" role="tab" href="#teacher_page">
                             👩‍🏫Вчитель</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="cabinet_page_tab" onclick="shoW('cabinet_page');"
                            aria-controls="cabinet_page" data-toggle="pill" role="tab" href="#cabinet_page">
                             👤Особистий кабінет</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="subject_list_page_tab" aria-controls="subject_list_page"
                            data-toggle="pill" role="tab" href="#subject_list_page"
                            onclick="shoW('subject_list_page');">📚Предмети</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="admin_page_tab" aria-controls="admin_page"
                            data-toggle="pill" role="tab" href="#admin_page" style="color: #fd7172"
                            onclick="shoW('admin_page');">👩‍💻Адміністратор</a>
@@ -91,6 +91,10 @@
             <button id="add_school" type="button" class="btn btn-danger col-md-3 bg-red"
                     data-target="#add_school_modal" data-toggle="modal">Додати школу
             </button>
+            <button id="add_city" type="button" class="btn btn-warning col-md-3 text-white bg-yellow"
+                    data-target="#add_city_modal" data-toggle="modal" onclick="addCityModal()">Додати місто
+            </button>
+
             <div class="panel ov-auto">
 
                 <div class="panel-body">
@@ -112,8 +116,8 @@
                             <td>Контрактова площа</td>
                             <td>+0445354213</td>
                             <td>
-                                <button id="edit_school" type="button" class="btn btn-sm btn-info" data-toggle="modal"
-                                        data-target="#edit_school_modal bg-blue">
+                                <button id="edit_school" type="button" class="btn btn-sm btn-info bg-blue" data-toggle="modal"
+                                        data-target="#edit_school_modal" onclick="editSchoolModal(0)">
                                     ️edit
                                 </button>
                                 <button class="btn btn-sm btn-danger bg-red">delete</button>
@@ -156,6 +160,53 @@
         <div id="subject_page" class="col-md-10 border rounded panel page">
             <p>Algebra 9 klass</p>
         </div>
+    </div>
+</div>
+
+
+<!--Modal for add city-->
+<div class="modal fade" id="add_city_modal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Додати нове місто</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group row">
+                        <label for="add_city_current" class="col-md-3 col-form-label pd-right-0">Наявні міста:</label>
+                        <div class="col-md-9">
+                            <select id="add_city_current" class="form-control" ></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="new_added_city" class="col-md-3 col-form-label pd-right-0">Назва міста:</label>
+                        <div class="col-md-9">
+                            <input id="new_added_city" type="text" class="form-control" maxlength=255>
+                        </div>
+                        <div class="invalid-feedback">Введіть коректну назву міста</div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="new_added_city_notes" class="col-md-3 col-form-label pd-right-0">Опис:</label>
+                        <div class="col-md-9">
+                            <textarea id="new_added_city_notes" type="text" class="form-control" maxlength=255></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--TODO add city button-->
+                <button id="add_city_button" type="submit" class="btn btn-outline-info"
+                        onclick="addNewCity()">Додати місто
+                </button>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -219,12 +270,14 @@
                             <input id="input_school_name" type="text" class="form-control"
                                    placeholder="Технічний ліцей" maxlength=255>
                         </div>
+                        <div class="invalid-feedback">Це обов'язкове поле</div>
                     </div>
                     <div class="form-group row">
                         <label for="input_school_city" class="col-sm-2 col-form-label">Місто:</label>
                         <div class="col-sm-10">
                             <select id="input_school_city" class="form-control"></select>
                         </div>
+
                     </div>
 
                     <div class="form-group row">
@@ -232,6 +285,7 @@
                         <div class="col-sm-10">
                             <input id="input_school_region" type="text" class="form-control" maxlength=45>
                         </div>
+                        <div class="invalid-feedback">Введіть коректну назву району</div>
                     </div>
                     <div class="form-group row">
                         <label for="input_school_street" class="col-sm-2 col-form-label">Вулиця:</label>
@@ -239,6 +293,7 @@
                             <input id="input_school_street" type="text" class="form-control"
                                    placeholder="проспект Сагайдачного" maxlength=45>
                         </div>
+                        <div class="invalid-feedback">Введіть коректну назву вулиці</div>
                     </div>
 
                     <div class="form-group row">
@@ -247,6 +302,7 @@
                             <input id="input_school_house" type="text" class="form-control"
                                    placeholder="10-А" maxlength=9>
                         </div>
+                        <div class="invalid-feedback">Невірно вказаний номер будинку</div>
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
@@ -257,11 +313,13 @@
                                    placeholder="(_ _ _)_ _ _ _ _ _ _"
                                    aria-describedby="basic-addon"  maxlength=11>
                         </div>
+                        <div class="invalid-feedback">Некоректний номер телефону</div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input id="input_school_photo" type="file">
+                            <input id="input_school_photo" type="file" accept="image/*">
                         </div>
+                        <div class="invalid-feedback">Виберіть файл з зображенням</div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
@@ -274,7 +332,7 @@
             <div class="modal-footer">
                 <!--TODO add_school_button-->
                 <button id="add_school_button" type="submit" class="btn btn-outline-info"
-                        data-dismiss="modal" onclick="addSchool();">Додати
+                        onclick="addSchool();">Додати
                 </button>
             </div>
         </div>
@@ -333,7 +391,7 @@
             </div>
             <div class="modal-footer">
                 <button id="add_admin_button" type="submit" class="btn btn-outline-info"
-                        data-dismiss="modal" onclick="addAdmin();">Додати
+                        onclick="addAdmin();">Додати
                 </button>
             </div>
         </div>
@@ -354,44 +412,67 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group row">
-                        <label for="edit_school_code" class="col-sm-2 col-form-label">Код:</label>
-                        <div class="col-sm-10">
-                            <input id="edit_school_code" type="text" class="form-control"
-                                   placeholder="Код школи" maxlength=11>
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="edit_school_name" class="col-sm-2 col-form-label">Назва:</label>
                         <div class="col-sm-10">
                             <input id="edit_school_name" type="text" class="form-control"
-                                   placeholder="Назва школи"  maxlength=255>
+                                   value="Технічний ліцей" maxlength=255>
                         </div>
+                        <div class="invalid-feedback">Це поле не може бути порожнім</div>
                     </div>
                     <div class="form-group row">
-                        <label for="edit_school_address" class="col-sm-2 col-form-label">Адреса:</label>
+                        <label for="edit_school_city" class="col-sm-2 col-form-label">Місто:</label>
                         <div class="col-sm-10">
-                            <input id="edit_school_address" type="text" class="form-control"
-                                   placeholder="Адреса">
+                            <select id="edit_school_city" class="form-control"></select>
                         </div>
                     </div>
+
+
+                    <div class="form-group row">
+                        <label for="edit_school_region" class="col-sm-2 col-form-label">Район:</label>
+                        <div class="col-sm-10">
+                            <input id="edit_school_region" type="text" class="form-control" maxlength=45>
+                        </div>
+                        <div class="invalid-feedback">Введіть коректну назву району</div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="edit_school_street" class="col-sm-2 col-form-label">Вулиця:</label>
+                        <div class="col-sm-10">
+                            <input id="edit_school_street" type="text" class="form-control"
+                                   value="проспект Сагайдачного" maxlength=45>
+                        </div>
+                        <div class="invalid-feedback">Введіть коректну назву вулиці</div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="edit_school_house" class="col-sm-2 col-form-label">Будинок:</label>
+                        <div class="col-sm-10">
+                            <input id="edit_school_house" type="text" class="form-control"
+                                   placeholder="10-А" maxlength=9>
+                        </div>
+                        <div class="invalid-feedback">Невірно вказаний номер будинку</div>
+                    </div>
+
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon2">+38</span>
+                                <span class="input-group-text" id="phone_addon">+38</span>
                             </div>
-                            <input id=edit_school_phone type="text" class="form-control"
+                            <input id="edit_school_phone" type="text" class="form-control"
                                    placeholder="(_ _ _)_ _ _ _ _ _ _"
-                                   aria-describedby="basic-addon2" maxlength=11>
+                                   aria-describedby="phone_addon"  maxlength=11>
                         </div>
+                        <div class="invalid-feedback">Некоректний номер телефону</div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input id="edit_school_photo" type="file">
+                            <input id="edit_school_photo" type="file" accept="image/*" >
                         </div>
+                        <div class="invalid-feedback">Виберіть файл з зображенням</div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <textarea class="form-control" placeholder="Примітки"></textarea>
+                            <textarea id="edit_school_notes" class="form-control" >Примітки</textarea>
                         </div>
                     </div>
 
@@ -400,7 +481,7 @@
             <div class="modal-footer">
                 <!--TODO edit_school_button-->
                 <button id="edit_school_button" type="submit" class="btn btn-outline-info"
-                        onclick="alert('id #edit_school_button');">Зберегти
+                        onclick="editSchool()">Зберегти
                 </button>
             </div>
         </div>

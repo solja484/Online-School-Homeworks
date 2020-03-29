@@ -1,14 +1,15 @@
 // user-types = ["admin", "teacher", "pupil"];
 localStorage.setItem("usertype", "pupil");
 
-$("#container").hide();
-$("#entrypanel").show();
-// $("#entrypanel").hide();
-// $("#registrypanel").hide();
+
+//$("#container").hide();
+//$("#entrypanel").show();
+ $("#entrypanel").hide();
+ $("#registrypanel").hide();
 // $("#admin_page").hide();
 // $("#admin_page_tab").hide();
 // $("#subject_page").hide();
-// $("#container").show();
+ $("#container").show();
 // shoW('subject_list_page');
 
 function change_entry_type(t) {

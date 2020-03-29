@@ -1,9 +1,17 @@
 function validHouse(str) {
     const selector = $("#" + str);
     let house = selector.val();
-    //TODO @solia
-    // максимум 4 чифри у всьому тексті, всі знаки окрім літер і пробілу, коми, тире (дефіс) недопустимі
-    return house !== "";
+    let pattern=/^[A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9][A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9]?[A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9]?[A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9]?[A-Za-zА-Яа-яіІїЇєЄ ,-]*$/;
+    if(house.match(pattern)){
+        selector.removeClass('is-invalid');
+        selector.addClass('is-valid');
+        return true;
+    } else {
+        selector.removeClass('is-valid');
+        selector.addClass('is-invalid');
+
+        return false;
+    }
 
 }
 function validEmail(str) {
@@ -35,7 +43,7 @@ function validName(str) {
         selector.addClass('is-invalid');
         return false;
     }
-    let letters = /^[A-Za-zА-Яа-яіІ]+$/;
+    let letters = /^[A-Za-zА-Яа-яіІїЇєЄ]+$/;
     if (name.match(letters)) {
         selector.removeClass('is-invalid');
         selector.addClass('is-valid');
@@ -108,7 +116,7 @@ function validFreeClass(str) {
     let val = selector.val();
     if (val === "") {
         selector.removeClass('is-invalid');
-        selector.addClass('is-valid');
+        selector.removeClass('is-valid');
         return true;
     }
     return validClass(str);
@@ -124,7 +132,7 @@ function validDocument(str) {
         return true;
     }
     selector.removeClass('is-valid');
-    dselector.addClass('is-invalid');
+    selector.addClass('is-invalid');
     return false;
 }
 

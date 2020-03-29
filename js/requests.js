@@ -20,7 +20,55 @@ function addNewCity() {
         },
         data: JSON.stringify(data)
     });
+
+    $("#add_city_modal").modal('hide');
 }
+
+
+function addSubject() {
+
+    if (!validEmpty("new_subject_name") || !validFreeClass("new_subject_class"))
+    return false;
+    let name=$("#new_subject_name").val();
+    $("#teacher_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' data-toggle='list'" +
+                "role='tab' onclick='show_subject()'>" + name + "</a>");
+
+    //TODO add new subject to database
+
+    let data = {
+        "name": name
+    };
+    const descr = $("#new_subject_description").val();
+    if(descr!==""){
+        date['description'] = descr;
+    }
+    const klass = $("#new_subject_class").val();
+    if(klass!==""){
+        date['class'] = klass;
+    }
+
+    $.ajax({
+        url: 'http://localhost:2303/addSchool',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+
+        },
+        error: function () {
+
+        },
+        data: JSON.stringify(data)
+    });
+
+
+    $("#add_subject_modal").modal('hide');
+
+
+
+}
+
+
 function addSchool() {
     if(!validName("input_school_name") || !validFName("input_school_region") ||
         !validName("input_school_street") || !validPhone("input_school_phone") ||
@@ -64,6 +112,8 @@ function addSchool() {
         },
         data: JSON.stringify(data)
     });
+
+    $("#add_school_modal").modal('hide');
 }
 function setCitiesValueOption() {
     $.ajax({
@@ -80,6 +130,7 @@ function setCitiesValueOption() {
         }
     });
 }
+
 function register() {
     var passSel = $('#reg_password');
     var pass2Sel = $('#reg_password2');
@@ -214,4 +265,6 @@ function addAdmin() {
         },
         data: JSON.stringify(data)
     });
+
+    $("#add_admin_modal").modal('hide');
 }
