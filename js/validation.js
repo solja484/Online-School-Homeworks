@@ -1,3 +1,22 @@
+function checkValidity() {
+    if (!validName("reg_lastname") || !validName("reg_firstname") || !validFName("reg_fathername") ||
+        !validEmail("reg_email") || !validPass("reg_password") || !validCode("reg_code") || !validPhone("reg_phone")) {
+        return false
+    }
+    var cur_user_type = localStorage.getItem("usertype");
+    if (cur_user_type === 'teacher') {
+        if (!validDocument("reg_teacher_code") || !validEmpty("reg_education")) {
+            return false;
+        }
+    } else if (cur_user_type === 'pupil') {
+        if (!validClass("reg_class") || !validDocument("reg_student_code") || !validEmpty("reg_birth_date")) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 function validHouse(str) {
     const selector = $("#" + str);
     let house = selector.val();
@@ -14,6 +33,7 @@ function validHouse(str) {
     }
 
 }
+
 function validEmail(str) {
     const selector = $("#" + str);
     let name = selector.val();

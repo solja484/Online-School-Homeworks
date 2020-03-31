@@ -19,14 +19,14 @@ $("#reg_password2").keyup(function () {
 $("#reg_email").keyup(function () {
     $("#reg_email").css("background", "white");
 });
-$("input_admin_login").keyup(function () {
-    logSelector.removeClass('is-invalid');
-});
-$("input_admin_password").keyup(function () {
-    logSelector.removeClass('is-invalid');
-    logSelector.removeClass('is-valid');
-});
-$("input_admin_email").keyup(function () {
-    logSelector.removeClass('is-invalid');
-    logSelector.removeClass('is-valid');
-});
+// $("#input_admin_login").keyup(function () {
+//     logSelector.removeClass('is-invalid');
+// });
+// $("#input_admin_password").keyup(function () {
+//     logSelector.removeClass('is-invalid');
+//     logSelector.removeClass('is-valid');
+// });
+// $("#input_admin_email").keyup(function () {
+//     logSelector.removeClass('is-invalid');
+//     logSelector.removeClass('is-valid');
+// });

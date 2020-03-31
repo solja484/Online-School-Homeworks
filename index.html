@@ -25,25 +25,37 @@
                         <br>
                     </li>
                     <li class="nav-item width-100">
-                        <a class="nav-link btn-light " id="teacher_page_tab" onclick="shoW('teacher_page');"
+                        <a class="nav-link btn-light " id="teacher_page_tab" onclick="showPage('teacher_page');"
                            aria-controls="teacher_page" data-toggle="pill" role="tab" href="#teacher_page">
                             👩‍🏫Вчитель</a>
                     </li>
+
                     <li class="nav-item width-100">
-                        <a class="nav-link btn-light " id="cabinet_page_tab" onclick="shoW('cabinet_page');"
-                           aria-controls="cabinet_page" data-toggle="pill" role="tab" href="#cabinet_page">
-                            👤Особистий кабінет</a>
+                        <a class="nav-link btn-light " id="teacher_list_page_tab" aria-controls="teacher_list_page"
+                           data-toggle="pill" role="tab" href="#teacher_list_page"
+                           onclick="showPage('teacher_list_page');">📓Предмети</a>
+                    </li>
+
+                    <li class="nav-item width-100">
+                        <a class="nav-link btn-light " id="pupil_page_tab" onclick="showPage('pupil_page');"
+                           aria-controls="pupil_page" data-toggle="pill" role="tab" href="#pupil_page">
+                            👤Учень</a>
                     </li>
                     <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="subject_list_page_tab" aria-controls="subject_list_page"
                            data-toggle="pill" role="tab" href="#subject_list_page"
-                           onclick="shoW('subject_list_page');">📚Предмети</a>
+                           onclick="showPage('subject_list_page');">📚Предмети</a>
                     </li>
 
                     <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="admin_page_tab" aria-controls="admin_page"
-                           data-toggle="pill" role="tab" href="#admin_page" style="color: #fd7172"
-                           onclick="shoW('admin_page');">👩‍💻Адміністратор</a>
+                           data-toggle="pill" role="tab" href="#admin_page"
+                           onclick="showPage('admin_page');">👩‍💻Адміністратор</a>
+                    </li>
+                    <li class="nav-item width-100">
+                        <a class="nav-link btn-light " id="admin_tables_tab" aria-controls="admin_tables"
+                           data-toggle="pill" role="tab" href="#admin_tables"
+                           onclick="showPage('admin_tables');">📒Школи</a>
                     </li>
 
                     <li class="nav-item entry_li">
@@ -55,8 +67,8 @@
         </div>
     </div>
     <div id="content" class="col-md-9 row">
-        <div class="col-md-1"></div>
-        <div id="subject_list_page" class="col-md-10 border rounded tab-pane panel fade page show" role="tabpanel"
+
+        <div id="subject_list_page" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
              aria-labelledby="subject_list_page_tab">
             <div class="panel-header"><h4> Предмети</h4></div>
             <div class="panel-body">
@@ -81,8 +93,8 @@
 
             </div>
         </div>
-        <div id="admin_page" class="col-md-10 border rounded panel tab-pane fade page" role="tabpanel"
-             aria-labelledby="admin_page_tab">
+        <div id="admin_tables" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
+             aria-labelledby="admin_tables_tab">
             <h4 id="adminLabel" class="font-left col-md-12 panel-heading">Hello admin!</h4>
             <button id="add_admin" type="button" class="btn btn-info col-md-3 bg-blue" data-toggle="modal"
                     data-target="#add_admin_modal">Додати адміна
@@ -116,7 +128,8 @@
                             <td>Контрактова площа</td>
                             <td>+0445354213</td>
                             <td>
-                                <button id="edit_school" type="button" class="btn btn-sm btn-info bg-blue" data-toggle="modal"
+                                <button id="edit_school" type="button" class="btn btn-sm btn-info bg-blue"
+                                        data-toggle="modal"
                                         data-target="#edit_school_modal" onclick="editSchoolModal(0)">
                                     ️edit
                                 </button>
@@ -130,39 +143,334 @@
                 </div>
             </div>
         </div>
-        <div id="cabinet_page" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
-             aria-labelledby="cabinet_page_tab">
-            <div class="panel-header"><h5> Особистий кабінет</h5></div>
+        <div id="admin_page" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
+             aria-labelledby="admin_page_tab">
+            <div class="panel-header row">
+                <h5 id="admin_pib" class="text-25 bold col-md-10"></h5>
+                <button class="col-md-2 btn btn-outline-info" data-target="#edit_admin_modal"
+                        id="edit_admin_modal_button" data-toggle="modal">Редагувати
+                </button>
+            </div>
+            <div class="panel-body">
+                <br>
+                <div class="row">
+                    <p class="col-md-3">Логін:</p>
+                    <p id="admin_login" class="col-md-4"></p>
+
+                </div>
+                <div class="row">
+                    <p class="col-md-3">Email:</p>
+                    <p id="admin_email" class="col-md-4"></p>
+
+                </div>
+                <div class="row">
+
+                    <p id="admin_notes" class="col-md-8 text-break"></p>
+                </div>
+
+            </div>
+
+        </div>
+        <div id="pupil_page" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
+             aria-labelledby="pupil_page_tab">
+            <div class="panel-header row">
+                <h5 id="pupil_pib" class="text-25 bold col-md-10"></h5>
+                <button class="col-md-2 btn btn-outline-info" data-target="#edit_pupil_modal"
+                        id="edit_pupil_modal_button" data-toggle="modal">Редагувати
+                </button>
+            </div>
+            <div class="panel-body">
+                <br>
+
+                <div class="row">
+                    <p class="col-md-3">Код школи:</p>
+                    <p id="pupil_schoolcode" class="col-md-4">S</p>
+
+                </div>
+                <div class="row">
+                    <p class="col-md-3">Учнівський:</p>
+                    <p id="pupil_pupilcode" class="col-md-6"></p>
+                </div>
+                <div class="row">
+                    <p class="col-md-3">Клас:</p>
+                    <p id="pupil_class" class="col-md-4"></p>
+                </div>
+                <div class="row">
+                    <p class="col-md-3">Дата народження:</p>
+                    <p id="pupil_bday" class="col-md-4"></p>
+                </div>
+
+                <div class="row">
+                    <p class="col-md-3">Email:</p>
+                    <p id="pupil_email" class="col-md-4"></p>
+                </div>
+                <div class="row">
+                    <p class="col-md-3">Телефон:</p>
+                    <p id="pupil_phone" class="col-md-4"></p>
+                </div>
+                <div class="row">
+
+                    <p id="pupil_notes" class="col-md-8 text-break"></p>
+                </div>
+
+            </div>
         </div>
         <div id="teacher_page" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
              aria-labelledby="teacher_page_tab">
-            <div class="panel-header"><h5 id="teacher_pib"> Шкаровська Наталія Сергіївна</h5></div>
-            <div class="panel-body row">
-
-                <p id="teacher_id" class="text-muted col-md-4">00201868</p>
-                <p id="teacher_school_code" class="text-muted col-md-4">SH2FG223FR</p>
-
-                <button id="add_subject" type="button" class="btn btn-info col-md-3 bg-blue"
-                        data-target="#add_subject_modal" data-toggle="modal">Додати предмет
+            <div class="panel-header row">
+                <h5 id="teacher_pib" class="text-25 bold col-md-10"></h5>
+                <button id="edit_teacher_modal_button" class="col-md-2 btn btn-outline-info"
+                        data-target="#edit_teacher_modal"
+                        data-toggle="modal">Редагувати
                 </button>
+            </div>
+            <div class="panel-body">
+                <br>
 
+                <div class="row">
+                    <p class="col-md-3">Код школи:</p>
+                    <p id="teacher_schoolcode" class="col-md-4"></p>
+                    <button id="teacher_phd" class="col-md-2 btn btn-warning bg-yellow " disabled>🎓PhD</button>
+                </div>
 
-                <div class="list-group col-md-12 mg-v-15" id="teacher_list">
-
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
-                       role="tab" onclick="show_subject()">Алгебра 10 клас</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
-                       role="tab" onclick="show_subject()">Геометрія 10 клас</a>
-
+                <div class="row">
+                    <p class="col-md-3">Код вчителя:</p>
+                    <p id="teacher_teachercode" class="col-md-6"></p>
+                </div>
+                <div class="row">
+                    <p class="col-md-3">Освіта:</p>
+                    <p id="teacher_education" class="col-md-4"></p>
+                </div>
+                <div class="row">
+                    <p class="col-md-3">Телефон:</p>
+                    <p id="teacher_phone" class="col-md-4"></p>
+                </div>
+                <div class="row">
+                    <p class="col-md-3">email:</p>
+                    <p id="teacher_email" class="col-md-4"></p>
+                </div>
+                <div class="row">
+                    <p id="teacher_notes" class="col-md-8 text-break"></p>
                 </div>
             </div>
         </div>
         <div id="subject_page" class="col-md-10 border rounded panel page">
             <p>Algebra 9 klass</p>
         </div>
+        <div id="teacher_list_page" class="col-md-10 border rounded tab-pane panel fade page show" role="tabpanel"
+             aria-labelledby="teacher_list_page_tab">
+            <button id="add_subject" type="button" class="btn btn-info col-md-3 bg-blue"
+                    data-target="#add_subject_modal" data-toggle="modal">Додати предмет
+            </button>
+
+
+            <div class="list-group col-md-12 mg-v-15" id="teacher_list">
+
+                <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
+                   role="tab" onclick="show_subject()">Алгебра 10 клас</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
+                   role="tab" onclick="show_subject()">Геометрія 10 клас</a>
+
+            </div>
+
+
+        </div>
+        <div id="hometask_page" class="col-md-10 border rounded panel page">
+
+        </div>
     </div>
 </div>
 
+<!--edit admin modal-->
+<div class="modal fade" id="edit_admin_modal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Редагувати інформацію</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation pd-7" novalidate>
+                    <div class="form-group row">
+                        <label for="new_admin_login" class="col-md-3 col-form-label">Логін:</label>
+
+                            <input id="new_admin_login" type="text" class="form-control col-md-9" maxlength=45>
+
+                    </div>
+                    <div class="form-group row">
+                        <label for="new_admin_name" class="col-md-3 ">Ім'я:</label>
+
+                            <input id="new_admin_name" type="text" class="form-control col-md-9" maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="new_admin_surname" class="col-md-3">Прізвище:</label>
+
+                        <input id="new_admin_surname" type="text" class="form-control col-md-9" maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="new_admin_email" class="col-md-3 ">Email:</label>
+
+                            <input id="new_admin_email" type="text" class="form-control col-md-9" maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="new_admin_notes" class="col-md-3 ">Примітки:</label>
+
+                            <textarea rows=2 id="new_admin_notes" class="form-control col-md-9"></textarea>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="edit_admin_button" type="button" class="btn btn-outline-info">
+                    Зберегти
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--edit pupil modal-->
+<div class="modal fade" id="edit_pupil_modal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Редагувати інформацію</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation pd-7" novalidate>
+                    <div class="form-group row ">
+                        <label for="new_pupil_surname" class="col-md-4"> Прізвище:</label>
+                        <input id="new_pupil_surname" class="form-control col-md-8" required maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="new_pupil_name" class="col-md-4">Ім'я:</label>
+                        <input id="new_pupil_name" class="form-control col-md-8" required maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="new_pupil_fathername" class="col-md-4"> По-батькові :</label>
+                        <input id="new_pupil_fathername" class="form-control col-md-8" required maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+
+                    </div>
+                    <div class="form-group row ">
+                        <label for="new_pupil_class" class="col-md-4">Клас:</label>
+                        <input type="number" id="new_pupil_class" class="form-control col-md-8" min="2" max="11"
+                               required>
+                        <div class="invalid-feedback">Це обов'язкове поле</div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="new_pupil_email" class="col-md-4">Email:</label>
+                        <input id="new_pupil_email" class="form-control col-md-8 " required maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label for="new_pupil_phone" class="col-md-4">Телефон:</label>
+                        <input id="new_pupil_phone" class="form-control col-md-8 " required maxlength=10>
+                        <div class="invalid-feedback">Дані некоректні</div>
+
+                    </div>
+
+                    <div class="form-group row ">
+                        <label for="new_pupil_notes" class="col-md-4">Примітки:</label>
+                        <textarea id="new_pupil_notes" class="form-control col-md-8" required></textarea>
+                        <div class="invalid-feedback">Дані некоректні</div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="edit_pupil_button" type="button" class="btn btn-outline-info">
+                    Зберегти
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--edit teacher modal-->
+<div class="modal fade" id="edit_teacher_modal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Редагувати вчителя</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation pd-7" novalidate>
+                    <div class="form-group row ">
+                        <label for="new_teacher_surname" class="col-md-4"> Прізвище:</label>
+                        <input id="new_teacher_surname" class="form-control col-md-8" required maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="new_teacher_name" class="col-md-4">Ім'я:</label>
+                        <input id="new_teacher_name" class="form-control col-md-8" required maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="new_teacher_fathername" class="col-md-4"> По-батькові :</label>
+                        <input id="new_teacher_fathername" class="form-control col-md-8" required maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+
+                    </div>
+
+                    <div class="form-group row ">
+                        <label for="new_teacher_email" class="col-md-4">Email:</label>
+                        <input id="new_teacher_email" class="form-control col-md-8 " required maxlength=45>
+                        <div class="invalid-feedback">Дані некоректні</div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label for="new_teacher_phone" class="col-md-4">Телефон:</label>
+                        <input id="new_teacher_phone" class="form-control col-md-8 " required maxlength=10 >
+                        <div class="invalid-feedback">Дані некоректні</div>
+
+                    </div>
+                    <div class="form-group row ">
+                        <label for="new_teacher_education" class="col-md-4">Освіта:</label>
+                        <input id="new_teacher_education" class="form-control col-md-8" required maxlength=100>
+                        <div class="invalid-feedback">Це обов'язкове поле</div>
+                    </div>
+                    <div class="form-group row ">
+                        <div class="form-check col-md-6 pd-left-35">
+                            <br>
+                            <input type="checkbox" class="custom-control-input" id="new_teacher_phd">
+                            <label for="new_teacher_phd" class="custom-control-label">Є науковий ступінь</label>
+
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="new_teacher_notes" class="col-md-4">Примітки:</label>
+                        <textarea id="new_teacher_notes" class="form-control col-md-8" required></textarea>
+
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="edit_teacher_button" type="button" class="btn btn-outline-info">
+                    Зберегти
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <!--Modal for add city-->
 <div class="modal fade" id="add_city_modal" role="dialog">
@@ -180,7 +488,7 @@
                     <div class="form-group row">
                         <label for="add_city_current" class="col-md-3 col-form-label pd-right-0">Наявні міста:</label>
                         <div class="col-md-9">
-                            <select id="add_city_current" class="form-control" ></select>
+                            <select id="add_city_current" class="form-control"></select>
                         </div>
                     </div>
 
@@ -194,7 +502,8 @@
                     <div class="form-group row">
                         <label for="new_added_city_notes" class="col-md-3 col-form-label pd-right-0">Опис:</label>
                         <div class="col-md-9">
-                            <textarea id="new_added_city_notes" type="text" class="form-control" maxlength=255></textarea>
+                            <textarea id="new_added_city_notes" type="text" class="form-control"
+                                      maxlength=255></textarea>
                         </div>
                     </div>
                 </form>
@@ -224,16 +533,16 @@
                 <form class="needs-validation" novalidate>
 
                     <div class="form-group row">
-                        <div class="col-sm-12">
+                        <div class="col-md-12">
                             <label for="new_subject_name">Назва предмету:</label>
                             <input id="new_subject_name" class="form-control" required>
                             <div class="invalid-feedback">Це обов'язкове поле</div>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-md-12">
                             <label for="new_subject_description">Опис предмету:</label>
                             <textarea id="new_subject_description" class="form-control"></textarea>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-md-12">
                             <label for="new_subject_class">Клас:</label>
                             <input id="new_subject_class" type="number" min="1" max="11" class="form-control">
                             <div class="invalid-feedback">Клас вказаний невірно</div>
@@ -311,7 +620,7 @@
                             </div>
                             <input id="input_school_phone" type="text" class="form-control"
                                    placeholder="(_ _ _)_ _ _ _ _ _ _"
-                                   aria-describedby="basic-addon"  maxlength=11>
+                                   aria-describedby="basic-addon" maxlength=11>
                         </div>
                         <div class="invalid-feedback">Некоректний номер телефону</div>
                     </div>
@@ -460,19 +769,19 @@
                             </div>
                             <input id="edit_school_phone" type="text" class="form-control"
                                    placeholder="(_ _ _)_ _ _ _ _ _ _"
-                                   aria-describedby="phone_addon"  maxlength=11>
+                                   aria-describedby="phone_addon" maxlength=11>
                         </div>
                         <div class="invalid-feedback">Некоректний номер телефону</div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input id="edit_school_photo" type="file" accept="image/*" >
+                            <input id="edit_school_photo" type="file" accept="image/*">
                         </div>
                         <div class="invalid-feedback">Виберіть файл з зображенням</div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <textarea id="edit_school_notes" class="form-control" >Примітки</textarea>
+                            <textarea id="edit_school_notes" class="form-control">Примітки</textarea>
                         </div>
                     </div>
 
@@ -585,7 +894,8 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="reg_education">Освіта:</label>
-                            <input type="text" class="form-control" id="reg_education" name="education" required maxlength=255>
+                            <input type="text" class="form-control" id="reg_education" name="education" required
+                                   maxlength=255>
                             <div class="invalid-feedback">Введіть навчальний заклад</div>
                         </div>
                     </div>
@@ -602,7 +912,7 @@
                 </div>
                 <div class="form-group col-md-12">
                     <label for="reg_password2">Підтвердіть пароль:</label>
-                    <input type="password"  maxlength=45 class="form-control" id="reg_password2" minlength="6" required>
+                    <input type="password" maxlength=45 class="form-control" id="reg_password2" minlength="6" required>
                     <div class="invalid-feedback">Паролі не збігаються</div>
                 </div>
             </div>
@@ -646,7 +956,6 @@
     </div>
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="js/validation.js"></script>
@@ -654,6 +963,7 @@
 <script src="js/onkeyup.js"></script>
 <script src="js/add.js"></script>
 <script src="js/main.js"></script>
-
+<script src="js/teacher.js"></script>
+<script src="js/pupil.js"></script>
 </body>
 </html>

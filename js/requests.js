@@ -1,10 +1,10 @@
 function addNewCity() {
-    if(!validName("new_added_city")){
+    if (!validName("new_added_city")) {
         return false;
     }
-    let data = { "city": $("#new_added_city").val()};
+    let data = {"city": $("#new_added_city").val()};
     const notes = $("#new_added_city_notes").val();
-    if(notes!=="")
+    if (notes !== "")
         data['notes'] = notes;
     $.ajax({
         url: 'http://localhost:2303/addCity',
@@ -14,7 +14,7 @@ function addNewCity() {
         success: function () {
             $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
                 "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
-                " <strong>Вітаємо</strong> Місто <u>"+city+"</u>додано!" +
+                " <strong>Вітаємо</strong> Місто <u>" + city + "</u>додано!" +
                 "</div>");
             setClear(["#new_added_city"]);
         },
@@ -28,10 +28,10 @@ function addNewCity() {
 function addSubject() {
 
     if (!validEmpty("new_subject_name") || !validFreeClass("new_subject_class"))
-    return false;
-    let name=$("#new_subject_name").val();
+        return false;
+    let name = $("#new_subject_name").val();
     $("#teacher_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' data-toggle='list'" +
-                "role='tab' onclick='show_subject()'>" + name + "</a>");
+        "role='tab' onclick='show_subject()'>" + name + "</a>");
 
     //TODO add new subject to database
 
@@ -39,11 +39,11 @@ function addSubject() {
         "name": name
     };
     const descr = $("#new_subject_description").val();
-    if(descr!==""){
+    if (descr !== "") {
         date['description'] = descr;
     }
     const klass = $("#new_subject_class").val();
-    if(klass!==""){
+    if (klass !== "") {
         date['class'] = klass;
     }
 
@@ -65,14 +65,13 @@ function addSubject() {
     $("#add_subject_modal").modal('hide');
 
 
-
 }
 
 
 function addSchool() {
-    if(!validName("input_school_name") || !validFName("input_school_region") ||
+    if (!validName("input_school_name") || !validFName("input_school_region") ||
         !validName("input_school_street") || !validPhone("input_school_phone") ||
-        !validHouse("input_school_house")){
+        !validHouse("input_school_house")) {
         return false;
     }
     let data = {
@@ -83,11 +82,11 @@ function addSchool() {
         "phone": $("#input_school_phone").val()
     };
     const notes = $("#input_school_notes").val();
-    if(notes!==""){
+    if (notes !== "") {
         data['notes'] = notes;
     }
     const region = $("#input_school_region").val();
-    if(notes!==""){
+    if (notes !== "") {
         data['region'] = region;
     }
     $.ajax({
@@ -98,16 +97,16 @@ function addSchool() {
         success: function (data) {
             $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
                 "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
-                " <strong>"+data.code+"</strong> - код нової школи. Вітаємо!" +
+                " <strong>" + data.code + "</strong> - код нової школи. Вітаємо!" +
                 "</div>");
-            setClear(["#input_school_name","#input_school_region","#input_school_notes","#input_school_city",
+            setClear(["#input_school_name", "#input_school_region", "#input_school_notes", "#input_school_city",
                 "#input_school_phone", "#input_school_street", "#input_school_house"]);
         },
         error: function () {
             $("#content").prepend("<div class='alert alert-danger alert-dismissible'>" +
                 "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
                 " <strong>Error!</strong> Не вдалося додати школу </div>");
-            setClear(["#input_school_name","#input_school_region","#input_school_notes","#input_school_city",
+            setClear(["#input_school_name", "#input_school_region", "#input_school_notes", "#input_school_city",
                 "#input_school_phone", "#input_school_street", "#input_school_house"]);
         },
         data: JSON.stringify(data)
@@ -115,7 +114,10 @@ function addSchool() {
 
     $("#add_school_modal").modal('hide');
 }
+
+
 function setCitiesValueOption() {
+
     $.ajax({
         url: 'http://localhost:2303/getCities',
         type: 'get',
@@ -123,8 +125,8 @@ function setCitiesValueOption() {
         contentType: 'application/json',
         success: function (data) {
             var sel = $("#input_school_city");
-            for (var i=0; i<data.length; i++){
-                sel.append("<option value='"+data[i][0]+"'>"+data[i][1]+"</option>");
+            for (var i = 0; i < data.length; i++) {
+                sel.append("<option value='" + data[i][0] + "'>" + data[i][1] + "</option>");
             }
             console.log(data);
         }
@@ -140,7 +142,7 @@ function register() {
         if (pass2 !== pass) {
             pass2Sel.removeClass('is-valid');
             pass2Sel.addClass('is-invalid');
-            setClear(["#reg_password2","#reg_password"]);
+            setClear(["#reg_password2", "#reg_password"]);
             return;
         }
 
@@ -171,20 +173,17 @@ function register() {
             success: function (data) {
                 alert(data.error);
                 localStorage.setItem("authentication", cur_user_type);
-                $("#registrypanel").hide();
-                $("#admin_page").hide();
-                $("#admin_page_tab").hide();
-                $("#entrypanel").hide();
-                $("#container").show();
-                setClear(["#reg_password2","#reg_password","#reg_firstname","#reg_lastname","#reg_fathername",
-                    "#reg_email", "#reg_phone", "#reg_code","#reg_education","#reg_phd", "#reg_teacher_code",
+
+                exit();
+                setClear(["#reg_password2", "#reg_password", "#reg_firstname", "#reg_lastname", "#reg_fathername",
+                    "#reg_email", "#reg_phone", "#reg_code", "#reg_education", "#reg_phd", "#reg_teacher_code",
                     "#reg_birth_date", "#reg_student_code", "#reg_class"]);
             },
             data: JSON.stringify(data)
         });
         gotologin();
     } else {
-        setClear(["#reg_password2","#reg_password"]);
+        setClear(["#reg_password2", "#reg_password"]);
     }
 }
 
@@ -199,17 +198,15 @@ function login() {
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
-        'accept': "application/json",
+        accept: "application/json",
         success: function (data) {
             localStorage.setItem('authentication', data.id);
             $("#entrypanel").hide();
             $("#registrypanel").hide();
-            if (cur_user_type === 'admin') {
-                setCitiesValueOption();
-                $("#admin_page").show();
-                $("#admin_page_tab").show();
-            }
-            $("#container").show();
+            if (cur_user_type == 'teacher') showTeacher(data.id);
+            if (cur_user_type == 'pupil') showPupil(data.id);
+            if (cur_user_type == 'admin') showAdmin(data.id);
+
             setClear(["#entry_email", "#entry_password"]);
         },
         error: function () {

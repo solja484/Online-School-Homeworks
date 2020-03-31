@@ -1,16 +1,9 @@
 // user-types = ["admin", "teacher", "pupil"];
 localStorage.setItem("usertype", "pupil");
 
+//hide all and show login page
+exit();
 
-//$("#container").hide();
-//$("#entrypanel").show();
- $("#entrypanel").hide();
- $("#registrypanel").hide();
-// $("#admin_page").hide();
-// $("#admin_page_tab").hide();
-// $("#subject_page").hide();
- $("#container").show();
-// shoW('subject_list_page');
 
 function change_entry_type(t) {
     if (t === 0) {
@@ -40,25 +33,52 @@ function change_reg_type(t) {
 }
 
 
-function shoW(except) {
+function showPage(except) {
     $("#admin_page").hide();
-    $("#cabinet_page").hide();
-    $("#subject_list_page").hide();
-    $("#subject_page").hide();
+    $("#admin_tables").hide();
+
     $("#teacher_page").hide();
+    $("#teacher_list_page").hide();
+
+    $("#pupil_page").hide();
+    $("#subject_list_page").hide();
+
+    $("#subject_page").hide();
+    $("#hometask_page").hide();
+
     $("#" + except).show();
 }
 
 function show_subject() {
-    shoW('subject_list_page');
+    showPage('subject_list_page');
     $("#subject_list_page").hide();
     $("#subject_page").show();
 }
 
 
 function exit() {
-    localStorage.setItem("usertype", "pupil");
+    change_entry_type(2);
     localStorage.removeItem("authentication");
+
+    //hide all menu buttons
+    $("#admin_page_tab").hide();
+    $("#teacher_page_tab").hide();
+    $("#teacher_list_page_tab").hide();
+    $("#pupil_page_tab").hide();
+    $("#subject_list_page_tab").hide();
+    $("#admin_tables_tab").hide();
+
+    //hide all pages
+    $("#admin_page").hide();
+    $("#teacher_page").hide();
+    $("#teacher_list_page").hide();
+    $("#pupil_page").hide();
+    $("#subject_list_page").hide();
+    $("#subject_page").hide();
+    $("#hometask_page").hide();
+    $("#admin_tables").hide();
+
+    $("#registrypanel").hide();
     $("#container").hide();
     $("#entrypanel").show();
 }
@@ -68,6 +88,8 @@ function setClear(arr) {
     }
 
 }
+
+
 
 function gotoregistration() {
     $("#registrypanel").show();
@@ -81,20 +103,34 @@ function gotologin() {
     $("#container").hide();
 }
 
-function checkValidity() {
-    if (!validName("reg_lastname") || !validName("reg_firstname") || !validFName("reg_fathername") ||
-        !validEmail("reg_email") || !validPass("reg_password") || !validCode("reg_code") || !validPhone("reg_phone")) {
-        return false
-    }
-    var cur_user_type = localStorage.getItem("usertype");
-    if (cur_user_type === 'teacher') {
-        if (!validDocument("reg_teacher_code") || !validEmpty("reg_education")) {
-            return false;
-        }
-    } else if (cur_user_type === 'pupil') {
-        if (!validClass("reg_class") || !validDocument("reg_student_code") || !validEmpty("reg_birth_date")) {
-            return false;
-        }
-    }
-    return true;
+
+
+function showTeacher(id){
+
+    $("#teacher_page_tab").show();
+    $("#teacher_list_page_tab").show();
+    $("#teacher_list_page").show();
+    $("#container").show();
+    fillTeacherInfo(id);
+}
+
+
+
+
+function showPupil(id){
+    $("#container").show();
+
+    $("#pupil_page").show();$("#pupil_page_tab").show();
+    $("#subject_list_page_tab").show();
+    fillPupilInfo(id);
+}
+
+function  showAdmin(id){
+    setCitiesValueOption();
+
+    $("#admin_page_tab").show();
+    $("#admin_tables_tab").show();
+    $("#admin_tables").show();
+    $("#container").show();
+    fillAdminInfo(id);
 }

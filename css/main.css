@@ -24,7 +24,11 @@ body {
 }
 
 .pd-15 {
-    padding-bottom: 7px;
+    padding-bottom: 7px;;
+}
+
+.pd-7{
+    padding: 7px 20px 7px 10px ;
 }
 
 .hide {
@@ -44,6 +48,9 @@ body {
 .bg-blue {
     background: #7cdeeb;
 !important;
+}
+.bg-hover-blue:hover,.bg-hover-blue:active,.bg-hover-blue:focus{
+    background: #7cdeeb;!important;
 }
 
 .bg-red {
@@ -134,7 +141,12 @@ body {
 .text-13 {
     font-size: 13px !important;
 }
-
+.text-25{
+    font-size: 25px !important;
+}
+.bold{
+    font-weight:bold;
+}
 .ov-auto {
     overflow: auto !important;
 }
