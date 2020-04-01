@@ -59,6 +59,7 @@ function show_subject() {
 function exit() {
     change_entry_type(2);
     localStorage.removeItem("authentication");
+    sessionStorage.removeItem("schoolcode");
 
     //hide all menu buttons
     $("#admin_page_tab").hide();
@@ -126,8 +127,6 @@ function showPupil(id){
 }
 
 function  showAdmin(id){
-    setCitiesValueOption();
-
     $("#admin_page_tab").show();
     $("#admin_tables_tab").show();
     $("#admin_tables").show();

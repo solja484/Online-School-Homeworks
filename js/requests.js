@@ -31,7 +31,7 @@ function addSubject() {
         return false;
     let name = $("#new_subject_name").val();
     $("#teacher_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' data-toggle='list'" +
-        "role='tab' onclick='show_subject()'>" + name + "</a>");
+        " role='tab' onclick='show_subject()'>" + name + "</a>");
 
     //TODO add new subject to database
 
@@ -116,15 +116,14 @@ function addSchool() {
 }
 
 
-function setCitiesValueOption() {
-
+function setCitiesValueOption(selectorID) {
     $.ajax({
         url: 'http://localhost:2303/getCities',
         type: 'get',
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
-            var sel = $("#input_school_city");
+            var sel = $(selectorID);
             for (var i = 0; i < data.length; i++) {
                 sel.append("<option value='" + data[i][0] + "'>" + data[i][1] + "</option>");
             }
@@ -203,9 +202,9 @@ function login() {
             localStorage.setItem('authentication', data.id);
             $("#entrypanel").hide();
             $("#registrypanel").hide();
-            if (cur_user_type == 'teacher') showTeacher(data.id);
-            if (cur_user_type == 'pupil') showPupil(data.id);
-            if (cur_user_type == 'admin') showAdmin(data.id);
+            if (cur_user_type === 'teacher') showTeacher(data.id);
+            if (cur_user_type === 'pupil') showPupil(data.id);
+            if (cur_user_type === 'admin') showAdmin(data.id);
 
             setClear(["#entry_email", "#entry_password"]);
         },
@@ -262,6 +261,6 @@ function addAdmin() {
         },
         data: JSON.stringify(data)
     });
-
     $("#add_admin_modal").modal('hide');
 }
+

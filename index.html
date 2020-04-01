@@ -101,10 +101,12 @@
             </button>
 
             <button id="add_school" type="button" class="btn btn-danger col-md-3 bg-red"
-                    data-target="#add_school_modal" data-toggle="modal">Додати школу
+                    data-target="#add_school_modal" data-toggle="modal"
+                    onclick="setCitiesValueOption('#input_school_city')">Додати школу
             </button>
             <button id="add_city" type="button" class="btn btn-warning col-md-3 text-white bg-yellow"
-                    data-target="#add_city_modal" data-toggle="modal" onclick="addCityModal()">Додати місто
+                    data-target="#add_city_modal" data-toggle="modal"
+                    onclick="setCitiesValueOption('#add_city_current')">Додати місто
             </button>
 
             <div class="panel ov-auto">
@@ -181,12 +183,6 @@
             </div>
             <div class="panel-body">
                 <br>
-
-                <div class="row">
-                    <p class="col-md-3">Код школи:</p>
-                    <p id="pupil_schoolcode" class="col-md-4">S</p>
-
-                </div>
                 <div class="row">
                     <p class="col-md-3">Учнівський:</p>
                     <p id="pupil_pupilcode" class="col-md-6"></p>
@@ -226,12 +222,6 @@
             </div>
             <div class="panel-body">
                 <br>
-
-                <div class="row">
-                    <p class="col-md-3">Код школи:</p>
-                    <p id="teacher_schoolcode" class="col-md-4"></p>
-                    <button id="teacher_phd" class="col-md-2 btn btn-warning bg-yellow " disabled>🎓PhD</button>
-                </div>
 
                 <div class="row">
                     <p class="col-md-3">Код вчителя:</p>
@@ -296,13 +286,13 @@
                     <div class="form-group row">
                         <label for="new_admin_login" class="col-md-3 col-form-label">Логін:</label>
 
-                            <input id="new_admin_login" type="text" class="form-control col-md-9" maxlength=45>
+                        <input id="new_admin_login" type="text" class="form-control col-md-9" maxlength=45>
 
                     </div>
                     <div class="form-group row">
                         <label for="new_admin_name" class="col-md-3 ">Ім'я:</label>
 
-                            <input id="new_admin_name" type="text" class="form-control col-md-9" maxlength=45>
+                        <input id="new_admin_name" type="text" class="form-control col-md-9" maxlength=45>
                         <div class="invalid-feedback">Дані некоректні</div>
                     </div>
 
@@ -315,14 +305,14 @@
                     <div class="form-group row">
                         <label for="new_admin_email" class="col-md-3 ">Email:</label>
 
-                            <input id="new_admin_email" type="text" class="form-control col-md-9" maxlength=45>
+                        <input id="new_admin_email" type="text" class="form-control col-md-9" maxlength=45>
                         <div class="invalid-feedback">Дані некоректні</div>
                     </div>
 
                     <div class="form-group row">
                         <label for="new_admin_notes" class="col-md-3 ">Примітки:</label>
 
-                            <textarea rows=2 id="new_admin_notes" class="form-control col-md-9"></textarea>
+                        <textarea rows=2 id="new_admin_notes" class="form-control col-md-9"></textarea>
 
                     </div>
                 </form>
@@ -437,7 +427,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="new_teacher_phone" class="col-md-4">Телефон:</label>
-                        <input id="new_teacher_phone" class="form-control col-md-8 " required maxlength=10 >
+                        <input id="new_teacher_phone" class="form-control col-md-8 " required maxlength=10>
                         <div class="invalid-feedback">Дані некоректні</div>
 
                     </div>
@@ -961,9 +951,7 @@
 <script src="js/validation.js"></script>
 <script src="js/requests.js"></script>
 <script src="js/onkeyup.js"></script>
-<script src="js/add.js"></script>
 <script src="js/main.js"></script>
-<script src="js/teacher.js"></script>
-<script src="js/pupil.js"></script>
+<script src="js/personalInfo.js"></script>
 </body>
 </html>
