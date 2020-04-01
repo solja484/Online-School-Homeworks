@@ -107,7 +107,6 @@ function gotologin() {
 
 
 function showTeacher(id){
-
     $("#teacher_page_tab").show();
     $("#teacher_list_page_tab").show();
     $("#teacher_list_page").show();
@@ -120,8 +119,8 @@ function showTeacher(id){
 
 function showPupil(id){
     $("#container").show();
-
-    $("#pupil_page").show();$("#pupil_page_tab").show();
+    $("#pupil_page").show();
+    $("#pupil_page_tab").show();
     $("#subject_list_page_tab").show();
     fillPupilInfo(id);
 }

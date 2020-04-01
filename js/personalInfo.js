@@ -7,17 +7,7 @@ function fillAdminInfo(id) {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data) {
-            $("#admin_login").text(data.login);
-            $("#admin_email").text(data.email);
-            $("#admin_notes").text(data.notes);
-            $("#admin_pib").text(data.name + " " + data.surname);
-
-            $("#new_admin_login").val(data.login);
-            $("#new_admin_email").val(data.email);
-            $("#new_admin_notes").text(data.notes);
-            $("#new_admin_name").val(data.name);
-            $("#new_admin_surname").val(data.surname);
-            $("#edit_admin_button").attr('onclick', 'editAdmin(' + id + ')');
+            fillAdminFields(data,id);
         },
         error: function (data) {
             alert(data.error);
@@ -27,6 +17,22 @@ function fillAdminInfo(id) {
         })
     });
 }
+
+
+function fillAdminFields(data,id){
+    $("#admin_login").text(data.login);
+    $("#admin_email").text(data.email);
+    $("#admin_notes").text(data.notes);
+    $("#admin_pib").text(data.surname + " " + data.name);
+
+    $("#new_admin_login").val(data.login);
+    $("#new_admin_email").val(data.email);
+    $("#new_admin_notes").text(data.notes);
+    $("#new_admin_name").val(data.name);
+    $("#new_admin_surname").val(data.surname);
+    $("#edit_admin_button").attr('onclick', 'editAdmin(' + id + ')');
+}
+
 function editAdmin(id) {
     if (validName("new_admin_name") && validName("new_admin_surname") &&
         validEmail("new_admin_email")) {
@@ -44,8 +50,10 @@ function editAdmin(id) {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
+
                 // setClear(["#new_admin_name", "#new_admin_surname", "#new_admin_login",
-                //     "#new_admin_email", "#new_admin_notes"]);
+                    // "#new_admin_email", "#new_admin_notes"]);
+                 fillAdminFields(data,id);
                 $("#edit_admin_modal").modal('hide');
             },
             error: function(data){
@@ -66,29 +74,8 @@ function fillPupilInfo(id) {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data) {
-            $("#pupil_pib").text(data.name + ' ' + data.surname + ' ' + data.patronymic);
-            $("#pupil_email").text(data.email);
-            if (data.phone === "")
-                $("#pupil_phone").text("не вказано");
-            else
-                $("#pupil_phone").text(data.phone);
-            $("#pupil_class").text(data.class);
-            if (data.birthdate === "")
-                $("#pupil_bday").text("не вказано");
-            else
-                $("#pupil_bday").text(data.birthdate);
             sessionStorage.setItem("schoolcode",data.schoolid);
-            $("#pupil_notes").text(data.notes);
-            $("#pupil_pupilcode").text(id);
-
-            $("#new_pupil_name").val(data.name);
-            $("#new_pupil_surname").val(data.surname);
-            $("#new_pupil_fathername").val(data.patronymic);
-            $("#new_pupil_email").val(data.email);
-            $("#new_pupil_phone").val(data.phone);
-            $("#new_pupil_class").val(data.class);
-            $("#new_pupil_notes").val(data.notes);
-            $("#edit_pupil_button").attr('onclick','editPupil('+id+')');
+           fillPupilFields(data,id);
         },
         error: function (data) {
             alert(data.error);
@@ -98,6 +85,33 @@ function fillPupilInfo(id) {
         })
     });
 }
+
+function fillPupilFields(data,id){
+    $("#pupil_pib").text(data.surname +' '+data.name + ' ' + data.patronymic);
+    $("#pupil_email").text(data.email);
+    if (data.phone === "")
+        $("#pupil_phone").text("не вказано");
+    else
+        $("#pupil_phone").text(data.phone);
+    $("#pupil_class").text(data.class);
+    if (data.birthdate === "")
+        $("#pupil_bday").text("не вказано");
+    else
+        $("#pupil_bday").text(data.birthdate);
+
+    $("#pupil_notes").text(data.notes);
+    $("#pupil_pupilcode").text(id);
+
+    $("#new_pupil_name").val(data.name);
+    $("#new_pupil_surname").val(data.surname);
+    $("#new_pupil_fathername").val(data.patronymic);
+    $("#new_pupil_email").val(data.email);
+    $("#new_pupil_phone").val(data.phone);
+    $("#new_pupil_class").val(data.class);
+    $("#new_pupil_notes").val(data.notes);
+    $("#edit_pupil_button").attr('onclick','editPupil('+id+')');
+}
+
 function editPupil(id){
     if(validName("new_pupil_name")&& validName("new_pupil_surname")&&
         validFName("new_pupil_fathername")&& validEmail("new_pupil_email")&&
@@ -119,8 +133,9 @@ function editPupil(id){
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
-                // setClear(["#new_pupil_name", "#new_pupil_surname", "#new_pupil_fathername", "#new_pupil_email",
-                // "#new_pupil_phone", "#new_pupil_class", "#new_pupil_notes"]);
+                fillPupilFields(data,id);
+                //setClear(["#new_pupil_name", "#new_pupil_surname", "#new_pupil_fathername", "#new_pupil_email",
+                 //"#new_pupil_phone", "#new_pupil_class", "#new_pupil_notes"]);
                 $("#edit_pupil_modal").modal('hide');
             },
             error: function(data){
@@ -153,7 +168,7 @@ function fillTeacherInfo(id) {
                 $("#teacher_phd").hide();
             if (data[6])
                 $("#new_teacher_phd").attr("checked", "checked");
-            sessionStorage.setItem("schoolcode",data.schoolid);
+
             $("#teacher_notes").text(data.notes);
             $("#teacher_teachercode").text(id);
 
@@ -165,6 +180,7 @@ function fillTeacherInfo(id) {
             $("#new_teacher_education").val(data.education);
             $("#new_teacher_notes").val(data.notes);
             $("#edit_teacher_button").attr('onclick', 'editTeacher(' + id + ')');
+            sessionStorage.setItem("schoolcode",data.schoolid);
         },
         error: function (data) {
             alert(data.error);
@@ -174,10 +190,18 @@ function fillTeacherInfo(id) {
         })
     });
 }
+
+function fillTeacherFields(data,id){
+
+}
+
 function editTeacher(id) {
     if (validName("new_teacher_name") && validName("new_teacher_surname") &&
         validFName("new_teacher_fathername") && validEmail("new_teacher_email") &&
         validPhone("new_teacher_phone") && validEmpty("new_teacher_education")) {
+
+
+
 
         let data = {
             "id": id,
@@ -191,15 +215,20 @@ function editTeacher(id) {
             "notes": $("#new_teacher_notes").val()
         };
 
+
+
         $.ajax({
             url: 'http://localhost:2303/editteacherinfo',
             type: 'post',
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
+                //fillTeacherFields(data,id);
                 // setClear(["#new_teacher_name", "#new_teacher_surname", "#new_teacher_fathername", "#new_teacher_email",
-                //     "#new_teacher_phone", "#new_teacher_education", "#new_teacher_notes"]);
+                    // "#new_teacher_phone", "#new_teacher_education", "#new_teacher_notes"]);
+                fillTeacherInfo(id);
                 $("#edit_teacher_modal").modal('hide');
+
             },
             error: function(data){
                 alert(data.error);
