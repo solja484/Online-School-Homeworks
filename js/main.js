@@ -45,14 +45,12 @@ function showPage(except) {
 
     $("#subject_page").hide();
     $("#hometask_page").hide();
+    $("#school_page").hide();
+
+    $("#teacher_olympiads_list").hide();
+    $("#olympiads_list").hide();
 
     $("#" + except).show();
-}
-
-function show_subject() {
-    showPage('subject_list_page');
-    $("#subject_list_page").hide();
-    $("#subject_page").show();
 }
 
 
@@ -68,6 +66,8 @@ function exit() {
     $("#pupil_page_tab").hide();
     $("#subject_list_page_tab").hide();
     $("#admin_tables_tab").hide();
+    $("#olympiads_tab").hide();
+    $("#teacher_olympiads_tab").hide();
 
     //hide all pages
     $("#admin_page").hide();
@@ -78,9 +78,12 @@ function exit() {
     $("#subject_page").hide();
     $("#hometask_page").hide();
     $("#admin_tables").hide();
+    $("#school_page").hide();
+    $("#teacher_olympiads_list").hide();
+    $("#olympiads_list").hide();
 
     $("#registrypanel").hide();
-    $("#container").hide();
+    //$("#container").hide();
     $("#entrypanel").show();
 }
 function setClear(arr) {
@@ -107,28 +110,66 @@ function gotologin() {
 
 
 function showTeacher(id){
+    fillTeacherInfo(id);
+    fillTeacherSubjects(id);
     $("#teacher_page_tab").show();
     $("#teacher_list_page_tab").show();
     $("#teacher_list_page").show();
+
+
+    $("#teacher_olympiads_tab").show();
     $("#container").show();
-    fillTeacherInfo(id);
+
 }
 
 
 
 
 function showPupil(id){
-    $("#container").show();
-    $("#pupil_page").show();
-    $("#pupil_page_tab").show();
-    $("#subject_list_page_tab").show();
     fillPupilInfo(id);
+    fillPupilSubjects(id);
+    $("#container").show();
+    $("#subject_list_page").show();
+    $("#pupil_page_tab").show();
+    $("#olympiads_tab").show();
+    $("#subject_list_page_tab").show();
+
 }
 
 function  showAdmin(id){
+    fillAdminInfo(id);
     $("#admin_page_tab").show();
     $("#admin_tables_tab").show();
     $("#admin_tables").show();
     $("#container").show();
-    fillAdminInfo(id);
+
+}
+
+
+function show_subject(subject_data) {
+    showPage('subject_page');
+    if(localStorage.getItem("usertype")==="teacher")
+        fillTeacherHometasks(subject_data);
+    else if (localStorage.getItem("usertype")==="pupil")
+        fillPupilHometasks(subject_data);
+}
+
+function showHometask(hw_id){
+    showPage("hometask_page");
+    fillHometask(hw_id);
+
+}
+
+function addHyperlinkField(id){
+    $("#add_hyperlink_field_button").remove();
+    $("#add_hw_form_body").append(" <div class='col-md-12'>\n" +
+
+        "                            <input type='text' id='new_hw_link"+id+"' class='form-control' max='255'>\n" +
+        "                        </div>");
+    $("#add_hw_form_body").append(" <div class='col-md-2'>\n" +
+        "                            <button id='add_hyperlink_field_button' class='btn btn-light btn-sm'\n" +
+        "                                    onclick='addHyperlinkField("+(id+1)+")'>+\n" +
+        "                            </button>\n" +
+        "                        </div>");
+
 }

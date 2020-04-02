@@ -7,6 +7,7 @@
           crossorigin="anonymous">
     <link href="css/main.css" rel="stylesheet" media="screen">
     <link href="css/registry.css" rel="stylesheet" media="screen">
+    <link href="css/homeworks.css" rel="stylesheet" media="screen">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js" type="text/javascript"></script>
 </head>
 <body>
@@ -58,6 +59,18 @@
                            onclick="showPage('admin_tables');">📒Школи</a>
                     </li>
 
+                    <li class="nav-item width-100">
+                        <a class="nav-link btn-light " id="teacher_olympiads_tab" aria-controls="teacher_olympiads_list"
+                           data-toggle="pill" role="tab" href="#admin_tables"
+                           onclick="showPage('teacher_olympiads_list');">📆Олімпіади</a>
+                    </li>
+
+                    <li class="nav-item width-100">
+                        <a class="nav-link btn-light " id="olympiads_tab" aria-controls="olympiads_list"
+                           data-toggle="pill" role="tab" href="#admin_tables"
+                           onclick="showPage('olympiads_list');">🥇Олімпіади</a>
+                    </li>
+
                     <li class="nav-item entry_li">
                         <a id="exit_button" class="exit_menu " type="button" onclick="exit()">
                             ❌Вихід</a>
@@ -67,33 +80,30 @@
         </div>
     </div>
     <div id="content" class="col-md-9 row">
-
-        <div id="subject_list_page" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
+        <div id="subject_list_page" class="col-md-10 border rounded tab-pane panel fade page show" role="tabpanel"
              aria-labelledby="subject_list_page_tab">
             <div class="panel-header"><h4> Предмети</h4></div>
             <div class="panel-body">
                 <form class="input-group mb-3">
-                    <input type="text" class="form-control " placeholder="Пошук" aria-describedby="button-button">
+                    <input id="subject_search_input" type="text" class="form-control " placeholder="Пошук"
+                           aria-describedby="button-button">
                     <div class="input-group-append" maxlength=45>
-                        <button class="btn btn-outline-secondary " type="button" id="search_button">&#128269;</button>
+                        <button class="btn btn-outline-secondary " type="button" id="search_button"
+                                onclick="searchSubject();">&#128269;
+                        </button>
 
                     </div>
                 </form>
                 <h5> Мої предмети</h5>
                 <div class="list-group" id="subject_list">
 
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
-                       role="tab">Алгебра 10 клас</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
-                       role="tab">Геометрія 10 клас</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
-                       role="tab">English </a>
+
                 </div>
 
 
             </div>
         </div>
-        <div id="admin_tables" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
+        <div id="admin_tables" class="col-md-10 border rounded tab-pane panel fade page show" role="tabpanel"
              aria-labelledby="admin_tables_tab">
             <h4 id="adminLabel" class="font-left col-md-12 panel-heading">Hello admin!</h4>
             <button id="add_admin" type="button" class="btn btn-info col-md-3 bg-blue" data-toggle="modal"
@@ -149,9 +159,11 @@
              aria-labelledby="admin_page_tab">
             <div class="panel-header row">
                 <h5 id="admin_pib" class="text-25 bold col-md-10"></h5>
-                <button class="col-md-2 btn btn-outline-info" data-target="#edit_admin_modal"
-                        id="edit_admin_modal_button" data-toggle="modal">Редагувати
-                </button>
+                <div class="col-md-12">
+                    <button class=" float-right btn btn-outline-info" data-target="#edit_admin_modal"
+                            id="edit_admin_modal_button" data-toggle="modal">Редагувати
+                    </button>
+                </div>
             </div>
             <div class="panel-body">
                 <br>
@@ -173,16 +185,21 @@
             </div>
 
         </div>
-        <div id="pupil_page" class="col-md-10 border rounded tab-pane panel fade page" role="tabpanel"
+        <div id="pupil_page" class="col-md-10 border rounded tab-pane panel fade page " role="tabpanel"
              aria-labelledby="pupil_page_tab">
             <div class="panel-header row">
                 <h5 id="pupil_pib" class="text-25 bold col-md-10"></h5>
-                <button class="col-md-2 btn btn-outline-info" data-target="#edit_pupil_modal"
-                        id="edit_pupil_modal_button" data-toggle="modal">Редагувати
-                </button>
+                <div class="col-md-12">
+                    <a id="pupil_school_link" href="#school_page" onclick="showPage('school_page')"></a>
+                    <button class=" btn btn-outline-info float-right" data-target="#edit_pupil_modal"
+                            id="edit_pupil_modal_button" data-toggle="modal">Редагувати
+                    </button>
+                </div>
             </div>
             <div class="panel-body">
-                <br>
+                <div class="row">
+
+                </div>
                 <div class="row">
                     <p class="col-md-3">Учнівський:</p>
                     <p id="pupil_pupilcode" class="col-md-6"></p>
@@ -215,13 +232,16 @@
              aria-labelledby="teacher_page_tab">
             <div class="panel-header row">
                 <h5 id="teacher_pib" class="text-25 bold col-md-10"></h5>
-                <button id="edit_teacher_modal_button" class="col-md-2 btn btn-outline-info"
-                        data-target="#edit_teacher_modal"
-                        data-toggle="modal">Редагувати
-                </button>
+                <div class="col-md-12">
+                    <a id="teacher_school_link" href="#school_page" onclick="showPage('school_page')"></a>
+                    <button id="edit_teacher_modal_button" class="float-right btn btn-outline-info"
+                            data-target="#edit_teacher_modal"
+                            data-toggle="modal">Редагувати
+                    </button>
+                </div>
             </div>
             <div class="panel-body">
-                <br>
+
 
                 <div class="row">
                     <p class="col-md-3">Код вчителя:</p>
@@ -245,32 +265,319 @@
             </div>
         </div>
         <div id="subject_page" class="col-md-10 border rounded panel page">
-            <p>Algebra 9 klass</p>
+            <div class="panel-header row">
+                <h5 id="subject_title" class="text-25 bold col-md-10"></h5>
+                <h5 class="col_md_12 text-muted text-break" id="#subject_descr"></h5>
+                <div class='col-md-12'>
+                    <button id='add_hometask_modal_button' data-target='#add_hometask_modal' data-toggle='modal'
+                            class='btn btn-outline-info bg-hover-blue'>
+                        Додати домашнє завдання
+                    </button>
+
+                    <button id="delete_subject_modal_button" class='btn btn-outline-danger bg-hover-red '
+                            data-target='#delete_sj_modal'
+                            data-toggle='modal'>
+                        Видалити предмет
+                    </button>
+                    <button id="edit_subject_modal_button" class="btn btn-outline-warning bg-hover-yellow"
+                            data-target='#edit_sj_modal'
+                            data-toggle='modal'>
+                        Редагувати предмет
+                    </button>
+                    <br><br>
+                </div>
+            </div>
+            <div class="panel-body list-group col-md-12 mg-v-15 row" id="hometasks_list">
+                <div class="hw-active col-md-12 row">
+
+
+                </div>
+            </div>
         </div>
         <div id="teacher_list_page" class="col-md-10 border rounded tab-pane panel fade page show" role="tabpanel"
              aria-labelledby="teacher_list_page_tab">
-            <button id="add_subject" type="button" class="btn btn-info col-md-3 bg-blue"
+            <div class="panel-header row">
+                <h5 class="text-25 bold col-md-10">Предмети</h5>
+
+            </div>
+            <button id="add_subject" type="button" class="btn btn-info col-md-5 bg-blue"
                     data-target="#add_subject_modal" data-toggle="modal">Додати предмет
             </button>
 
 
             <div class="list-group col-md-12 mg-v-15" id="teacher_list">
 
-                <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
-                   role="tab" onclick="show_subject()">Алгебра 10 клас</a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item-light" data-toggle="list"
-                   role="tab" onclick="show_subject()">Геометрія 10 клас</a>
 
             </div>
 
 
         </div>
         <div id="hometask_page" class="col-md-10 border rounded panel page">
+            <div class="panel-header row">
+                <h5 id="hw_title" class="text-25 col-md-10"></h5>
 
+                <div>
+
+                    <button id='edit_hometask_modal_button' data-target='#edit_hometask_modal' data-toggle='modal'
+                            class='btn btn-outline-info bg-hover-blue'>
+                        Редагувати домашнє завдання
+                    </button>
+
+                    <button id="mark_hw_modal_button" class="btn btn-outline-warning bg-hover-yellow"
+                            data-target='#mark_hw_modal'
+                            data-toggle='modal'>
+                        Оцінити
+                    </button>
+                    <br><br>
+                </div>
+            </div>
+            <div class="panel-body row">
+                <p class="text-break col-md-12" id="hw_task"></p>
+
+                <p class="text-14 text-mutes col-md-12" id="hw_notes"></p>
+                <div class="col-md-12" id="hw_links"></div>
+                <br>
+                <br>
+                <h4 class="col-md-12 text-25">Статус роботи</h4>
+                <table class="table table-striped table-hover table-borderless text-14">
+
+                    <tbody class="answer-table">
+                    <tr>
+                        <th>Статус</th>
+                        <td colspan="5" id="answer_status"></td>
+                    </tr>
+
+                    <tr>
+
+                        <th>Оцінено</th>
+                        <td colspan="5" id="answer_mark"></td>
+                    </tr>
+                    <tr>
+                        <th>Коментарі вчителя</th>
+                        <td colspan="5" class="text-break" id="answer_comment"></td>
+                    </tr>
+                    <tr>
+                        <th>Дедлайн</th>
+                        <td colspan="5" id="answer_deadline"></td>
+                    </tr>
+                    <tr>
+                        <th>Залишилося часу</th>
+                        <td colspan="5" id="answer_timeleft"></td>
+                    </tr>
+                    <tr>
+                        <th>Посилання</th>
+                        <td colspan="5" class="text-break" id="answer_link_container"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" id="answer_container"></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-light" id="submit_answer_button" >Здати на оцінення</button>
+                    <button class="btn btn-light" id="edit_answer_button" >Редагувати мою відповідь</button>
+
+                </div>
+            </div>
+        </div>
+        <div id="school_page" class="col-md-10 border rounded panel page">
+            <div class="panel-header row">
+                <h5 id="school_name" class="text-25 bold col-md-10"></h5>
+
+            </div>
+
+
+            <div class="panel-body">
+                <div class="row">
+                    <p id="school_city" class="col-md-9"></p>
+                </div>
+                <div class="row">
+                    <p id="school_address" class="col-md-9 text-muted"></p>
+                </div>
+                <div class="row">
+                    <p id="school_phone" class="col-md-9"></p>
+                </div>
+                <div class="row">
+                    <p id="school_notes" class="col-md-9 text-break"></p>
+                </div>
+            </div>
+        </div>
+        <div id="olympiads_list" class="col-md-10 border rounded panel page">
+            <div class="panel-header row">
+                <h5 class="text-25  col-md-10">Олімпіади</h5>
+
+            </div>
+
+
+            <div class="panel-body">
+                <form class="input-group mb-3">
+                    <input id="olympiad_search_input" type="text" class="form-control " placeholder="Пошук"
+                           aria-describedby="button-button">
+                    <div class="input-group-append" maxlength=45>
+                        <button class="btn btn-outline-secondary " type="button" onclick="searchOlympiad()"
+                        >&#128269;
+                        </button>
+
+                    </div>
+                </form>
+                <h5> Мої олімпіади</h5>
+                <div class="list-group" id="pupil_olympiads_list">
+
+
+                </div>
+
+            </div>
+        </div>
+        <div id="teacher_olympiads_list" class="col-md-10 border rounded panel page">
+            <div class="panel-header row">
+                <h5 class="text-25  col-md-10">Олімпіади</h5>
+                <button id="add_olympiad" type="button" class="btn btn-info col-md-5 bg-blue"
+                        data-target="#add_subject_modal" data-toggle="modal">Додати
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- delete subject modal-->
+<div class='modal fade' id='delete_sj_modal' role='dialog'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <p>Видалити предмет?</p>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            </div>
+            <div class='modal-body row'>
+                <div class="col-md-1"></div>
+                <button id="delete_sj_button" class='btn btn-danger bg-red bg-hover-red col-md-4'
+                        onclick="deleteSubject()">Видалити
+                </button>
+                <div class="col-md-2"></div>
+                <button class='btn btn-light col-md-4 ' type='button' data-dismiss='modal'>Відмінити</button>
+            </div>
         </div>
     </div>
 </div>
 
+
+<!-- delete hw modal-->
+<div class='modal fade' id='delete_hw_modal' role='dialog'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <p>Видалити домашнє завдання?</p>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            </div>
+            <div class='modal-body row'>
+                <div class="col-md-1"></div>
+                <button id="delete_hw_button" class='btn btn-danger bg-red bg-hover-red col-md-4'>Видалити</button>
+                <div class="col-md-2"></div>
+                <button class='btn btn-light col-md-4 ' type='button' data-dismiss='modal'>Відмінити</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- edit subject modal-->
+<div class="modal fade" id="edit_sj_modal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Редагувати предмет</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate>
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="edit_subject_name">Назва предмету:</label>
+                            <input id="edit_subject_name" class="form-control" required>
+                            <div class="invalid-feedback">Це обов'язкове поле</div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="edit_subject_description">Опис предмету:</label>
+                            <textarea id="edit_subject_description" class="form-control"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="edit_subject_class">Клас:</label>
+                            <input id="edit_subject_class" type="number" min="1" max="11" class="form-control">
+                            <div class="invalid-feedback">Клас вказаний невірно</div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--TODO add_subject_button-->
+                <button id="edit_subject_button" type="button" class="btn btn-outline-info"
+                        onclick="editSubject();">Зберегти
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--add hometask modal-->
+<div class="modal fade" id="add_hometask_modal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Додати домашнє</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate>
+
+                    <div id="add_hw_form_body" class="form-group row">
+                        <div class="col-md-12">
+                            <label for="new_hw_title">Заголовок:</label>
+                            <input id="new_hw_title" class="form-control" required>
+                            <div class="invalid-feedback">Це обов'язкове поле</div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="new_hw_content">Зміст:</label>
+                            <textarea id="new_hw_content" class="form-control"></textarea>
+                            <div class="invalid-feedback">Це обов'язкове поле</div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="new_hw_deadline">Дедлайн:</label>
+                            <input id="new_hw_deadline" type="datetime-local" class="form-control">
+                            <div class="invalid-feedback">Це обов'язкове поле</div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="new_hw_notes">Примітки:</label>
+                            <textarea id="new_hw_notes" class="form-control"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="new_hw_link0">Посилання:</label>
+                            <input type='text' id="new_hw_link0" class="form-control" max="255">
+                        </div>
+                        <div class="col-md-2">
+                            <!--  <button id="add_hyperlink_field_button" class="btn btn-light btn-sm"
+                                      onclick="addHyperlinkField(1)">+
+                              </button>-->
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="add_hw_button" type="button" class="btn btn-outline-info"
+                        onclick="addHomework();">Додати
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <!--edit admin modal-->
 <div class="modal fade" id="edit_admin_modal" role="dialog">
     <div class="modal-dialog">
@@ -462,7 +769,7 @@
     </div>
 </div>
 
-<!--Modal for add city-->
+<!--add city-->
 <div class="modal fade" id="add_city_modal" role="dialog">
     <div class="modal-dialog">
 
@@ -476,7 +783,8 @@
                 <form>
 
                     <div class="form-group row">
-                        <label for="add_city_current" class="col-md-3 col-form-label pd-right-0">Наявні міста:</label>
+                        <label for="add_city_current" class="col-md-3 col-form-label pd-right-0">Наявні
+                            міста:</label>
                         <div class="col-md-9">
                             <select id="add_city_current" class="form-control"></select>
                         </div>
@@ -509,7 +817,7 @@
     </div>
 </div>
 
-<!--Modal for add subject-->
+<!-- add subject-->
 <div class="modal fade" id="add_subject_modal" role="dialog">
     <div class="modal-dialog">
 
@@ -551,7 +859,8 @@
 
     </div>
 </div>
-<!-- Modal for add school-->
+
+<!--  add school-->
 <div class="modal fade" id="add_school_modal" role="dialog">
     <div class="modal-dialog">
 
@@ -622,7 +931,8 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <textarea id="input_school_notes" class="form-control" placeholder="Примітки"></textarea>
+                                <textarea id="input_school_notes" class="form-control"
+                                          placeholder="Примітки"></textarea>
                         </div>
                     </div>
 
@@ -639,7 +949,7 @@
     </div>
 </div>
 
-<!-- Modal for add admin-->
+<!--  add admin-->
 <div class="modal fade" id="add_admin_modal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -698,7 +1008,7 @@
     </div>
 </div>
 
-<!--Modal for edit school-->
+<!-- edit school-->
 <div class="modal fade" id="edit_school_modal" role="dialog">
     <div class="modal-dialog">
 
@@ -788,7 +1098,7 @@
     </div>
 </div>
 
-<!--panel for registry-->
+<!-- registry-->
 <div id="registrypanel" class="registrypanel  row mg-0 ">
     <div class="col-md-3"></div>
     <div class="col-md-6 pd-0 mg-v-15">
@@ -895,14 +1205,16 @@
                     <label for="reg_password">Пароль:</label>
                     <input type="password" class="form-control" id="reg_password" name="password" minlength="6"
                            required maxlength=45>
-                    <small class="text-muted">Пароль мусить містити латинські літери і цифри та бути довжиною не менше 6
+                    <small class="text-muted">Пароль мусить містити латинські літери і цифри та бути довжиною не
+                        менше 6
                         символів
                     </small>
                     <div class="invalid-feedback">Некоректний пароль</div>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="reg_password2">Підтвердіть пароль:</label>
-                    <input type="password" maxlength=45 class="form-control" id="reg_password2" minlength="6" required>
+                    <input type="password" maxlength=45 class="form-control" id="reg_password2" minlength="6"
+                           required>
                     <div class="invalid-feedback">Паролі не збігаються</div>
                 </div>
             </div>
@@ -937,7 +1249,8 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-secondary btn-block mg-v-15 " onclick="login()">Вхід</button>
+                    <button type="button" class="btn btn-secondary btn-block mg-v-15 " onclick="login()">Вхід
+                    </button>
                 </div>
                 <a class="link btn btn-block registry_menu mg-0 " onclick="gotoregistration()">Зареєструватись</a>
             </div>
@@ -947,10 +1260,10 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
 <script src="js/validation.js"></script>
 <script src="js/requests.js"></script>
-<script src="js/onkeyup.js"></script>
 <script src="js/main.js"></script>
 <script src="js/personalInfo.js"></script>
 </body>

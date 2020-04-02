@@ -24,49 +24,97 @@ function addNewCity() {
     $("#add_city_modal").modal('hide');
 }
 
+function addHomework(){
+    let id = sessionStorage.getItem("subject");
+
+    /*TODO sql = "INSERT INTO hometasks (title, content, deadline, notes, subject_id) " \
+                  "VALUES ('%s','%s', '%s', '%s','%s');" % (json['title'], json['content'],
+                      json['deadline'], json['notes'],
+                      json['subject_id'])*/
+
+    let data=
+    {
+
+        "title": $("#new_hw_title").val(),
+        "content":$("#new_hw_content").val(),
+        "deadline":$("#new_hw_deadline").val(),
+        "notes":$("#new_hw_notes").val(),
+        "subject_id":id
+    };
+
+
+    $("#add_hometask_modal").modal('hide');
+
+    //TODO можливо можна якось получити ід створеної домашки, інакше ніяк( @natasha
+    //showHometask(hw_id);
+
+
+    $.ajax({
+        url: 'http://localhost:2303/addhometask',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data2) {
+
+
+
+        },
+        error: function (data2) {
+            alert(data2.error);
+        },
+        data: JSON.stringify(data)
+    });
+
+
+
+
+
+}
 
 function addSubject() {
 
     if (!validEmpty("new_subject_name") || !validFreeClass("new_subject_class"))
         return false;
-    let name = $("#new_subject_name").val();
-    $("#teacher_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' data-toggle='list'" +
-        " role='tab' onclick='show_subject()'>" + name + "</a>");
 
-    //TODO add new subject to database
+    let name = $("#new_subject_name").val();
 
     let data = {
         "name": name
     };
     const descr = $("#new_subject_description").val();
     if (descr !== "") {
-        date['description'] = descr;
+        data['description'] = descr;
     }
     const klass = $("#new_subject_class").val();
     if (klass !== "") {
-        date['class'] = klass;
+        data['class'] = klass;
     }
 
+    $("#teacher_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' data-toggle='list'" +
+        " role='tab' onclick='show_subject()'>" + data.name + "</a>");
+
+
+    $("#add_subject_modal").modal('hide');
+
     $.ajax({
-        url: 'http://localhost:2303/addSchool',
+        url: 'http://localhost:2303/addsubject', //TODO
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
-        success: function (data) {
+        success: function (data2) {
 
         },
-        error: function () {
-
+        error: function (data2) {
+           // alert(data2.error);
         },
         data: JSON.stringify(data)
     });
 
 
-    $("#add_subject_modal").modal('hide');
+
 
 
 }
-
 
 function addSchool() {
     if (!validName("input_school_name") || !validFName("input_school_region") ||
@@ -114,7 +162,6 @@ function addSchool() {
 
     $("#add_school_modal").modal('hide');
 }
-
 
 function setCitiesValueOption(selectorID) {
     $.ajax({
@@ -202,6 +249,9 @@ function login() {
             localStorage.setItem('authentication', data.id);
             $("#entrypanel").hide();
             $("#registrypanel").hide();
+
+
+
             if (cur_user_type === 'teacher') showTeacher(data.id);
             if (cur_user_type === 'pupil') showPupil(data.id);
             if (cur_user_type === 'admin') showAdmin(data.id);
@@ -264,3 +314,73 @@ function addAdmin() {
     $("#add_admin_modal").modal('hide');
 }
 
+function deleteHometask(hw_id){
+
+    $("#blockhw"+hw_id).remove();
+    $("#delete_hw_modal").modal('hide');
+    $.ajax({
+        url: 'http://localhost:2303/deletehometask', //TODO @natasha
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+
+
+
+        },
+        error: function (data) {
+            // alert(data.error);
+        },
+        data: JSON.stringify({
+            id: id
+        })
+    });
+};
+
+function deleteSubject(){
+    let id=sessionStorage.getItem("subject");
+    $("#sj"+id).remove();
+    $("#delete_sj_modal").modal('hide');
+
+    showPage("teacher_list_page");
+
+
+
+    $.ajax({
+        url: 'http://localhost:2303/deletesubject', //TODO @natasha
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+
+
+
+        },
+        error: function (data) {
+            // alert(data.error);
+        },
+        data: JSON.stringify({
+            id: id
+        })
+    });
+
+
+};
+
+
+
+function searchOlympiad(){
+    let str=$("#olympiad_search_input").val();
+    if(str!=""){
+    }
+    //TODO search olympiad ajax
+}
+
+function searchSubject(){
+    let str=$("#subject_search_input").val();
+    if(str!=""){
+        }
+    //TODO search subject ajax
+}
