@@ -36,17 +36,13 @@ function change_reg_type(t) {
 function showPage(except) {
     $("#admin_page").hide();
     $("#admin_tables").hide();
-
     $("#teacher_page").hide();
     $("#teacher_list_page").hide();
-
     $("#pupil_page").hide();
     $("#subject_list_page").hide();
-
     $("#subject_page").hide();
     $("#hometask_page").hide();
     $("#school_page").hide();
-
     $("#teacher_olympiads_list").hide();
     $("#olympiads_list").hide();
 
@@ -86,13 +82,12 @@ function exit() {
     //$("#container").hide();
     $("#entrypanel").show();
 }
+
 function setClear(arr) {
-    for(var i=0; i<arr.length; i++){
+    for (var i = 0; i < arr.length; i++) {
         $(arr[i]).val("");
     }
-
 }
-
 
 
 function gotoregistration() {
@@ -108,24 +103,19 @@ function gotologin() {
 }
 
 
-
-function showTeacher(id){
+function showTeacher(id) {
     fillTeacherInfo(id);
     fillTeacherSubjects(id);
     $("#teacher_page_tab").show();
     $("#teacher_list_page_tab").show();
     $("#teacher_list_page").show();
 
-
     $("#teacher_olympiads_tab").show();
     $("#container").show();
-
 }
 
 
-
-
-function showPupil(id){
+function showPupil(id) {
     fillPupilInfo(id);
     fillPupilSubjects(id);
     $("#container").show();
@@ -133,43 +123,36 @@ function showPupil(id){
     $("#pupil_page_tab").show();
     $("#olympiads_tab").show();
     $("#subject_list_page_tab").show();
-
 }
 
-function  showAdmin(id){
+function showAdmin(id) {
     fillAdminInfo(id);
     $("#admin_page_tab").show();
     $("#admin_tables_tab").show();
     $("#admin_tables").show();
     $("#container").show();
-
 }
 
 
 function show_subject(subject_data) {
     showPage('subject_page');
-    if(localStorage.getItem("usertype")==="teacher")
+    if (localStorage.getItem("usertype") === "teacher")
         fillTeacherHometasks(subject_data);
-    else if (localStorage.getItem("usertype")==="pupil")
+    else if (localStorage.getItem("usertype") === "pupil")
         fillPupilHometasks(subject_data);
 }
 
-function showHometask(hw_id){
+function showHometask(hw_id) {
     showPage("hometask_page");
     fillHometask(hw_id);
-
 }
 
-function addHyperlinkField(id){
+function addHyperlinkField(id) {
     $("#add_hyperlink_field_button").remove();
-    $("#add_hw_form_body").append(" <div class='col-md-12'>\n" +
-
-        "                            <input type='text' id='new_hw_link"+id+"' class='form-control' max='255'>\n" +
-        "                        </div>");
-    $("#add_hw_form_body").append(" <div class='col-md-2'>\n" +
-        "                            <button id='add_hyperlink_field_button' class='btn btn-light btn-sm'\n" +
-        "                                    onclick='addHyperlinkField("+(id+1)+")'>+\n" +
-        "                            </button>\n" +
-        "                        </div>");
-
+    const hwSel = $("#add_hw_form_body");
+    hwSel.append(" <div class='col-md-12'><input type='text' id='new_hw_link" + id +
+        "' class='form-control' max='255'></div>");
+    hwSel.append("<div class='col-md-2'>" +
+        "<button id='add_hyperlink_field_button' class='btn btn-light btn-sm' onclick='addHyperlinkField("
+        + (id + 1) + ")'>+</button></div>");
 }

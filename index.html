@@ -87,7 +87,7 @@
                 <form class="input-group mb-3">
                     <input id="subject_search_input" type="text" class="form-control " placeholder="Пошук"
                            aria-describedby="button-button">
-                    <div class="input-group-append" maxlength=45>
+                    <div class="input-group-append">
                         <button class="btn btn-outline-secondary " type="button" id="search_button"
                                 onclick="searchSubject();">&#128269;
                         </button>
@@ -375,8 +375,8 @@
 
                 </table>
                 <div class="col-md-12 text-center">
-                    <button class="btn btn-light" id="submit_answer_button" >Здати на оцінення</button>
-                    <button class="btn btn-light" id="edit_answer_button" >Редагувати мою відповідь</button>
+                    <button class="btn btn-light" id="submit_answer_button">Здати на оцінення</button>
+                    <button class="btn btn-light" id="edit_answer_button">Редагувати мою відповідь</button>
 
                 </div>
             </div>
@@ -414,7 +414,7 @@
                 <form class="input-group mb-3">
                     <input id="olympiad_search_input" type="text" class="form-control " placeholder="Пошук"
                            aria-describedby="button-button">
-                    <div class="input-group-append" maxlength=45>
+                    <div class="input-group-append">
                         <button class="btn btn-outline-secondary " type="button" onclick="searchOlympiad()"
                         >&#128269;
                         </button>
@@ -800,7 +800,7 @@
                     <div class="form-group row">
                         <label for="new_added_city_notes" class="col-md-3 col-form-label pd-right-0">Опис:</label>
                         <div class="col-md-9">
-                            <textarea id="new_added_city_notes" type="text" class="form-control"
+                            <textarea id="new_added_city_notes" class="form-control"
                                       maxlength=255></textarea>
                         </div>
                     </div>
@@ -1260,8 +1260,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="js/validation.js"></script>
 <script src="js/requests.js"></script>
 <script src="js/main.js"></script>
