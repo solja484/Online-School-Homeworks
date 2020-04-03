@@ -45,8 +45,9 @@ function showPage(except) {
     $("#school_page").hide();
     $("#teacher_olympiads_list").hide();
     $("#olympiads_list").hide();
-
     $("#" + except).show();
+    if(except==='school_page')
+        fillSchoolInfo();
 }
 
 
@@ -105,7 +106,6 @@ function gotologin() {
 
 function showTeacher(id) {
     fillTeacherInfo(id);
-    fillTeacherSubjects(id);
     $("#teacher_page_tab").show();
     $("#teacher_list_page_tab").show();
     $("#teacher_list_page").show();
@@ -117,7 +117,6 @@ function showTeacher(id) {
 
 function showPupil(id) {
     fillPupilInfo(id);
-    fillPupilSubjects(id);
     $("#container").show();
     $("#subject_list_page").show();
     $("#pupil_page_tab").show();

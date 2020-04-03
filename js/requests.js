@@ -19,13 +19,13 @@ function addNewCity() {
             setClear(["#new_added_city"]);
             $("#add_city_modal").modal('hide');
         },
-        error: function(data){
+        error: function (data) {
             alert(data.error);
         },
         data: JSON.stringify(data)
     });
-
 }
+
 function register() {
     var passSel = $('#reg_password');
     var pass2Sel = $('#reg_password2');
@@ -79,6 +79,7 @@ function register() {
         setClear(["#reg_password2", "#reg_password"]);
     }
 }
+
 function login() {
     const data = {
         "login": $("#entry_email").val(),
@@ -96,7 +97,6 @@ function login() {
             $("#entrypanel").hide();
             $("#registrypanel").hide();
 
-
             if (cur_user_type === 'teacher') showTeacher(data.id);
             if (cur_user_type === 'pupil') showPupil(data.id);
             if (cur_user_type === 'admin') showAdmin(data.id);
@@ -110,6 +110,7 @@ function login() {
         data: JSON.stringify(data)
     });
 }
+
 function setCitiesValueOption(selectorID) {
     $.ajax({
         url: 'http://localhost:2303/getCities',
@@ -134,12 +135,12 @@ function addHomework() {
                       json['deadline'], json['notes'],
                       json['subject_id'])*/
     let data = {
-            "title": $("#new_hw_title").val(),
-            "content": $("#new_hw_content").val(),
-            "deadline": $("#new_hw_deadline").val(),
-            "notes": $("#new_hw_notes").val(),
-            "subject_id": id
-        };
+        "title": $("#new_hw_title").val(),
+        "content": $("#new_hw_content").val(),
+        "deadline": $("#new_hw_deadline").val(),
+        "notes": $("#new_hw_notes").val(),
+        "subject_id": id
+    };
     $("#add_hometask_modal").modal('hide');
 
     //TODO можливо можна якось получити ід створеної домашки, інакше ніяк( @natasha
@@ -160,42 +161,6 @@ function addHomework() {
     });
 }
 
-function addSubject() {
-    if (!validEmpty("new_subject_name") || !validFreeClass("new_subject_class"))
-        return false;
-    let name = $("#new_subject_name").val();
-    let data = {
-        "name": name
-    };
-    const descr = $("#new_subject_description").val();
-    if (descr !== "") {
-        data['description'] = descr;
-    }
-    const klass = $("#new_subject_class").val();
-    if (klass !== "") {
-        data['class'] = klass;
-    }
-    $("#teacher_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' data-toggle='list'" +
-        " role='tab' onclick='show_subject()'>" + data.name + "</a>");
-
-
-    $("#add_subject_modal").modal('hide');
-    $.ajax({
-        url: 'http://localhost:2303/addsubject', //TODO
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data2) {
-
-        },
-        error: function (data2) {
-            // alert(data2.error);
-        },
-        data: JSON.stringify(data)
-    });
-
-
-}
 
 function deleteHometask(hw_id) {
 
@@ -262,41 +227,6 @@ function searchSubject() {
     //TODO search subject ajax
 }
 
-
-function fillTeacherSubjects(id) {
-    const teachListSel = $("#teacher_list");
-    teachListSel.empty();
-    let data =
-        {
-            "id": "1",
-            "name": "Алгебра+ 9 клас",
-            "descr": "Поглиблена алгебра для 9 класу",
-            "class": "9"
-        };
-    teachListSel.append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' " +
-        "data-toggle='list' role='tab' id='sj" + data.id + "' onclick='show_subject(" + JSON.stringify(data) + ");'>" + data.name + "</a>");
-
-    //TODO  SELECT name FROM subjects WHERE teach_id = data["id"] ORDER BY name)
-
-    $.ajax({
-        url: 'http://localhost:2303/getteachersubjects', //TODO @natasha
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        accept: 'application/json',
-        success: function (data) {
-
-
-        },
-        error: function (data) {
-            // alert(data.error);
-        },
-        data: JSON.stringify({
-            id: id
-        })
-    });
-
-}
 
 function fillTeacherHometasks(subject_data) {
     const hwListSel = $("#hometasks_list");
@@ -392,13 +322,14 @@ function editSubject() {
     });
 }
 
-function fillSubjectFields(data) {
+function fillSubjectFields(data2) {
+    const data = JSON.parse(data2);
     $("#subject_title").text(data.name + " " + data.class);
     $("#subject_descr").text(data.descr + "");
 
-    $("#edit_subject_name").attr("value", data.name);
+    $("#edit_subject_name").val(data.name);
     $("#edit_subject_description").text(data.descr);
-    $("#edit_subject_class").attr("value", data.class);
+    $("#edit_subject_class").val(data.class);
 }
 
 
@@ -406,11 +337,11 @@ function fillPupilSubjects(id) {
 
     $("#subject_list").empty();
     let data = {
-            "id": "1",
-            "name": "Алгебра+ 9 клас",
-            "descr": "Поглиблена алгебра для 9 класу",
-            "class": "9"
-        };
+        "id": "1",
+        "name": "Алгебра+ 9 клас",
+        "descr": "Поглиблена алгебра для 9 класу",
+        "class": "9"
+    };
 
     $("#subject_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' " +
         "data-toggle='list' role='tab' onclick='show_subject(" + JSON.stringify(data) + ");'>" + data.name + "</a>");
@@ -614,7 +545,6 @@ function fillHometask(id) {
 
 
 function submitAnswer(id) {
-    alert(id);
     let data = {
         "id": "3",
         "answer": $("#answer_area").val(),

@@ -46,6 +46,7 @@ function addAdmin() {
     });
     $("#add_admin_modal").modal('hide');
 }
+
 function fillAdminInfo(id) {
     //Повертає: login, email, password, notes, name, surname
     $.ajax({
@@ -65,6 +66,7 @@ function fillAdminInfo(id) {
         })
     });
 }
+
 function fillAdminFields(data, id) {
     $("#admin_login").text(data.login);
     $("#admin_email").text(data.email);
@@ -78,6 +80,7 @@ function fillAdminFields(data, id) {
     $("#new_admin_surname").val(data.surname);
     $("#edit_admin_button").attr('onclick', 'editAdmin(' + id + ')');
 }
+
 function editAdmin(id) {
     if (validName("new_admin_name") && validName("new_admin_surname") &&
         validEmail("new_admin_email")) {
@@ -118,9 +121,8 @@ function fillPupilInfo(id) {
         accept: 'application/json',
         success: function (data) {
             sessionStorage.setItem("schoolcode", data.schoolid);
-            fillSchoolInfo(data.schoolid);
             $("#pupil_school_link").text(data.schoolname);
-            fillPupilFields(data, id);
+            fillPupilSubjects(id);
         },
         error: function (data) {
             alert(data.error);
@@ -130,6 +132,7 @@ function fillPupilInfo(id) {
         })
     });
 }
+
 function fillPupilFields(data, id) {
     $("#pupil_pib").text(data.surname + ' ' + data.name + ' ' + data.patronymic);
     $("#pupil_email").text(data.email);
@@ -155,6 +158,7 @@ function fillPupilFields(data, id) {
     $("#new_pupil_notes").val(data.notes);
     $("#edit_pupil_button").attr('onclick', 'editPupil(' + id + ')');
 }
+
 function editPupil(id) {
     if (validName("new_pupil_name") && validName("new_pupil_surname") &&
         validFName("new_pupil_fathername") && validEmail("new_pupil_email") &&
@@ -199,16 +203,17 @@ function fillTeacherInfo(id) {
         success: function (data) {
             fillTeacherFields(data, id);
             sessionStorage.setItem("schoolcode", data.schoolid);
-            fillSchoolInfo(data.schoolid);
+            fillTeacherSubjects(id);
         },
         error: function (data) {
             alert(data.error);
         },
         data: JSON.stringify({
-            id: id
+            "id": id
         })
     });
 }
+
 function fillTeacherFields(data, id) {
     $("#teacher_school_link").text(data.schoolname);
     $("#teacher_pib").text(data.name + ' ' + data.surname + ' ' + data.patronymic);
@@ -236,6 +241,7 @@ function fillTeacherFields(data, id) {
     $("#new_teacher_notes").val(data.notes);
     $("#edit_teacher_button").attr('onclick', 'editTeacher(' + id + ')');
 }
+
 function editTeacher(id) {
     if (validName("new_teacher_name") && validName("new_teacher_surname") &&
         validFName("new_teacher_fathername") && validEmail("new_teacher_email") &&
@@ -272,7 +278,7 @@ function editTeacher(id) {
 }
 
 //SCHOOL SECTION
-function fillSchoolInfo(id) {
+function fillSchoolInfo() {
 //# Повертає: name, city, region, street, house, phone, notes
     $.ajax({
         url: 'http://localhost:2303/getschoolinfo',
@@ -286,16 +292,16 @@ function fillSchoolInfo(id) {
             $("#school_address").text(data.region + ' р-н вул. ' + data.street + ' ' + data.house);
             $("#school_phone").text("Телефон: +38 " + data.phone);
             $("#school_notes").text(data.notes);
-
         },
         error: function (data) {
             alert(data.error);
         },
         data: JSON.stringify({
-            id: id
+            "id": sessionStorage.getItem("schoolcode")
         })
     });
 }
+
 function addSchool() {
     if (!validName("input_school_name") || !validFName("input_school_region") ||
         !validName("input_school_street") || !validPhone("input_school_phone") ||
@@ -342,3 +348,56 @@ function addSchool() {
     });
 }
 
+//SUBJECT SECTION
+function addSubject() {
+    if (!validEmpty("new_subject_name") || !validFreeClass("new_subject_class"))
+        return false;
+
+    const data = {
+        "title": $("#new_subject_name").val(),
+        "notes": $("#new_subject_description").val(),
+        "class_num": $("#new_subject_class").val(),
+        "teacher_id": localStorage.getItem("authentication")
+    };
+    $.ajax({
+        url: 'http://localhost:2303/addsubject',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data2) {
+            //TODO @solja return subject code
+            const code = data2.code;
+            $("#teacher_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' data-toggle='list'" +
+                " role='tab' onclick='show_subject()'>" + data.name + "</a>");
+            $("#add_subject_modal").modal('hide');
+            setClear(["new_subject_name", "new_subject_description", "new_subject_class"]);
+        },
+        error: function (data2) {
+            alert(data2.error);
+        },
+        data: JSON.stringify(data)
+    });
+}
+function fillTeacherSubjects(id) {
+    const teachListSel = $("#teacher_list");
+    teachListSel.empty();
+    $.ajax({
+        url: 'http://localhost:2303/getteachersubjects',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (datas) {
+            datas.forEach(data => teachListSel.append("<a href='#' class='list-group-item list-group-item-action " +
+                "list-group-item-light' data-toggle='list' role='tab' id='sj" + data.id + "' onclick='show_subject(" +
+                JSON.stringify(data) + ");'>" + data.title + "</a>"))
+        },
+        error: function (data) {
+            alert(data.error);
+        },
+        data: JSON.stringify({
+            "id": id
+        })
+    });
+
+}
