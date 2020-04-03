@@ -16,15 +16,16 @@
 - не зафіксила менюшку яка не fixed поки що
 ---
 **Таски Солі від Натахи:**
-* коли 
+* на сторінці домашніх робіт прибрати оту табличку з "статус роботи"
+
 
 **Таски Натахі:**
 * fillTeacherSubjects +
-* fillPupilSubjects
-* fillTeacherHometasks
-* fillPupilHometasks
-
+* fillPupilSubjects +
+* fillTeacherHometasks +
+* fillPupilHometasks +
+* showHometask + 
 
 **Що нового Натаха зробила:**
 * при додаванні предмета вертається код -> //TODO @solja return subject code
-* 
+* файлик niponiatno для гавнокода і методів які не працюють

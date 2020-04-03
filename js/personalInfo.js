@@ -120,8 +120,8 @@ function fillPupilInfo(id) {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data) {
+            fillPupilFields(data, id);
             sessionStorage.setItem("schoolcode", data.schoolid);
-            $("#pupil_school_link").text(data.schoolname);
             fillPupilSubjects(id);
         },
         error: function (data) {
@@ -156,7 +156,8 @@ function fillPupilFields(data, id) {
     $("#new_pupil_phone").val(data.phone);
     $("#new_pupil_class").val(data.class);
     $("#new_pupil_notes").val(data.notes);
-    $("#edit_pupil_button").attr('onclick', 'editPupil(' + id + ')');
+    $("#edit_pupil_button").attr('onclick', 'editPupil("' + id + '")');
+    $("#pupil_school_link").text(data.schoolname);
 }
 
 function editPupil(id) {
@@ -378,6 +379,16 @@ function addSubject() {
         data: JSON.stringify(data)
     });
 }
+
+function fillSubjectFields(data) {
+    $("#subject_title").text(data.title + " " + data.class_num);
+    $("#subject_descr").text(data.notes + "");
+
+    $("#edit_subject_name").val(data.title);
+    $("#edit_subject_description").text(data.notes);
+    $("#edit_subject_class").val(data.class_num);
+}
+
 function fillTeacherSubjects(id) {
     const teachListSel = $("#teacher_list");
     teachListSel.empty();
@@ -401,3 +412,149 @@ function fillTeacherSubjects(id) {
     });
 
 }
+
+function fillPupilSubjects(id) {
+    const subListSel = $("#subject_list");
+    subListSel.empty();
+    $.ajax({
+        url: 'http://localhost:2303/getpupilsubjects',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (datas) {
+            console.log(datas);
+            datas.forEach(data => subListSel.append("<a href='#' class='list-group-item list-group-item-action " +
+                "list-group-item-light' data-toggle='list' role='tab' onclick='show_subject(" + JSON.stringify(data)
+                + ");'>" + data.title + "</a>"));
+        },
+        error: function (data) {
+            alert(data.error);
+        },
+        data: JSON.stringify({
+            "id": id
+        })
+    });
+}
+
+
+//HOMETASKS SECTION
+function fillTeacherHometasks(subject_data) {
+    const hwListSel = $("#hometasks_list");
+    hwListSel.empty();
+    const subject_id = subject_data.id;
+    $.ajax({
+        url: 'http://localhost:2303/getsubjecthometasks',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (datas) {
+            $("#edit_subject_modal_button").show();
+            $("#delete_subject_modal_button").show();
+            $("#add_hometask_modal_button").show();
+            fillSubjectFields(subject_data);
+            //datas = [{id, title, content, deadline, active, notes, remaining_time}, {...}, ...]
+            sessionStorage.setItem("subject", subject_id);
+            datas.forEach(data => hwListSel.append("<div id='blockhw" + data.id + "' class='hw-active col-md-12 row'>" +
+                "<a id='hw" + data.id + "' class='hw_link col-md-7 ' onclick='showHometask(" + data.id +
+                ")' href='#hometask_page'>" + data.title + "</a><span class='col-md-3'>" + data.deadline +
+                "</span><button class='btn btn-outline-danger bg-hover-red' data-target='#delete_hw_modal' " +
+                "onclick='addHwDelButton(" + data.id + ")' data-toggle='modal'>Видалити</button></div>"));
+        },
+        error: function (datas) {
+            alert(datas.error);
+        },
+        data: JSON.stringify({
+            "id": subject_id
+        })
+    });
+
+
+}
+
+function fillPupilHometasks(subject_data) {
+    const hwListSel = $("#hometasks_list");
+    const subject_id = subject_data.id;
+    hwListSel.empty();
+
+    $.ajax({
+        url: 'http://localhost:2303/getsubjecthometasks',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (datas) {
+            $("#edit_subject_modal_button").hide();
+            $("#delete_subject_modal_button").hide();
+            $("#add_hometask_modal_button").hide();
+            $("#subject_title").text(subject_data.name + " " + subject_data.class);
+            $("#subject_descr").text(subject_data.descr + "");
+            sessionStorage.setItem("subject", subject_id);
+            fillSubjectFields(subject_data);
+
+            datas.forEach(data => {
+                if (data.active)
+                    hwListSel.append(" <div class='hw-active col-md-12 row'><a id='hw" + data.id +
+                        "' class='hw_link col-md-7 ' onclick='showHometask(" + data.id + ")' " +
+                        "href='#hometask_page'>" + data.title + "</a><span class='col-md-3'>"
+                        + data.deadline + "</span></div>");
+                else
+                    hwListSel.append(" <div class='hw-disabled col-md-12 row'><a id='hw" + data.id +
+                        "' class='hw_link col-md-7 ' href='#hometask_page' onclick='showHometask(" + data.id +
+                        ")'>" + data.title + "</a><span class='col-md-3'>" + data.deadline + "</span>" +
+                        "<div class='custom-control custom-checkbox col-md-1'></div>")
+            });
+        },
+        error: function (datas) {
+            alert(datas.error);
+        },
+        data: JSON.stringify({
+            "id": subject_id
+        })
+    });
+
+
+}
+
+function fillHometask(id) {
+    if (localStorage.getItem("usertype") === "pupil") {
+        $("#edit_hometask_modal_button").hide();
+        $("#mark_hw_modal_button").hide();
+
+        $.ajax({
+            url: 'http://localhost:2303/gethometaskinfo',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            accept: 'application/json',
+            success: function (data) {
+
+
+                $("#hw_title").text(data.hw_title);
+                $("#hw_task").text(data.content);
+                const linkSel = $("#hw_links");
+                linkSel.empty();
+                data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
+                $("#hw_notes").text(data.notes);
+
+                if (data.time_left === "") {
+                    $("#submit_answer_button").attr("disabled", "disabled");
+                    $("#edit_answer_button").attr("disabled", "disabled");
+                    $("#answer_timeleft").addClass("table-danger").text("Час вичерпано");
+                } else {
+                    $("#submit_answer_button").attr("disabled", "");
+                    $("#edit_answer_button").attr("disabled", "");
+                    $("#answer_timeleft").removeClass("table-danger").text(data.time_left);
+                }
+            },
+            error: function (data) {
+                alert(data.error);
+            },
+            data: JSON.stringify({
+                "id": id
+            })
+        });
+    }
+}
+
