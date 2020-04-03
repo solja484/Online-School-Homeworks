@@ -378,6 +378,27 @@ function addSubject() {
         data: JSON.stringify(data)
     });
 }
+function deleteSubject() {
+    let id = sessionStorage.getItem("subject");
+    $.ajax({
+        url: 'http://localhost:2303/deletesubject',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+            $("#sj" + id).remove();
+            $("#delete_sj_modal").modal('hide');
+            showPage("teacher_list_page");
+        },
+        error: function (data) {
+            alert(data.error);
+        },
+        data: JSON.stringify({
+            "id": id
+        })
+    });
+}
 
 function fillSubjectFields(data) {
     $("#subject_title").text(data.title + " " + data.class_num);
@@ -517,44 +538,37 @@ function fillPupilHometasks(subject_data) {
 }
 
 function fillHometask(id) {
-    if (localStorage.getItem("usertype") === "pupil") {
-        $("#edit_hometask_modal_button").hide();
-        $("#mark_hw_modal_button").hide();
+    $.ajax({
+        url: 'http://localhost:2303/gethometaskinfo',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
 
-        $.ajax({
-            url: 'http://localhost:2303/gethometaskinfo',
-            type: 'post',
-            dataType: 'json',
-            contentType: 'application/json',
-            accept: 'application/json',
-            success: function (data) {
+            $("#hw_title").text(data.hw_title);
+            $("#hw_task").text(data.content);
+            const linkSel = $("#hw_links");
+            linkSel.empty();
+            data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
+            $("#hw_notes").text(data.notes);
 
 
-                $("#hw_title").text(data.hw_title);
-                $("#hw_task").text(data.content);
-                const linkSel = $("#hw_links");
-                linkSel.empty();
-                data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
-                $("#hw_notes").text(data.notes);
+            if (localStorage.getItem("usertype") === "pupil") {
+                $("#edit_hometask_modal_button").hide();
+            } else {
+                $("#edit_hometask_modal_button").show();
+                //TODO @solja gethometaskinfo
 
-                if (data.time_left === "") {
-                    $("#submit_answer_button").attr("disabled", "disabled");
-                    $("#edit_answer_button").attr("disabled", "disabled");
-                    $("#answer_timeleft").addClass("table-danger").text("Час вичерпано");
-                } else {
-                    $("#submit_answer_button").attr("disabled", "");
-                    $("#edit_answer_button").attr("disabled", "");
-                    $("#answer_timeleft").removeClass("table-danger").text(data.time_left);
-                }
-            },
-            error: function (data) {
-                alert(data.error);
-            },
-            data: JSON.stringify({
-                "id": id
-            })
-        });
-    }
+            }
+        },
+        error: function (data) {
+            alert(data.error);
+        },
+        data: JSON.stringify({
+            "id": id
+        })
+    });
 }
 
 function addHomework() {
@@ -584,4 +598,25 @@ function addHomework() {
         data: JSON.stringify(data)
     });
 }
-
+function deleteHometask(hw_id) {
+    $.ajax({
+        url: 'http://localhost:2303/deletehometask',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+            $("#blockhw" + hw_id).remove();
+            $("#delete_hw_modal").modal('hide');
+        },
+        error: function (data) {
+            alert(data.error);
+        },
+        data: JSON.stringify({
+            "id": hw_id
+        })
+    });
+}
+function addHwDelButton(hw_id) {
+    $("#delete_hw_button").attr('onclick', 'deleteHometask(' + hw_id + ')');
+}

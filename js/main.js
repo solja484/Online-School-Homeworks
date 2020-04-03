@@ -1,9 +1,25 @@
 // user-types = ["admin", "teacher", "pupil"];
-localStorage.setItem("usertype", "pupil");
+$(document).ready(function () {
+    localStorage.setItem("usertype", "pupil");
+    const usertype = getCookie("usertype");
+    if (usertype === undefined) {
+        exit();
+        return;
+    }
+    const userid = getCookie("userid");
+    localStorage.setItem('authentication', userid);
+    $("#entrypanel").hide();
+    $("#registrypanel").hide();
+    if (usertype === 'teacher') showTeacher(userid);
+    else if (usertype === 'pupil') showPupil(userid);
+    else showAdmin(userid);
+});
 
-//hide all and show login page
-exit();
-
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
+}
 
 function change_entry_type(t) {
     if (t === 0) {
@@ -46,12 +62,14 @@ function showPage(except) {
     $("#teacher_olympiads_list").hide();
     $("#olympiads_list").hide();
     $("#" + except).show();
-    if(except==='school_page')
+    if (except === 'school_page')
         fillSchoolInfo();
 }
 
 
 function exit() {
+    document.cookie = "userid=null; max-age=0";
+    document.cookie = "usertype=null; max-age=0";
     change_entry_type(2);
     localStorage.removeItem("authentication");
     sessionStorage.removeItem("schoolcode");

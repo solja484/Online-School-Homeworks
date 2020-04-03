@@ -97,9 +97,11 @@ function login() {
             $("#entrypanel").hide();
             $("#registrypanel").hide();
 
+            document.cookie = "userid="+data.id;
+            document.cookie = "usertype="+cur_user_type;
             if (cur_user_type === 'teacher') showTeacher(data.id);
-            if (cur_user_type === 'pupil') showPupil(data.id);
-            if (cur_user_type === 'admin') showAdmin(data.id);
+            else if (cur_user_type === 'pupil') showPupil(data.id);
+            else showAdmin(data.id);
 
             setClear(["#entry_email", "#entry_password"]);
         },
@@ -127,55 +129,7 @@ function setCitiesValueOption(selectorID) {
     });
 }
 
-function deleteHometask(hw_id) {
 
-    $("#blockhw" + hw_id).remove();
-    $("#delete_hw_modal").modal('hide');
-    $.ajax({
-        url: 'http://localhost:2303/deletehometask', //TODO @natasha
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        accept: 'application/json',
-        success: function (data) {
-
-
-        },
-        error: function (data) {
-            // alert(data.error);
-        },
-        data: JSON.stringify({
-            id: id
-        })
-    });
-}
-
-function deleteSubject() {
-    let id = sessionStorage.getItem("subject");
-    $("#sj" + id).remove();
-    $("#delete_sj_modal").modal('hide');
-
-    showPage("teacher_list_page");
-
-
-    $.ajax({
-        url: 'http://localhost:2303/deletesubject', //TODO @natasha
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        accept: 'application/json',
-        success: function (data) {
-
-
-        },
-        error: function (data) {
-            // alert(data.error);
-        },
-        data: JSON.stringify({
-            id: id
-        })
-    });
-}
 
 
 function searchOlympiad() {
@@ -193,9 +147,7 @@ function searchSubject() {
 }
 
 
-function addHwDelButton(hw_id) {
-    $("#delete_hw_button").attr('onclick', 'deleteHometask(' + hw_id + ')');
-}
+
 
 function editSubject() {
     let id = sessionStorage.getItem("subject");
