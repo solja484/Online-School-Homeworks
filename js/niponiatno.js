@@ -79,7 +79,7 @@ function fillHometaskUncorrect(id) {
         }
 
         $.ajax({
-            url: 'http://localhost:2303/gethometaskinfo', //TODO @natasha
+            url: 'http://localhost:2303/gethometaskinfo',
             type: 'post',
             dataType: 'json',
             contentType: 'application/json',

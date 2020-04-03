@@ -127,41 +127,6 @@ function setCitiesValueOption(selectorID) {
     });
 }
 
-
-function addHomework() {
-    let id = sessionStorage.getItem("subject");
-    /*TODO sql = "INSERT INTO hometasks (title, content, deadline, notes, subject_id) " \
-                  "VALUES ('%s','%s', '%s', '%s','%s');" % (json['title'], json['content'],
-                      json['deadline'], json['notes'],
-                      json['subject_id'])*/
-    let data = {
-        "title": $("#new_hw_title").val(),
-        "content": $("#new_hw_content").val(),
-        "deadline": $("#new_hw_deadline").val(),
-        "notes": $("#new_hw_notes").val(),
-        "subject_id": id
-    };
-    $("#add_hometask_modal").modal('hide');
-
-    //TODO можливо можна якось получити ід створеної домашки, інакше ніяк( @natasha
-    //showHometask(hw_id);
-    $.ajax({
-        url: 'http://localhost:2303/addhometask',
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data2) {
-
-
-        },
-        error: function (data2) {
-            alert(data2.error);
-        },
-        data: JSON.stringify(data)
-    });
-}
-
-
 function deleteHometask(hw_id) {
 
     $("#blockhw" + hw_id).remove();

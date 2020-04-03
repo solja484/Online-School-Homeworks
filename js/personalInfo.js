@@ -366,10 +366,9 @@ function addSubject() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data2) {
-            //TODO @solja return subject code
-            const code = data2.code;
+            data['id'] = data2.code;
             $("#teacher_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' data-toggle='list'" +
-                " role='tab' onclick='show_subject()'>" + data.name + "</a>");
+                " role='tab' onclick='show_subject("+JSON.stringify(data)+")'>" + data.title + "</a>");
             $("#add_subject_modal").modal('hide');
             setClear(["new_subject_name", "new_subject_description", "new_subject_class"]);
         },
@@ -556,5 +555,33 @@ function fillHometask(id) {
             })
         });
     }
+}
+
+function addHomework() {
+    let id = sessionStorage.getItem("subject");
+
+    let data = {
+        "title": $("#new_hw_title").val(),
+        "content": $("#new_hw_content").val(),
+        "deadline": $("#new_hw_deadline").val(),
+        "notes": $("#new_hw_notes").val(),
+        "hyperlinks": [], //TODO @ solja add hyperlinks value
+        "id": id
+    };
+    $.ajax({
+        url: 'http://localhost:2303/addhometask',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data2) {
+            $("#add_hometask_modal").modal('hide');
+            showHometask(data2.hw_id);
+        },
+        error: function (data2) {
+            console.log(data2);
+            alert(data2.error);
+        },
+        data: JSON.stringify(data)
+    });
 }
 
