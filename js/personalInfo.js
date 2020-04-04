@@ -457,6 +457,34 @@ function fillPupilSubjects(id) {
     });
 }
 
+function editSubject() {
+    if (!validEmpty("edit_subject_name") || !validFreeClass("edit_subject_class"))
+        return false;
+
+    const data = {
+        "id": sessionStorage.getItem("subject"),
+        "title": $("#edit_subject_name").val(),
+        "class_num": $("#edit_subject_class").val(),
+        "notes": $("#edit_subject_description").val()
+    };
+
+    $.ajax({
+        url: 'http://localhost:2303/editsubject',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data2) {
+            fillSubjectFields(data);
+            $("#edit_subject_modal").modal('hide');
+            //TODO @solja editSubject
+        },
+        error: function (data2) {
+            alert(data2.error);
+        },
+        data: JSON.stringify(data)
+    });
+}
+
 
 //HOMETASKS SECTION
 function fillTeacherHometasks(subject_data) {
@@ -619,4 +647,29 @@ function deleteHometask(hw_id) {
 }
 function addHwDelButton(hw_id) {
     $("#delete_hw_button").attr('onclick', 'deleteHometask(' + hw_id + ')');
+}
+function editHomework() {
+    const data = {
+        "id": 1, //hw_id
+        "title": "hw_title",
+        "content": content,
+        "notes": "notes",
+        "deadline": "2020-04-12 23:59",
+        "links": [], //треба масив всіх лінків, я просто видаляю всі минулі і записую нові, таким чином можна і видаляти лінки і едітати і додавати нові
+    };
+
+    $.ajax({
+        url: 'http://localhost:2303/edithometsk',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data2) {
+            // прописати зміни в самій домашні на основі data
+            //TODO @solja editHomework
+        },
+        error: function (data2) {
+            alert(data2.error);
+        },
+        data: JSON.stringify(data)
+    });
 }

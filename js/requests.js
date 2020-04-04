@@ -97,8 +97,6 @@ function login() {
             $("#entrypanel").hide();
             $("#registrypanel").hide();
 
-            document.cookie = "userid="+data.id;
-            document.cookie = "usertype="+cur_user_type;
             if (cur_user_type === 'teacher') showTeacher(data.id);
             else if (cur_user_type === 'pupil') showPupil(data.id);
             else showAdmin(data.id);
@@ -146,42 +144,6 @@ function searchSubject() {
     //TODO search subject ajax
 }
 
-
-
-
-function editSubject() {
-    let id = sessionStorage.getItem("subject");
-
-    if (!validEmpty("edit_subject_name") || !validFreeClass("edit_subject_class"))
-        return false;
-    let name = $("#edit_subject_name").val();
-
-    let data = {
-        "id": id,
-        "name": name,
-        "class": $("#edit_subject_class").val(),
-        "description": $("#edit_subject_description").val()
-    };
-
-
-    $.ajax({
-        url: 'http://localhost:2303/editsubject',
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data2) {
-            fillSubjectFields(data2);
-            $("#edit_subject_modal").modal('hide');
-        },
-        error: function (data2) {
-            alert(data2.error);
-        },
-        data: JSON.stringify(data)
-    });
-}
-
-
-
 function submitAnswer(id) {
     let data = {
         "id": "3",
@@ -190,7 +152,6 @@ function submitAnswer(id) {
         "comment": "looks good",
         "mark": "11/12"
     };
-
 
     $("#answer_container").empty().text(data.answer);
     $("#answer_link_container").empty().append(" <a id='answer_link' href='" + data.hyperlink + "'>" + data.hyperlink + "</a>");

@@ -1,25 +1,20 @@
 // user-types = ["admin", "teacher", "pupil"];
 $(document).ready(function () {
-    localStorage.setItem("usertype", "pupil");
-    const usertype = getCookie("usertype");
+    const usertype = localStorage.getItem("usertype");
     if (usertype === undefined) {
         exit();
+        localStorage.setItem("usertype", "pupil");
         return;
     }
-    const userid = getCookie("userid");
-    localStorage.setItem('authentication', userid);
+    const userid = localStorage.getItem('authentication');
+    console.log(userid);
+
     $("#entrypanel").hide();
     $("#registrypanel").hide();
     if (usertype === 'teacher') showTeacher(userid);
     else if (usertype === 'pupil') showPupil(userid);
     else showAdmin(userid);
 });
-
-function getCookie(name) {
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + name + "=");
-    if (parts.length === 2) return parts.pop().split(";").shift();
-}
 
 function change_entry_type(t) {
     if (t === 0) {
@@ -123,31 +118,61 @@ function gotologin() {
 
 
 function showTeacher(id) {
-    fillTeacherInfo(id);
     $("#teacher_page_tab").show();
     $("#teacher_list_page_tab").show();
     $("#teacher_list_page").show();
 
     $("#teacher_olympiads_tab").show();
     $("#container").show();
+
+    $("#admin_page_tab").hide();
+    $("#admin_tables_tab").hide();
+    $("#admin_tables").hide();
+
+    $("#subject_list_page").hide();
+    $("#pupil_page_tab").hide();
+    $("#olympiads_tab").hide();
+    $("#subject_list_page_tab").hide();
+    fillTeacherInfo(id);
 }
 
 
 function showPupil(id) {
-    fillPupilInfo(id);
     $("#container").show();
     $("#subject_list_page").show();
     $("#pupil_page_tab").show();
     $("#olympiads_tab").show();
     $("#subject_list_page_tab").show();
+
+    $("#admin_page_tab").hide();
+    $("#admin_tables_tab").hide();
+    $("#admin_tables").hide();
+
+    $("#teacher_page_tab").hide();
+    $("#teacher_list_page_tab").hide();
+    $("#teacher_list_page").hide();
+
+    $("#teacher_olympiads_tab").hide();
+    fillPupilInfo(id);
 }
 
 function showAdmin(id) {
-    fillAdminInfo(id);
     $("#admin_page_tab").show();
     $("#admin_tables_tab").show();
     $("#admin_tables").show();
     $("#container").show();
+
+    $("#teacher_page_tab").hide();
+    $("#teacher_list_page_tab").hide();
+    $("#teacher_list_page").hide();
+
+    $("#teacher_olympiads_tab").hide();
+
+    $("#subject_list_page").hide();
+    $("#pupil_page_tab").hide();
+    $("#olympiads_tab").hide();
+    $("#subject_list_page_tab").hide();
+    fillAdminInfo(id);
 }
 
 
