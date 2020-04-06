@@ -115,8 +115,6 @@ function showTeacher(id){
     $("#teacher_page_tab").show();
     $("#teacher_list_page_tab").show();
     $("#teacher_list_page").show();
-
-
     $("#teacher_olympiads_tab").show();
     $("#container").show();
 
