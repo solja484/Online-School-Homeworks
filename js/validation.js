@@ -20,8 +20,8 @@ function checkValidity() {
 function validHouse(str) {
     const selector = $("#" + str);
     let house = selector.val();
-    let pattern=/^[A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9][A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9]?[A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9]?[A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9]?[A-Za-zА-Яа-яіІїЇєЄ ,-]*$/;
-    if(house.match(pattern)){
+    let pattern = /^[A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9][A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9]?[A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9]?[A-Za-zА-Яа-яіІїЇєЄ ,-]*[0-9]?[A-Za-zА-Яа-яіІїЇєЄ ,-]*$/;
+    if (house.match(pattern)) {
         selector.removeClass('is-invalid');
         selector.addClass('is-valid');
         return true;
@@ -184,7 +184,6 @@ function validEmpty(str) {
     }
     return true;
 }
-
 
 
 //on key uo

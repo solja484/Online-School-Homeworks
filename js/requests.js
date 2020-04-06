@@ -11,171 +11,18 @@ function addNewCity() {
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
-        success: function () {
+        success: function (data) {
             $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
                 "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
                 " <strong>Вітаємо</strong> Місто <u>" + city + "</u>додано!" +
                 "</div>");
             setClear(["#new_added_city"]);
+            $("#add_city_modal").modal('hide');
+        },
+        error: function (data) {
+            alert(data.error);
         },
         data: JSON.stringify(data)
-    });
-
-    $("#add_city_modal").modal('hide');
-}
-
-function addHomework(){
-    let id = sessionStorage.getItem("subject");
-
-    /*TODO sql = "INSERT INTO hometasks (title, content, deadline, notes, subject_id) " \
-                  "VALUES ('%s','%s', '%s', '%s','%s');" % (json['title'], json['content'],
-                      json['deadline'], json['notes'],
-                      json['subject_id'])*/
-
-    let data=
-    {
-
-        "title": $("#new_hw_title").val(),
-        "content":$("#new_hw_content").val(),
-        "deadline":$("#new_hw_deadline").val(),
-        "notes":$("#new_hw_notes").val(),
-        "subject_id":id
-    };
-
-
-    $("#add_hometask_modal").modal('hide');
-
-    //TODO можливо можна якось получити ід створеної домашки, інакше ніяк( @natasha
-    //showHometask(hw_id);
-
-
-    $.ajax({
-        url: 'http://localhost:2303/addhometask',
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data2) {
-
-
-
-        },
-        error: function (data2) {
-            alert(data2.error);
-        },
-        data: JSON.stringify(data)
-    });
-
-
-
-
-
-}
-
-function addSubject() {
-
-    if (!validEmpty("new_subject_name") || !validFreeClass("new_subject_class"))
-        return false;
-
-    let name = $("#new_subject_name").val();
-
-    let data = {
-        "name": name
-    };
-    const descr = $("#new_subject_description").val();
-    if (descr !== "") {
-        data['description'] = descr;
-    }
-    const klass = $("#new_subject_class").val();
-    if (klass !== "") {
-        data['class'] = klass;
-    }
-
-    $("#teacher_list").append("<a href='#' class='list-group-item list-group-item-action list-group-item-light' data-toggle='list'" +
-        " role='tab' onclick='show_subject()'>" + data.name + "</a>");
-
-
-    $("#add_subject_modal").modal('hide');
-
-    $.ajax({
-        url: 'http://localhost:2303/addsubject', //TODO
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data2) {
-
-        },
-        error: function (data2) {
-           // alert(data2.error);
-        },
-        data: JSON.stringify(data)
-    });
-
-
-
-
-
-}
-
-function addSchool() {
-    if (!validName("input_school_name") || !validFName("input_school_region") ||
-        !validName("input_school_street") || !validPhone("input_school_phone") ||
-        !validHouse("input_school_house")) {
-        return false;
-    }
-    let data = {
-        "name": $("#input_school_name").val(),
-        "cityid": $("#input_school_city").val(),
-        "street": $("#input_school_street").val(),
-        "house": $("#input_school_house").val(),
-        "phone": $("#input_school_phone").val()
-    };
-    const notes = $("#input_school_notes").val();
-    if (notes !== "") {
-        data['notes'] = notes;
-    }
-    const region = $("#input_school_region").val();
-    if (notes !== "") {
-        data['region'] = region;
-    }
-    $.ajax({
-        url: 'http://localhost:2303/addSchool',
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
-                "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
-                " <strong>" + data.code + "</strong> - код нової школи. Вітаємо!" +
-                "</div>");
-            setClear(["#input_school_name", "#input_school_region", "#input_school_notes", "#input_school_city",
-                "#input_school_phone", "#input_school_street", "#input_school_house"]);
-        },
-        error: function () {
-            $("#content").prepend("<div class='alert alert-danger alert-dismissible'>" +
-                "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
-                " <strong>Error!</strong> Не вдалося додати школу </div>");
-            setClear(["#input_school_name", "#input_school_region", "#input_school_notes", "#input_school_city",
-                "#input_school_phone", "#input_school_street", "#input_school_house"]);
-        },
-        data: JSON.stringify(data)
-    });
-
-    $("#add_school_modal").modal('hide');
-}
-
-function setCitiesValueOption(selectorID) {
-    $.ajax({
-        url: 'http://localhost:2303/getCities',
-        type: 'get',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            var sel = $(selectorID);
-            for (var i = 0; i < data.length; i++) {
-                sel.append("<option value='" + data[i][0] + "'>" + data[i][1] + "</option>");
-            }
-            console.log(data);
-        }
     });
 }
 
@@ -250,11 +97,9 @@ function login() {
             $("#entrypanel").hide();
             $("#registrypanel").hide();
 
-
-
             if (cur_user_type === 'teacher') showTeacher(data.id);
-            if (cur_user_type === 'pupil') showPupil(data.id);
-            if (cur_user_type === 'admin') showAdmin(data.id);
+            else if (cur_user_type === 'pupil') showPupil(data.id);
+            else showAdmin(data.id);
 
             setClear(["#entry_email", "#entry_password"]);
         },
@@ -266,121 +111,105 @@ function login() {
     });
 }
 
-function addAdmin() {
-    const logSelector = $("#input_admin_login");
-    const login = logSelector.val();
-    if (login === "") {
-        logSelector.addClass('is-invalid');
-        setClear(["#input_admin_password"]);
-        return false;
-    }
-    if (!validEmail("input_admin_email") || !validPass("input_admin_password") ||
-        !validName("input_admin_fname") || !validName("input_admin_lname")) {
-        return false;
-    }
-    let data = {
-        "login": login,
-        "email": $("#input_admin_email").val(),
-        "password": $("#input_admin_password").val(),
-        "name": $("#input_admin_fname").val(),
-        "surname": $("#input_admin_lname").val(),
-    };
-    const notes = $("#input_admin_notes").val();
-    if (notes !== "") {
-        data['notes'] = notes;
-    }
+function setCitiesValueOption(selectorID) {
     $.ajax({
-        url: 'http://localhost:2303/registeradmin',
-        type: 'post',
+        url: 'http://localhost:2303/getCities',
+        type: 'get',
         dataType: 'json',
         contentType: 'application/json',
-        "accept": 'application/json',
-        success: function () {
-            $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
-                "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
-                "  <strong>Success!</strong> Новий адміністратор створений" +
-                "</div>");
-            setClear(["#input_admin_password"]);
-        },
-        error: function () {
-            $("#content").prepend("<div class='alert alert-danger alert-dismissible'>" +
-                "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
-                "  <strong>Error!</strong> Не вдалося додати адміністратора" +
-                "</div>");
-            setClear(["#input_admin_password"]);
-        },
-        data: JSON.stringify(data)
+        success: function (data) {
+            var sel = $(selectorID);
+            for (var i = 0; i < data.length; i++) {
+                sel.append("<option value='" + data[i][0] + "'>" + data[i][1] + "</option>");
+            }
+            console.log(data);
+        }
     });
-    $("#add_admin_modal").modal('hide');
 }
 
-function deleteHometask(hw_id){
-
-    $("#blockhw"+hw_id).remove();
-    $("#delete_hw_modal").modal('hide');
-    $.ajax({
-        url: 'http://localhost:2303/deletehometask', //TODO @natasha
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        accept: 'application/json',
-        success: function (data) {
 
 
 
-        },
-        error: function (data) {
-            // alert(data.error);
-        },
-        data: JSON.stringify({
-            id: id
-        })
-    });
-};
-
-function deleteSubject(){
-    let id=sessionStorage.getItem("subject");
-    $("#sj"+id).remove();
-    $("#delete_sj_modal").modal('hide');
-
-    showPage("teacher_list_page");
-
-
-
-    $.ajax({
-        url: 'http://localhost:2303/deletesubject', //TODO @natasha
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        accept: 'application/json',
-        success: function (data) {
-
-
-
-        },
-        error: function (data) {
-            // alert(data.error);
-        },
-        data: JSON.stringify({
-            id: id
-        })
-    });
-
-
-};
-
-
-
-function searchOlympiad(){
-    let str=$("#olympiad_search_input").val();
-    if(str!=""){
+function searchOlympiad() {
+    let str = $("#olympiad_search_input").val();
+    if (str !== "") {
     }
     //TODO search olympiad ajax
 }
 
-function searchSubject(){
-    let str=$("#subject_search_input").val();
-    if(str!=""){
-        }
+function searchSubject() {
+    let str = $("#subject_search_input").val();
+    if (str !== "") {
+    }
     //TODO search subject ajax
+}
+
+function submitAnswer(id) {
+    let data = {
+        "id": "3",
+        "answer": $("#answer_area").val(),
+        "hyperlink": $("#answer_link_input").val(),
+        "comment": "looks good",
+        "mark": "11/12"
+    };
+
+    $("#answer_container").empty().text(data.answer);
+    $("#answer_link_container").empty().append(" <a id='answer_link' href='" + data.hyperlink + "'>" + data.hyperlink + "</a>");
+    $("#submit_answer_button").hide();
+    $("#edit_answer_button").show().attr("onclick", "submitAnswer(" + data.id + ")");
+
+
+    $.ajax({
+        url: 'http://localhost:2303/gethometask', //TODO @natasha
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+
+
+        },
+        error: function (data) {
+            // alert(data.error);
+        },
+        data: JSON.stringify(data)
+    });
+
+
+}
+
+function editAnswer(id) {
+    let data = {
+        "id": "3",
+        "answer": "aoaoaoaoaooao oa oa oao oaooao o aoo oooaoaoaooao",
+        "hyperlink": "www.distedu.ukma.edu.ua",
+        "comment": "looks good",
+        "mark": "11/12"
+    };
+
+    $("#answer_container").empty().append("<textarea id='answer_area' class='text-break form-control' rows='6'>" +
+        data.answer + "</textarea>");
+    $("#answer_link_container").empty().append("<input type='text' class='form-control' id='answer_link_input' value='" + data.hyperlink + "'> ");
+
+    $("#submit_answer_button").show().attr("onclick", "submitAnswer(" + data.id + ")");
+    $("#edit_answer_button").hide();
+
+
+    $.ajax({
+        url: 'http://localhost:2303/', //TODO @natasha
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+
+
+        },
+        error: function (data) {
+            alert(data.error);
+        },
+        data: JSON.stringify({
+            id: id
+        })
+    });
 }
