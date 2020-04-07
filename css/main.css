@@ -22,7 +22,10 @@ body {
     margin-top: 15px;
     margin-bottom: 15px;
 }
-
+.mg-v-5{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 .pd-0 {
     padding: 0;
 }
@@ -105,7 +108,9 @@ body {
 .float-right {
     float: right;
 }
-
+.float-right-i{
+    float: right;!important;
+}
 #container {
     margin: 0;
 !important;
@@ -120,17 +125,20 @@ body {
 #menu {
     margin: 0;
     padding: 0;
+
 }
 
 #navbar {
-    background: white;
+    background: transparent;
+
 !important;
 }
 
 .navbar-container {
     min-height: 99vh;
     background: white;
-    position: relative;
+    position:fixed;
+
 }
 
 .page {
@@ -162,7 +170,8 @@ body {
     position: absolute;
     left: 5%;
     right: 10%;
-    bottom: 1%;
+    bottom: 4%;
+    height: auto;
 }
 
 .exit_menu:hover, .exit_menu:focus, .exit_menu:active {
@@ -215,5 +224,13 @@ body {
     .text-a {
         font-size: 20px;
     !important;
+    }
+    .navbar-container {
+        min-height: auto;
+        position:initial;
+
+    }
+    .exit_menu {
+        bottom:45%;
     }
 }

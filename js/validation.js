@@ -219,3 +219,19 @@ $("#reg_email").keyup(function () {
 //     logSelector.removeClass('is-invalid');
 //     logSelector.removeClass('is-valid');
 // });
+
+
+//якщо додати предмет а потім знову відкрити модальне вікно,
+//зберігається попередня інфа і валідовані зелененькі поля
+//ці два методи забирають валідацію і інфу відповідно
+function removeValid(str) {
+    $("form#" + str + " :input").each(function () {
+        $(this).removeClass('is-valid');
+    });
+}
+
+function clearForm(str){
+    $("form#" + str + " :input").each(function () {
+        $(this).val('');
+    });
+}

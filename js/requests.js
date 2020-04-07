@@ -18,6 +18,8 @@ function addNewCity() {
                 "</div>");
             setClear(["#new_added_city"]);
             $("#add_city_modal").modal('hide');
+            removeValid("add_city_form");
+            clearForm("add_city_form");
         },
         error: function (data) {
             alert(data.error);
@@ -144,72 +146,56 @@ function searchSubject() {
     //TODO search subject ajax
 }
 
-function submitAnswer(id) {
-    let data = {
-        "id": "3",
-        "answer": $("#answer_area").val(),
-        "hyperlink": $("#answer_link_input").val(),
-        "comment": "looks good",
-        "mark": "11/12"
-    };
+function submitAnswer(data) {
+    alert("im here");
 
-    $("#answer_container").empty().text(data.answer);
+    data.text = $("#answer_area").val();
+    data.hyperlink = $("#answer_link_input").val();
+
+
+    $("#answer_container").empty().text(data.text);
     $("#answer_link_container").empty().append(" <a id='answer_link' href='" + data.hyperlink + "'>" + data.hyperlink + "</a>");
-    $("#submit_answer_button").hide();
-    $("#edit_answer_button").show().attr("onclick", "submitAnswer(" + data.id + ")");
+    $("#submit_answer_button").hide().attr("onclick", "submitAnswer(" + JSON.stringify(data) + ")");
+    $("#edit_answer_button").show().attr("onclick", "editAnswer(" + JSON.stringify(data) + ")");
 
 
-    $.ajax({
-        url: 'http://localhost:2303/gethometask', //TODO @natasha
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        accept: 'application/json',
-        success: function (data) {
-
-
-        },
-        error: function (data) {
-            // alert(data.error);
-        },
-        data: JSON.stringify(data)
-    });
+   //TODO submit new answer to database
 
 
 }
 
-function editAnswer(id) {
-    let data = {
-        "id": "3",
-        "answer": "aoaoaoaoaooao oa oa oao oaooao o aoo oooaoaoaooao",
-        "hyperlink": "www.distedu.ukma.edu.ua",
-        "comment": "looks good",
-        "mark": "11/12"
-    };
+function editAnswer(data) {
+
 
     $("#answer_container").empty().append("<textarea id='answer_area' class='text-break form-control' rows='6'>" +
-        data.answer + "</textarea>");
+        data.text + "</textarea>");
     $("#answer_link_container").empty().append("<input type='text' class='form-control' id='answer_link_input' value='" + data.hyperlink + "'> ");
 
-    $("#submit_answer_button").show().attr("onclick", "submitAnswer(" + data.id + ")");
-    $("#edit_answer_button").hide();
+    $("#submit_answer_button").attr("onclick", "submitAnswer(" + JSON.stringify(data) + ")").show();
+    $("#edit_answer_button").attr("onclick", "editAnswer(" + JSON.stringify(data) + ")").hide();
+
+}
+
+function editMark(data){
+   $("#answer_mark_container").empty().append("<input type='number' id='answer_mark_input' class='form-control' value='"+data.mark+"'>");
+   $("#answer_comment_container").empty().append("<textarea id='comment_area' class='text-break form-control' rows='3'>" +
+       data.response+" </textarea>");
 
 
-    $.ajax({
-        url: 'http://localhost:2303/', //TODO @natasha
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        accept: 'application/json',
-        success: function (data) {
+    $("#edit_mark_button").hide().attr("onclick", "editMark("+JSON.stringify(data)+")");
+    $("#submit_mark_button").show().attr("onclick", "submitMark(" + JSON.stringify(data) + ")");
+}
+
+function submitMark(data){
+    //TODO submit new answer to db
+
+    data.mark=$("#answer_mark_input").val();
+    data.response =$("#comment_area").val();
 
 
-        },
-        error: function (data) {
-            alert(data.error);
-        },
-        data: JSON.stringify({
-            id: id
-        })
-    });
+    $("#answer_mark_container").empty().text(data.mark);
+    $("#answer_comment_container").empty().text(data.response);
+
+    $("#edit_mark_button").show().attr("onclick", "editMark("+JSON.stringify(data)+")");
+    $("#submit_mark_button").hide().attr("onclick", "submitMark(" + JSON.stringify(data) + ")");
 }
