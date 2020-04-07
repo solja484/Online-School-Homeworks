@@ -129,7 +129,7 @@ function fillPupilInfo(id) {
             fillPupilSubjects(id);
         },
         error: function (data) {
-            alert(data.error);
+            alert(data.error + " fillPupilInfo()");
         },
         data: JSON.stringify({
             id: id
@@ -212,7 +212,7 @@ function fillTeacherInfo(id) {
             fillTeacherSubjects(id);
         },
         error: function (data) {
-            alert(data.error);
+            alert(data.error + " fillTeacherInfo()");
         },
         data: JSON.stringify({
             "id": id
@@ -301,7 +301,7 @@ function fillSchoolInfo() {
             $("#school_notes").text(data.notes);
         },
         error: function (data) {
-            alert(data.error);
+            alert(data.error + " fillSchoolInfo()");
         },
         data: JSON.stringify({
             "id": sessionStorage.getItem("schoolcode")
@@ -384,7 +384,7 @@ function addSubject() {
             clearForm("add_subject_form");
         },
         error: function (data2) {
-            alert(data2.error);
+            alert(data2.error + " addSubject()");
         },
         data: JSON.stringify(data)
     });
@@ -438,7 +438,7 @@ function fillTeacherSubjects(id) {
 
         },
         error: function (data) {
-            alert(data.error);
+            alert(data.error + " fillTeacherSubjects()");
         },
         data: JSON.stringify({
             "id": id
@@ -464,7 +464,7 @@ function fillPupilSubjects(id) {
             fillPupilOlympiads(id);
         },
         error: function (data) {
-            alert(data.error);
+            alert(data.error + " fillPupilSubjects()");
         },
         data: JSON.stringify({
             "id": id
@@ -527,7 +527,7 @@ function fillTeacherHometasks(subject_data) {
                 "onclick='addHwDelButton(" + data.id + ")' data-toggle='modal'>Видалити</button></div>"));
         },
         error: function (datas) {
-            alert(datas.error);
+            alert(datas.error + " fillTeacherHometasks()");
         },
         data: JSON.stringify({
             "id": subject_id
@@ -571,7 +571,7 @@ function fillPupilHometasks(subject_data) {
             });
         },
         error: function (datas) {
-            alert(datas.error);
+            alert(datas.error + " fillPupilHometasks()");
         },
         data: JSON.stringify({
             "id": subject_id
@@ -868,7 +868,7 @@ function fillTeacherOlympiads(id) {
     teachListSel.empty();
 
     datas.forEach(data => teachListSel.append("<a href='#' class='list-group-item list-group-item-action " +
-        "list-group-item-light' data-toggle='list' role='tab' id='ol" + data.id + "' onclick='show_olympiad(" +
+        "list-group-item-light ' data-toggle='list' role='tab' id='ol" + data.id + "' onclick='show_olympiad(" +
         JSON.stringify(data) + ");'>" + data.title + "</a>"));
 
     $.ajax({
@@ -883,7 +883,7 @@ function fillTeacherOlympiads(id) {
                 JSON.stringify(data) + ");'>" + data.title + "</a>"));
         },
         error: function (data) {
-            alert(data.error);
+            alert(data.error + " fillTeacherOlympiads()");
         },
         data: JSON.stringify({
             "id": id
@@ -902,6 +902,7 @@ function fillTeacherOlympiadTasks(ol_data) {
     $("#delete_olympiad_modal_button").show();
     $("#add_task_modal_button").show();
     fillOlympiadFields(ol_data);
+    fillSources(ol_id);
 
     //TODO видалити після того як буде метод на сервері
     let datas = [
@@ -916,10 +917,10 @@ function fillTeacherOlympiadTasks(ol_data) {
     ];
     sessionStorage.setItem("olympiad", ol_id);
     datas.forEach(data => hwListSel.append("<div id='blocktask" + data.id + "' class='hw-active row'>" +
-        "<a id='task" + data.id + "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + data.id +
-        ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
-        "</span><button class='btn btn-outline-danger bg-hover-red col-md-5' data-target='#delete_task_modal' " +
-        "onclick='addTaskDelButton(" + data.id + ")' data-toggle='modal'>Видалити</button></div>"));
+        "<a id='task" + data.id + "' class='hw_link col-md-8' onclick='showOlympiadTask(" + data.id +
+        ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3 text-14'>" + data.deadline +
+        "</span><button class='btn btn-light col-md-1 text-14 pd-0' data-target='#delete_task_modal' " +
+        "onclick='addTaskDelButton(" + data.id + ")' data-toggle='modal'>❌</button></div>"));
     fillCompetition(ol_id);
 
     /*TODO розкоментити після того як буде метод на сервері
@@ -939,6 +940,7 @@ function fillTeacherOlympiadTasks(ol_data) {
             "onclick='addTaskDelButton(" + data.id + ")' data-toggle='modal'>Видалити</button></div>"));
 
                     fillCompetition(ol_id);
+                      fillSources(ol_id);
             },
             error: function (datas) {
               //  alert(datas.error);
@@ -1028,6 +1030,7 @@ function fillPupilOlympiadTasks(ol_data) {
     $("#ol_title").text(ol_data.title);
     $("#ol_discipline").text(ol_data.discipline + " " + ol_data.class_num + " клас");
 
+
     //TODO видалити після того як буде метод на сервері
     sessionStorage.setItem("olympiad", ol_id);
 
@@ -1048,7 +1051,7 @@ function fillPupilOlympiadTasks(ol_data) {
         "</span></div>"));
 
     fillCompetition(ol_id);
-
+    fillSources(ol_id);
 
     $.ajax({
         url: 'http://localhost:2303/getolympiadtasks', //TODO @natasha назва методу
@@ -1075,9 +1078,10 @@ function fillPupilOlympiadTasks(ol_data) {
                         ")'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline + "</span>" +
                         "</div>")
             });
+            fillSources(ol_id);
         },
         error: function (datas) {
-            alert(datas.error);
+            alert(datas.error + " fillOlympiadTasks()");
         },
         data: JSON.stringify({
             "id": ol_id
@@ -1284,7 +1288,6 @@ function fillAnswerFields(task_data) { //TODO передається вся ін
     $("#answer_deadline").text(task.deadline);
 
 
-
     const answerSel = $("#answer_status");
     if (answer.text === "") { //нічого не здано
         answerSel.text("Нічого не здано");
@@ -1340,17 +1343,57 @@ function fillAnswerFields(task_data) { //TODO передається вся ін
         $("#answer_comment_container").empty().append("<p>" + answer.response + "</p>");
 
 
-
-
     } else if (localStorage.getItem("usertype") === "teacher") {
         $("#edit_task_modal_button").show();
-        $("#submit_mark_button").hide().attr('onclick','submitMark('+answer.id+')');
-        $("#edit_mark_button").show().attr('onclick','editMark('+JSON.stringify(answer)+')');
+        $("#submit_mark_button").hide().attr('onclick', 'submitMark(' + answer.id + ')');
+        $("#edit_mark_button").show().attr('onclick', 'editMark(' + JSON.stringify(answer) + ')');
         $("#submit_answer_button").hide();
         $("#edit_answer_button").hide();
         $("#answer_mark_container").empty().append("<p>" + answer.mark + "</p>");
-        $("#answer_comment_container").empty().text( answer.response);
+        $("#answer_comment_container").empty().text(answer.response);
     }
+
+
+}
+
+
+//SOURCES BLOCK
+function fillSources(ol_id) {
+    $("#additional_sources_block").empty();
+
+    //TODO сюди мають прилітати всі додаткові джерела з лінками, подумаємо чи треба їх едітать
+    let datas = [
+        {
+            'id': 2,
+            'caption': 'додаткове джерело 1',
+            'content': 'юююююююююююююююний орел, юний орееееееееееееееел',
+            'notes': '',
+            'links': ["https://www.pinterest.com/"]
+        },
+        {
+            'id': 2,
+            'caption': 'додаткове джерело 2',
+            'content': 'ти лети від джерел до джерел від джерел до джерел',
+            'notes': '',
+            'links': ["https://distedu.ukma.edu.ua/grade/report/user/index.php?id=66", "https://unsplash.com/"]
+        }
+    ];
+    if (datas.length < 1) return false;
+
+    const sources = $("#additional_sources_block");
+    sources.empty();
+    let str = "";
+    datas.forEach(data => {
+        str += "<div class='card mg-10'><p class='card-header'>" + data.caption + "</p><div class='pd-7'><p class='text-14'>" + data.content + "</p>" +
+            "<p class='text-muted text-13'>" + data.notes + "</p>";
+
+        if (data.links.length > 0)
+            for (let j of data.links)
+                str += "<a class='text-a text-13' href='" + j + "'>" + j + "</a>";
+        str+="</div></div>";
+        sources.append(str);
+        str="";
+    });
 
 
 }

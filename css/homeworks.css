@@ -1,7 +1,7 @@
 .hw-active {
     margin: 0 15px !important;
     padding: 30px 15px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #7a7a7a;
 
 }
 
@@ -14,7 +14,7 @@
 }
 
 .hw_link {
-    font-size: 20px;
+
 
     color: black;
 
