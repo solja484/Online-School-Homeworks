@@ -841,3 +841,110 @@ function editOlympiad() {
         data: JSON.stringify(data)
     });
 }
+
+
+function fillPupilOlympiads(id) {
+    const subListSel = $("#pupil_olympiads_list");
+    subListSel.empty();
+    $.ajax({
+        url: 'http://localhost:2303/getpupilolympiads',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (datas) {
+            datas.forEach(data => subListSel.append("<a href='#' class='list-group-item list-group-item-action " +
+                "list-group-item-light' data-toggle='list' role='tab' onclick='show_olympiad(" + JSON.stringify(data)
+                + ");'>" + data.title + "</a>"));
+        },
+        error: function (data) {
+            console.log(data.error);
+        },
+        data: JSON.stringify({
+            "id": id
+        })
+    });
+}
+
+function fillTeacherOlympiadTasks(ol_data) {
+    console.log("fillTeacherOlympiadTasks");
+    console.log(ol_data);
+    const hwListSel = $("#olympiad_tasks_list");
+    hwListSel.empty();
+    const ol_id = ol_data.id;
+    $.ajax({
+        url: 'http://localhost:2303/getolympiadtasksandsources',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (datas) {
+            $("#edit_olympiad_modal_button").show();
+            $("#delete_olympiad_modal_button").show();
+            $("#add_task_modal_button").show();
+            fillOlympiadFields(ol_data);
+            fillCompetition(ol_data);
+
+            sessionStorage.setItem("olympiad", ol_id);
+            datas.forEach(data => hwListSel.append("<div id='blocktask" + data.id + "' class='hw-active row'>" +
+                "<a id='task" + data.id + "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + data.id +
+                ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
+                "</span><button class='btn btn-outline-danger bg-hover-red col-md-3' data-target='#delete_task_modal' " +
+                "onclick='addTaskDelButton(" + data.id + ")' data-toggle='modal'>Видалити</button></div>"));
+            fillSources(datas.sources);
+        },
+        error: function (datas) {
+            console.log(datas.error);
+        },
+        data: JSON.stringify({
+            "id": ol_id
+        })
+    });
+
+}
+
+
+function fillPupilOlympiadTasks(ol_data) {
+    const hwListSel = $("#olympiad_tasks_list");
+    hwListSel.empty();
+    const ol_id = ol_data.id;
+
+    $("#edit_olympiad_modal_button").hide();
+    $("#delete_olympiad_modal_button").hide();
+    $("#add_task_modal_button").hide();
+
+    $("#ol_title").text(ol_data.title);
+    $("#ol_discipline").text(ol_data.discipline + " " + ol_data.class_num + " клас");
+
+    $.ajax({
+        url: 'http://localhost:2303/getolympiadtasksandsources',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (datas) {
+            sessionStorage.setItem("olympiad", ol_id);
+            fillCompetition(ol_data);
+            fillSources(datas.sources);
+            datas.forEach(data => {
+                if (!data.active)
+                    hwListSel.append(" <div id='blocktask" + data.id + "' class='hw-disabled  row'><a id='task" + data.id +
+                        "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + data.id + ")' " +
+                        "href='#content'>" + data.task_caption + "</a><span class='col-md-3'>"
+                        + data.deadline + "</span></div>");
+                else
+                    hwListSel.append(" <div id='blocktask" + data.id + "' class='hw-active row'><a id='task" + data.id +
+                        "' class='hw_link col-md-9 ' href='#content' onclick='showOlympiadTask(" + data.id +
+                        ")'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline + "</span>" +
+                        "</div>")
+            });
+        },
+        error: function (datas) {
+            alert(datas.error + " fillOlympiadTasks()");
+        },
+        data: JSON.stringify({
+            "id": ol_id
+        })
+    });
+
+}

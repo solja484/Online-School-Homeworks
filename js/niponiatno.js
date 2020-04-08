@@ -61,249 +61,43 @@ function submitMark(data) {
 }
 
 
-
-
 //OLYMPIADS SECTION
-function fillTeacherOlympiadTasks(ol_data) {
-    const hwListSel = $("#olympiad_tasks_list");
-    hwListSel.empty();
-    const ol_id = ol_data.id;
-
-
-    $("#edit_olympiad_modal_button").show();
-    $("#delete_olympiad_modal_button").show();
-    $("#add_task_modal_button").show();
-    fillOlympiadFields(ol_data);
-    fillSources(ol_id);
-
-    //TODO видалити після того як буде метод на сервері
-    let datas = [
-        {
-            id: 1,
-            task_caption: "Завдання 1",
-            content: "Використовуючи інструментарій розглянутий в попередній темі провести аудит вразливостей Інформаційних ресурсів НаУКМА \\nВизначити наявні інформаційні ресурси та стан їх вразливостей \\nНадати розширений звіт аудиту безпеки ",
-            deadline: '23.04.2020 23:55',
-            source_id: sessionStorage.getItem("olympiad"),
-            links: ['https://distedu.ukma.edu.ua']
-        }
-    ];
-    sessionStorage.setItem("olympiad", ol_id);
-    datas.forEach(data => hwListSel.append("<div id='blocktask" + data.id + "' class='hw-active row'>" +
-        "<a id='task" + data.id + "' class='hw_link col-md-8' onclick='showOlympiadTask(" + data.id +
-        ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3 text-14'>" + data.deadline +
-        "</span><button class='btn btn-light col-md-1 text-14 pd-0' data-target='#delete_task_modal' " +
-        "onclick='addTaskDelButton(" + data.id + ")' data-toggle='modal'>❌</button></div>"));
-    fillCompetition(ol_id);
-
-    /*TODO розкоментити після того як буде метод на сервері
-        $.ajax({
-            url: 'http://localhost:2303/getolympiadtasks', //TODO @natasha назва метода
-            type: 'post',
-            dataType: 'json',
-            contentType: 'application/json',
-            accept: 'application/json',
-            success: function (datas) {
-
-                sessionStorage.setItem("olympiad", ol_id);
-              datas.forEach(data => hwListSel.append("<div id='blocktask" + data.id + "' class='hw-active row'>" +
-            "<a id='task" + data.id + "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + data.id +
-            ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
-            "</span><button class='btn btn-outline-danger bg-hover-red col-md-3' data-target='#delete_task_modal' " +
-            "onclick='addTaskDelButton(" + data.id + ")' data-toggle='modal'>Видалити</button></div>"));
-
-                    fillCompetition(ol_id);
-                      fillSources(ol_id);
-            },
-            error: function (datas) {
-              //  alert(datas.error);
-            },
-            data: JSON.stringify({
-                "id": ol_id
-            })
-        });
-    */
-
-}
-
-function addTaskDelButton(ol_id) {
-    $("#delete_task_button").attr('onclick', 'deleteOlympiadTask(' + ol_id + ')');
-}
-
-function fillOlympiadFields(ol_data) {
-    $("#ol_title").text(ol_data.title);
-    $("#ol_discipline").text(ol_data.discipline + " " + ol_data.class_num + " клас");
-
-    sessionStorage.setItem("olympiad", ol_data.id);
-
-    $("#edit_olympiad_name").attr("value", ol_data.title);
-    $("#edit_olympiad_discipline").attr("value", ol_data.discipline);
-    $("#edit_olympiad_class").attr("value", ol_data.class_num);
-    $("#edit_olympiad_notes").text(ol_data.notes);
-    $("#edit_olympiad_button").attr("onclick", "editOlympiad(" + ol_data.id + ")");
-}
-
-function fillPupilOlympiads(id) {
-    const subListSel = $("#pupil_olympiads_list");
-    subListSel.empty();
-
-    let datas = [
-        {
-            id: 1,
-            title: 'Районна олімпіада з математики',
-            con_id: 2,
-            discipline: 'Математика',
-            class_num: 11,
-            notes: 'нотатки'
-        },
-        {
-            id: 2,
-            title: 'конкурс ім. Петра Яцика',
-            con_id: 5,
-            discipline: 'Українська мова та література',
-            class_num: 10,
-            notes: 'нотатки'
-        }
-    ];
-
-    datas.forEach(data => subListSel.append("<a href='#' class='list-group-item list-group-item-action " +
-        "list-group-item-light' data-toggle='list' role='tab' onclick='show_olympiad(" + JSON.stringify(data)
-        + ");'>" + data.title + "</a>"));
-
+function fillOlympiadTask(task_id) {
     $.ajax({
-        url: 'http://localhost:2303/getpupilolympiads', //TODO @natasha назва метода
+        url: 'http://localhost:2303/getOlimpiaTasks',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
         accept: 'application/json',
-        success: function (datas) {
-            datas.forEach(data => subListSel.append("<a href='#' class='list-group-item list-group-item-action " +
-                "list-group-item-light' data-toggle='list' role='tab' onclick='show_olympiad(" + JSON.stringify(data)
-                + ");'>" + data.title + "</a>"));
+        success: function (data) {
+            $("#task_title").text(data.task_caption);
+            $("#task_task").text(data.content);
+            const linkSel = $("#task_links");
+            linkSel.empty();
+            data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
+            $("#task_notes").text(data.notes);
+
+            if (localStorage.getItem("usertype") === "pupil") {
+                $("#edit_task_modal_button").hide();
+                $("#mark_task_modal_button").hide();
+            } else if (localStorage.getItem("usertype") === "teacher") {
+                $("#edit_task_modal_button").show();
+                $("#mark_task_modal_button").show();
+                fillTaskFields(data);
+            }
+            fillAnswerFields(data);
         },
         error: function (data) {
             alert(data.error);
         },
         data: JSON.stringify({
-            "id": id
-        })
-    });
-}
-
-function fillPupilOlympiadTasks(ol_data) {
-    const hwListSel = $("#olympiad_tasks_list");
-    hwListSel.empty();
-    const ol_id = ol_data.id;
-
-
-    $("#edit_olympiad_modal_button").hide();
-    $("#delete_olympiad_modal_button").hide();
-    $("#add_task_modal_button").hide();
-
-    $("#ol_title").text(ol_data.title);
-    $("#ol_discipline").text(ol_data.discipline + " " + ol_data.class_num + " клас");
-
-
-    //TODO видалити після того як буде метод на сервері
-    sessionStorage.setItem("olympiad", ol_id);
-
-    let datas = [
-        {
-            id: 1,
-            task_caption: "Завдання 1",
-            content: "Використовуючи інструментарій розглянутий в попередній темі провести аудит вразливостей Інформаційних ресурсів НаУКМА \\nВизначити наявні інформаційні ресурси та стан їх вразливостей \\nНадати розширений звіт аудиту безпеки ",
-            deadline: '23.04.2020 23:55',
-            source_id: sessionStorage.getItem("olympiad"),
-            links: ['https://distedu.ukma.edu.ua']
-        }
-    ];
-
-    datas.forEach(data => hwListSel.append("<div id='blocktask" + data.id + "' class='hw-active row'>" +
-        "<a id='task" + data.id + "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + data.id +
-        ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
-        "</span></div>"));
-
-    fillCompetition(ol_id);
-    fillSources(ol_id);
-
-    $.ajax({
-        url: 'http://localhost:2303/getolympiadtasks', //TODO @natasha назва методу
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        accept: 'application/json',
-        success: function (datas) {
-
-            sessionStorage.setItem("olympiad", ol_id);
-            fillCompetition(ol_id);
-            //у завданнях немає атрибуту активний але є дедлайн
-            //або додаємо атрибут або не помічаємо сірим завдання у яких вийшов дедлайн
-            //якщо додаємо атрибут то цей кусок коду, інакше той що вверху
-            datas.forEach(data => {
-                if (!data.active)
-                    hwListSel.append(" <div id='blocktask" + data.id + "' class='hw-disabled  row'><a id='task" + data.id +
-                        "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + data.id + ")' " +
-                        "href='#content'>" + data.task_caption + "</a><span class='col-md-3'>"
-                        + data.deadline + "</span></div>");
-                else
-                    hwListSel.append(" <div id='blocktask" + data.id + "' class='hw-active row'><a id='task" + data.id +
-                        "' class='hw_link col-md-9 ' href='#content' onclick='showOlympiadTask(" + data.id +
-                        ")'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline + "</span>" +
-                        "</div>")
-            });
-            fillSources(ol_id);
-        },
-        error: function (datas) {
-            alert(datas.error + " fillOlympiadTasks()");
-        },
-        data: JSON.stringify({
-            "id": ol_id
+            "id": task_id
         })
     });
 
 }
 
 // OLYMPIAD TASKS FIELD
-function fillCompetition(ol_id) {
-    let data = {
-        "id": 1,
-        "title": "Олімпіада з математики",
-        "stage": "2 етап",
-        "remain_time": "45днів",
-        "ev_date": "12.12.2020",
-        "place": 'Ліцей "Лідер"'
-    };
-
-    $("#competition_title").text(data.title);
-    $("#competition_stage").text(data.stage);
-
-    $("#competition_date").text(data.ev_date);
-    $("#competition_place").text(data.place);
-    $("#competition_time").text(data.remain_time);
-
-    $.ajax({
-        url: 'http://localhost:2303/getcompetitioninfo', //TODO @natasha назва методу
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        accept: 'application/json',
-        success: function (data) {
-            $("#competition_title").text(data.title);
-            $("#competition_stage").text(data.stage);
-
-            $("#competition_date").text(data.ev_date);
-            $("#competition_place").text(data.place);
-            $("#competition_time").text(data.remain_time);
-
-
-        },
-        error: function (datas) {
-            alert(datas.error);
-        },
-        data: JSON.stringify({
-            "id": ol_id
-        })
-    });
-}
 
 function addTask() {
 //TODO @natasha addTask() пропиши сюди код ідентичний до addHometask(), коли пофіксиш addHometask
@@ -372,43 +166,6 @@ function deleteOlympiadTask(id) {
             "id": id
         })
     });
-}
-
-function fillOlympiadTask(task_id) {
-
-    $.ajax({
-        url: 'http://localhost:2303/gethometaskinfo', //TODO @natasha назва метода
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        accept: 'application/json',
-        success: function (data) {
-
-            $("#task_title").text(data.task_caption);
-            $("#task_task").text(data.content);
-            const linkSel = $("#task_links");
-            linkSel.empty();
-            data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
-            $("#task_notes").text(data.notes);
-
-            if (localStorage.getItem("usertype") === "pupil") {
-                $("#edit_task_modal_button").hide();
-                $("#mark_task_modal_button").hide();
-            } else if (localStorage.getItem("usertype") === "teacher") {
-                $("#edit_task_modal_button").show();
-                $("#mark_task_modal_button").show();
-                fillTaskFields(data);
-            }
-            fillAnswerFields(data);
-        },
-        error: function (data) {
-            alert(data.error);
-        },
-        data: JSON.stringify({
-            "id": task_id
-        })
-    });
-
 }
 
 function fillTaskFields(data) {
@@ -524,44 +281,4 @@ function fillAnswerFields(task_data) { //TODO передається вся ін
         $("#answer_mark_container").empty().append("<p>" + answer.mark + "</p>");
         $("#answer_comment_container").empty().text(answer.response);
     }
-
-
-}
-
-
-//SOURCES BLOCK
-function fillSources(ol_id) {
-    //TODO сюди мають прилітати всі додаткові джерела з лінками, подумаємо чи треба їх едітать
-    let datas = [
-        {
-            'id': 2,
-            'caption': 'додаткове джерело 1',
-            'content': 'юююююююююююююююний орел, юний орееееееееееееееел',
-            'notes': '',
-            'links': ["https://www.pinterest.com/"]
-        },
-        {
-            'id': 2,
-            'caption': 'додаткове джерело 2',
-            'content': 'ти лети від джерел до джерел від джерел до джерел',
-            'notes': '',
-            'links': ["https://distedu.ukma.edu.ua/grade/report/user/index.php?id=66", "https://unsplash.com/"]
-        }
-    ];
-    if (datas.length < 1) return false;
-
-    const sources = $("#additional_sources_block");
-    sources.empty();
-    let str = "";
-    datas.forEach(data => {
-        str += "<div class='card mg-10'><p class='card-header'>" + data.caption + "</p><div class='pd-7'><p class='text-14'>" + data.content + "</p>" +
-            "<p class='text-muted text-13'>" + data.notes + "</p>";
-
-        if (data.links.length > 0)
-            for (let j of data.links)
-                str += "<a class='text-a text-13' href='" + j + "'>" + j + "</a>";
-        str += "</div></div>";
-        sources.append(str);
-        str = "";
-    });
 }

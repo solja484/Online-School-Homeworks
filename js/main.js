@@ -171,6 +171,51 @@ function show_olympiad(ol_data) {
         fillPupilOlympiadTasks(ol_data);
 }
 
+function fillCompetition(ol_data) {
+    $("#competition_title").text(ol_data.name);
+    $("#competition_stage").text(ol_data.stage);
+
+    $("#competition_date").text(ol_data.ev_date);
+    $("#competition_place").text(ol_data.place);
+    $("#competition_time").text(ol_data.remain_time);
+}
+
+function fillSources(datas) {
+    if (datas.length < 1) return false;
+    const sources = $("#additional_sources_block");
+    sources.empty();
+    let str = "";
+    datas.forEach(data => {
+        str += "<div class='card mg-10'><p class='card-header'>" + data.caption + "</p><div class='pd-7'><p class='text-14'>" + data.content + "</p>" +
+            "<p class='text-muted text-13'>" + data.notes + "</p>";
+
+        if (data.links.length > 0)
+            for (let j of data.links)
+                str += "<a class='text-a text-13' href='" + j + "'>" + j + "</a>";
+        str += "</div></div>";
+        sources.append(str);
+        str = "";
+    });
+}
+
+function addTaskDelButton(ol_id) {
+    $("#delete_task_button").attr('onclick', 'deleteOlympiadTask(' + ol_id + ')');
+}
+
+function fillOlympiadFields(ol_data) {
+    $("#ol_title").text(ol_data.title);
+    $("#ol_discipline").text(ol_data.discipline + " " + ol_data.class_num + " клас");
+
+    sessionStorage.setItem("olympiad", ol_data.id);
+
+    $("#edit_olympiad_name").attr("value", ol_data.title);
+    $("#edit_olympiad_discipline").attr("value", ol_data.discipline);
+    $("#edit_olympiad_class").attr("value", ol_data.class_num);
+    $("#edit_olympiad_notes").text(ol_data.notes);
+    $("#edit_olympiad_button").attr("onclick", "editOlympiad(" + ol_data.id + ")");
+}
+
+
 function showHometask(hw_id) {
     showPage("hometask_page");
     fillHometask(hw_id);
