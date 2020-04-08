@@ -241,5 +241,4 @@ function editTaskHyperlinkField(id) {
 function deleteEditTaskHyperlinkField(id) {
     $("#edit_task_link" + id).remove();
     $("#edit_task_hyperlink_field_del" + id).remove();
-
 }
