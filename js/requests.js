@@ -130,8 +130,6 @@ function setCitiesValueOption(selectorID) {
 }
 
 
-
-
 function searchOlympiad() {
     let str = $("#olympiad_search_input").val();
     if (str !== "") {
@@ -159,7 +157,7 @@ function submitAnswer(data) {
     $("#edit_answer_button").show().attr("onclick", "editAnswer(" + JSON.stringify(data) + ")");
 
 
-   //TODO submit new answer to database
+    //TODO submit new answer to database
 
 
 }
@@ -176,26 +174,26 @@ function editAnswer(data) {
 
 }
 
-function editMark(data){
-   $("#answer_mark_container").empty().append("<input type='number' id='answer_mark_input' class='form-control' value='"+data.mark+"'>");
-   $("#answer_comment_container").empty().append("<textarea id='comment_area' class='text-break form-control' rows='3'>" +
-       data.response+" </textarea>");
+function editMark(data) {
+    $("#answer_mark_container").empty().append("<input type='number' id='answer_mark_input' class='form-control' value='" + data.mark + "'>");
+    $("#answer_comment_container").empty().append("<textarea id='comment_area' class='text-break form-control' rows='3'>" +
+        data.response + " </textarea>");
 
 
-    $("#edit_mark_button").hide().attr("onclick", "editMark("+JSON.stringify(data)+")");
+    $("#edit_mark_button").hide().attr("onclick", "editMark(" + JSON.stringify(data) + ")");
     $("#submit_mark_button").show().attr("onclick", "submitMark(" + JSON.stringify(data) + ")");
 }
 
-function submitMark(data){
+function submitMark(data) {
     //TODO submit new answer to db
 
-    data.mark=$("#answer_mark_input").val();
-    data.response =$("#comment_area").val();
+    data.mark = $("#answer_mark_input").val();
+    data.response = $("#comment_area").val();
 
 
     $("#answer_mark_container").empty().text(data.mark);
     $("#answer_comment_container").empty().text(data.response);
 
-    $("#edit_mark_button").show().attr("onclick", "editMark("+JSON.stringify(data)+")");
+    $("#edit_mark_button").show().attr("onclick", "editMark(" + JSON.stringify(data) + ")");
     $("#submit_mark_button").hide().attr("onclick", "submitMark(" + JSON.stringify(data) + ")");
 }

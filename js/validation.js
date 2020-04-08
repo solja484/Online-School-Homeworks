@@ -230,7 +230,7 @@ function removeValid(str) {
     });
 }
 
-function clearForm(str){
+function clearForm(str) {
     $("form#" + str + " :input").each(function () {
         $(this).val('');
     });

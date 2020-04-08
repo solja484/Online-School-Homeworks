@@ -22,10 +22,12 @@ body {
     margin-top: 15px;
     margin-bottom: 15px;
 }
-.mg-v-5{
+
+.mg-v-5 {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
 .pd-0 {
     padding: 0;
 }
@@ -108,9 +110,12 @@ body {
 .float-right {
     float: right;
 }
-.float-right-i{
-    float: right;!important;
+
+.float-right-i {
+    float: right;
+!important;
 }
+
 #container {
     margin: 0;
 !important;
@@ -137,7 +142,7 @@ body {
 .navbar-container {
     min-height: 99vh;
     background: white;
-    position:fixed;
+    position: fixed;
 
 }
 
@@ -225,12 +230,14 @@ body {
         font-size: 20px;
     !important;
     }
+
     .navbar-container {
         min-height: auto;
-        position:initial;
+        position: initial;
 
     }
+
     .exit_menu {
-        bottom:45%;
+        bottom: 45%;
     }
 }

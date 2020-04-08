@@ -597,7 +597,6 @@ function fillHometask(id) {
             data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
             $("#hw_notes").text(data.notes);
 
-            //TODO @solja gethometaskinfo
             if (localStorage.getItem("usertype") === "pupil") {
                 $("#edit_hometask_modal_button").hide();
             } else if (localStorage.getItem("usertype") === "teacher") {
@@ -648,7 +647,7 @@ function addHomework() {
 
     let links = [];
     $.each($('input', '#add_hw_links'), function () {
-        if ($(this).val() != "")
+        if ($(this).val() !== "")
             links.push($(this).val());
     });
 
@@ -671,8 +670,7 @@ function addHomework() {
             $("#add_hometask_modal").modal('hide');
             showHometask(data2.hw_id);
             removeValid("add_hw_form");
-            clearForm("add_hw_form"); //я не можу зрозуміти чи це у мене ця штука яка паролі зберігає автоматично заповняє фоорму
-                                      // чи це ми її не чистимо, тому чищу ще раз
+            clearForm("add_hw_form");
         },
         error: function (data2) {
             console.log(data2);
@@ -713,7 +711,7 @@ function editHomework(hw_id) {
 
     let links = [];
     $.each($('input', '#edit_hw_links'), function () {
-        if ($(this).val() != "")
+        if ($(this).val() !== "")
             links.push($(this).val());
     });
 
@@ -739,11 +737,8 @@ function editHomework(hw_id) {
             data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
             $("#hw_notes").text(data.notes);
 
-
             removeValid("edit_hw_form");
             fillHometaskFields(data);
-
-
         },
         error: function (data2) {
             alert(data2.error);
@@ -1142,7 +1137,7 @@ function addTask() {
 
     let links = [];
     $.each($('input', '#add_task_links'), function () {
-        if ($(this).val() != "")
+        if ($(this).val() !== "")
             links.push($(this).val());
     });
 
@@ -1166,7 +1161,7 @@ function editTask(id) {
 
     let links = [];
     $.each($('input', '#edit_task_links'), function () {
-        if ($(this).val() != "")
+        if ($(this).val() !== "")
             links.push($(this).val());
     });
 
@@ -1219,7 +1214,6 @@ function fillOlympiadTask(task_id) {
             data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
             $("#task_notes").text(data.notes);
 
-            //TODO @solja gethometaskinfo
             if (localStorage.getItem("usertype") === "pupil") {
                 $("#edit_task_modal_button").hide();
                 $("#mark_task_modal_button").hide();
@@ -1301,7 +1295,7 @@ function fillAnswerFields(task_data) { //TODO передається вся ін
         $("#answer_link_container").empty().append(" <a id='answer_link' href='" + answer.hyperlink + "'>" + answer.hyperlink + "</a>")
 
     }
-    if (task.remain_time == "") {
+    if (task.remain_time === "") {
         $("#submit_answer_button").attr("disabled", "disabled");
         $("#edit_answer_button").attr("disabled", "disabled");
         $("#answer_timeleft").addClass("table-danger").text("Час вичерпано");
@@ -1317,22 +1311,23 @@ function fillAnswerFields(task_data) { //TODO передається вся ін
         $("#edit_task_modal_button").hide();
         $("#submit_mark_button").hide();
         $("#edit_mark_button").hide();
-        $("#submit_answer_button").show();
-        $("#edit_answer_button").show();
+        const submitSel = $("#submit_answer_button");
+        const editSel = $("#edit_answer_button");
+        submitSel.show();
+        editSel.show();
 
 
-        if (answer.text === "") { //нічого не здано
-
-            $("#submit_answer_button").show().attr("onclick", "submitAnswer(" + answer.id + ")");
-            $("#edit_answer_button").hide();
+        if (answer.text === "") {
+            //нічого не здано
+            submitSel.show().attr("onclick", "submitAnswer(" + answer.id + ")");
+            editSel.hide();
             $("#answer_container").append(" <textarea id='answer_area' class='text-break form-control' rows='6'>" +
                 +"</textarea>");
             $("#answer_link_container").append("<input type='text' class='form-control' id='answer_link_input'>");
 
-        } else { //здано
-
-            $("#submit_answer_button").hide();
-            $("#edit_answer_button").show().attr("onclick", "editAnswer(" + JSON.stringify(answer) + ")");
+        } else {
+            submitSel.hide();
+            editSel.show().attr("onclick", "editAnswer(" + JSON.stringify(answer) + ")");
         }
         if (answer.mark === "") {
             $("#answer_mark_container").empty().append("<p>Не оцінено</p>");
@@ -1359,8 +1354,6 @@ function fillAnswerFields(task_data) { //TODO передається вся ін
 
 //SOURCES BLOCK
 function fillSources(ol_id) {
-    $("#additional_sources_block").empty();
-
     //TODO сюди мають прилітати всі додаткові джерела з лінками, подумаємо чи треба їх едітать
     let datas = [
         {
@@ -1390,9 +1383,9 @@ function fillSources(ol_id) {
         if (data.links.length > 0)
             for (let j of data.links)
                 str += "<a class='text-a text-13' href='" + j + "'>" + j + "</a>";
-        str+="</div></div>";
+        str += "</div></div>";
         sources.append(str);
-        str="";
+        str = "";
     });
 
 
