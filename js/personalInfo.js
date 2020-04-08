@@ -589,20 +589,19 @@ function fillHometask(id) {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data) {
-
             $("#hw_title").text(data.hw_title);
             $("#hw_task").text(data.content);
             const linkSel = $("#hw_links");
             linkSel.empty();
             data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
             $("#hw_notes").text(data.notes);
+            data['hw_id'] = id;
 
             if (localStorage.getItem("usertype") === "pupil") {
                 $("#edit_hometask_modal_button").hide();
             } else if (localStorage.getItem("usertype") === "teacher") {
                 $("#edit_hometask_modal_button").show();
                 fillHometaskFields(data);
-
             }
         },
         error: function (data) {
@@ -615,7 +614,6 @@ function fillHometask(id) {
 }
 
 function fillHometaskFields(data) {
-
     removeValid("edit_hw_form");
 
     $("#edit_hw_title").attr("value", data.hw_title);
@@ -632,10 +630,7 @@ function fillHometaskFields(data) {
     }
     linkSel.append("<button id='edit_hyperlink_field_button' class='btn btn-dark float-left' onclick='editHyperlinkField("
         + data.hyperlinks.length + ")'> + </button>");
-
-    $("#edit_hw_button").attr('onclick', 'editHomework(' + data.hw_id + ')');
-
-
+    $("#edit_hw_button").attr('onclick', "editHomework('" + data.hw_id + "')");
 }
 
 function addHomework() {
@@ -650,8 +645,6 @@ function addHomework() {
         if ($(this).val() !== "")
             links.push($(this).val());
     });
-
-
     let data = {
         "title": $("#new_hw_title").val(),
         "content": $("#new_hw_content").val(),
@@ -660,7 +653,8 @@ function addHomework() {
         "hyperlinks": links,
         "id": id
     };
-    //TODO @natasha повертає error і на сервері 400
+    console.log(data);
+    //TODO @solja clear hyperlinks fields
     $.ajax({
         url: 'http://localhost:2303/addhometask',
         type: 'post',
@@ -674,7 +668,6 @@ function addHomework() {
         },
         error: function (data2) {
             console.log(data2);
-            alert(data2.error);
         },
         data: JSON.stringify(data)
     });
@@ -705,7 +698,6 @@ function addHwDelButton(hw_id) {
 }
 
 function editHomework(hw_id) {
-
     if (!validEmpty('edit_hw_title') || !validEmpty('edit_hw_content') || !validEmpty("edit_hw_deadline"))
         return false;
 
@@ -721,20 +713,20 @@ function editHomework(hw_id) {
         "content": $("#edit_hw_content").val(),
         "notes": $("#edit_hw_notes").val(),
         "deadline": $("#edit_hw_deadline").val(),
-        "links": links
+        "hyperlinks": links
     };
-//TODO @natasha повертає error і на сервері ошибка 404
     $.ajax({
         url: 'http://localhost:2303/edithometask',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
-        success: function (data) {
+        success: function (data2) {
+            //TODO @solja edithometask
             $("#hw_title").text(data.hw_title);
             $("#hw_task").text(data.content);
             const linkSel = $("#hw_links");
             linkSel.empty();
-            data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
+            links.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
             $("#hw_notes").text(data.notes);
 
             removeValid("edit_hw_form");
