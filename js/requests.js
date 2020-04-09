@@ -129,6 +129,52 @@ function setCitiesValueOption(selectorID) {
     });
 }
 
+function setNamesAndStages() {
+    const nameListSel = $("#new_competition_names");
+    nameListSel.empty();
+    const stageListSel = $("#new_competition_stages");
+    stageListSel.empty();
+    $.ajax({
+        url: 'http://localhost:2303/getCompetitionNamesAndStages',
+        type: 'get',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            data.names.forEach(name => nameListSel.append("<option value='" + name.id + "'>" + name.name + "</option>"));
+            data.stages.forEach(name => stageListSel.append("<option value='" + name.id + "'>" + name.name + "</option>"));
+        }
+    });
+}
+
+function addNewCompetition() {
+    //TODO @solja addCompetititon validation
+    const data = {
+        "stage_id": $("#new_competition_stages").val(),
+        "name_id": $("#new_competition_names").val(),
+        "notes": $("#new_competition_notes").val(),
+        "date": $("#new_competition_date").val(),
+        "place": $("#new_competition_place").val()
+    };
+    $.ajax({
+        url: 'http://localhost:2303/addcompetition',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data2) {
+            $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
+                "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
+                " <strong>Вітаємо!</strong> Конкурс додано </div>");
+            setClear(["#new_competition_place", "#new_competition_date", "#new_competition_notes"]);
+            $("#add_competition_modal").modal('hide');
+        },
+        error: function (data2) {
+            console.log(data2.error);
+        },
+        data: JSON.stringify(data)
+    });
+}
+
+//unused methods, but created for solja request
 function getAllCompetitionNames() {
     $.ajax({
         url: 'http://localhost:2303/getCompetitionNames',
@@ -137,7 +183,6 @@ function getAllCompetitionNames() {
         contentType: 'application/json',
         success: function (data) {
             //data = [{"id": 1, "name": "МАтематика"}, {"id": 2, "name": "..."}, ....]
-            //TODO @solja getAllCompetititonNames
         }
     });
 }

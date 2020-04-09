@@ -13,7 +13,8 @@ $(document).ready(function () {
     $("#registrypanel").hide();
     if (usertype === 'teacher') showTeacher(userid);
     else if (usertype === 'pupil') showPupil(userid);
-    else showAdmin(userid);
+    else if (usertype === 'admin') showAdmin(userid);
+    else exit();
 });
 
 function change_entry_type(t) {
@@ -65,10 +66,9 @@ function showPage(except) {
 
 
 function exit() {
-    document.cookie = "userid=null; max-age=0";
-    document.cookie = "usertype=null; max-age=0";
     change_entry_type(2);
     localStorage.removeItem("authentication");
+    localStorage.removeItem("usertype");
     sessionStorage.removeItem("schoolcode");
 
     hideTabs();

@@ -758,7 +758,7 @@ function fillTeacherOlympiads(id) {
 
 function deleteOlympiad() {
     $.ajax({
-        url: 'http://localhost:2303/deleteolympiad', //TODO @natasha deleteolympiad перейменуй метод під той який на сервері
+        url: 'http://localhost:2303/deleteolympiad',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -940,7 +940,7 @@ function fillPupilOlympiadTasks(ol_data) {
             });
         },
         error: function (datas) {
-            alert(datas.error + " fillOlympiadTasks()");
+            console.log(datas.error);
         },
         data: JSON.stringify({
             "id": ol_id

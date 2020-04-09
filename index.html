@@ -118,6 +118,10 @@
                     data-target="#add_city_modal" data-toggle="modal"
                     onclick="setCitiesValueOption('#add_city_current')">Додати місто
             </button>
+            <button id="add_competitiom" type="button" class="btn btn-warning col-md-3 text-white bg-gray"
+                    data-target="#add_competition_modal" data-toggle="modal"
+                    onclick="setNamesAndStages()">Додати конкурс
+            </button>
 
             <div class="panel ov-auto">
 
@@ -1164,6 +1168,60 @@
             <div class="modal-footer">
                 <button id="add_city_button" type="submit" class="btn btn-outline-info"
                         onclick="addNewCity()">Додати місто
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--add competition-->
+<div class="modal fade" id="add_competition_modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Додати новий конкурс</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id='add_competition_form'>
+                    <div class="form-group row">
+                        <label for="new_competition_names" class="col-md-3 col-form-label pd-right-0">Оберіть предмет:</label>
+                        <div class="col-md-9">
+                            <select id="new_competition_names" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="new_competition_stages" class="col-md-3 col-form-label pd-right-0">Оберіть етап:</label>
+                        <div class="col-md-9">
+                            <select id="new_competition_stages" class="form-control"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="new_competition_date" class="col-md-3 col-form-label pd-right-0">Дата проведення:</label>
+                        <div class="col-md-9">
+                            <input type="date" class="form-control" id="new_competition_date" name="birth_date"
+                                   min="2002-12-31"required>
+                        </div>
+                        <div class="invalid-feedback">Введіть коректну назву міста</div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="new_competition_place" class="col-md-3 col-form-label pd-right-0">Опишiть місце:</label>
+                        <div class="col-md-9">
+                            <textarea id="new_competition_place" class="form-control" maxlength=255></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="new_competition_notes" class="col-md-3 col-form-label pd-right-0">Опис:</label>
+                        <div class="col-md-9">
+                            <textarea id="new_competition_notes" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="add_competition_button" type="submit" class="btn btn-outline-info"
+                        onclick="addNewCompetition()">Додати конкурс
                 </button>
             </div>
         </div>

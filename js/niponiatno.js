@@ -94,7 +94,6 @@ function fillOlympiadTask(task_id) {
             "id": task_id
         })
     });
-
 }
 
 // OLYMPIAD TASKS FIELD
