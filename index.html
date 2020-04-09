@@ -377,7 +377,7 @@
             <div class="panel-header row">
                 <h5 class="text-25  col-md-10">Олімпіади</h5>
                 <button id="add_olympiad" type="button" class="btn btn-info col-md-5 mg-10 bg-blue"
-                        data-target="#add_olympiad_modal" data-toggle="modal">Додати олімпіаду
+                        data-target="#add_olympiad_modal" data-toggle="modal" onclick="loadAllCompetitionToAddOlimpiad()">Додати олімпіаду
                 </button>
             </div>
             <div class="list-group col-md-12 mg-v-15" id="teacher_olympiads_list">
@@ -1031,11 +1031,9 @@
             <div class="modal-header">
                 <h4 class="modal-title">Додати олімпіаду</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-
             </div>
             <div class="modal-body">
                 <form id='add_olympiad_form' class="needs-validation" novalidate>
-
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="new_olympiad_name">Назва олімпіади:</label>
@@ -1045,6 +1043,11 @@
                         <div class="col-md-12">
                             <label for="new_olympiad_discipline">Дисципліна проведення:</label>
                             <input id="new_olympiad_discipline" class="form-control" required>
+                            <div class="invalid-feedback">Це обов'язкове поле</div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="new_olympiad_competition">Оберіть конкурс, до якого будете готуватись:</label>
+                            <select id="new_olympiad_competition" class="form-control" required></select>
                             <div class="invalid-feedback">Це обов'язкове поле</div>
                         </div>
                         <div class="col-md-12">

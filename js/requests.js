@@ -66,9 +66,6 @@ function register() {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
-                console.log(data.error);
-                localStorage.setItem("authentication", cur_user_type);
-
                 exit();
                 setClear(["#reg_password2", "#reg_password", "#reg_firstname", "#reg_lastname", "#reg_fathername",
                     "#reg_email", "#reg_phone", "#reg_code", "#reg_education", "#reg_phd", "#reg_teacher_code",
@@ -174,15 +171,18 @@ function addNewCompetition() {
     });
 }
 
-//unused methods, but created for solja request
-function getAllCompetitionNames() {
+function loadAllCompetitionToAddOlimpiad() {
+    const selector = $("#new_olympiad_competition");
+    selector.empty();
     $.ajax({
-        url: 'http://localhost:2303/getCompetitionNames',
+        url: 'http://localhost:2303/getallcompetitions',
         type: 'get',
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
-            //data = [{"id": 1, "name": "МАтематика"}, {"id": 2, "name": "..."}, ....]
+            data.forEach(compete => selector.append("<option value='"+compete.id+"'><b>"+compete.name+
+                "</b> - "+compete.stage+" - <span style='color: gray'>"+compete.date+"</span></option>"));
+            selector.append("<option value='0'>Інше...</option>")
         }
     });
 }

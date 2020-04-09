@@ -221,9 +221,48 @@ function showHometask(hw_id) {
     fillHometask(hw_id);
 }
 
-function showOlympiadTask(task_id) {
+function showOlympiadTask(task_data) {
     showPage("task_page");
-    fillOlympiadTask(task_id);
+    fillOlympiadTask(task_data);
+}
+function fillTaskFields(data) {
+    removeValid("edit_task_form");
+    $("#edit_task_title").attr("value", data.task_caption);
+    $("#edit_task_content").text(data.content);
+    $("#edit_task_deadline").attr("value", data.deadline);
+    $("#edit_task_notes").text(data.notes);
+
+    const linkSel = $("#edit_task_links");
+    linkSel.empty();
+    for (let i in data.hyperlinks) {
+        linkSel.append("<input type='text' id='edit_task_link" + i +
+            "' value='" + data.hyperlinks[i] + "' class='form-control col-md-11' max='255'>" +
+            "<button class='btn btn-outline-light col-md-1' id='edit_task_hyperlink_field_del" + i + "' onclick='deleteEditTaskHyperlinkField(" + i + ")'>❌</button>");
+    }
+    linkSel.append("<button id='edit_task_hyperlink_field_button' class='btn btn-dark float-left' onclick='editTaskHyperlinkField("
+        + data.hyperlinks.length + ")'> + </button>");
+
+    $("#edit_task_button").attr('onclick', 'editTask(' + data.task_id + ')');
+}
+
+function fillOlympiadTask(data) {
+    $("#task_title").text(data.task_caption);
+    $("#task_task").text(data.content);
+    const linkSel = $("#task_links");
+    linkSel.empty();
+    data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
+    $("#task_notes").text(data.notes);
+
+    if (localStorage.getItem("usertype") === "pupil") {
+        $("#edit_task_modal_button").hide();
+        $("#mark_task_modal_button").hide();
+        fillAnswerFieldsPupil(data);
+    } else if (localStorage.getItem("usertype") === "teacher") {
+        $("#edit_task_modal_button").show();
+        $("#mark_task_modal_button").show();
+        fillTaskFields(data);
+        fillAnswerFieldsTeacher(data);
+    }
 }
 
 function addHyperlinkField(id) {
