@@ -861,11 +861,10 @@ function fillPupilOlympiads(id) {
 }
 
 function fillTeacherOlympiadTasks(ol_data) {
-    console.log("fillTeacherOlympiadTasks");
     console.log(ol_data);
     const hwListSel = $("#olympiad_tasks_list");
     hwListSel.empty();
-    const ol_id = ol_data.olimp_id;
+    const ol_id = ol_data.id;
     $.ajax({
         url: 'http://localhost:2303/getolympiadtasksandsources',
         type: 'post',
@@ -884,7 +883,7 @@ function fillTeacherOlympiadTasks(ol_data) {
                 "<a id='task" + data.id + "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + JSON.stringify(data) +
                 ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
                 "</span><button class='btn btn-outline-danger bg-hover-red col-md-3' data-target='#delete_task_modal' " +
-                "onclick='addTaskDelButton(" + data.id + ")' data-toggle='modal'>Видалити</button></div>"));
+                "onclick='addTaskDelButton('" + data.id + "')' data-toggle='modal'>Видалити</button></div>"));
             fillSources(datas.sources);
         },
         error: function (datas) {
@@ -984,7 +983,7 @@ function fillAnswerFieldsPupil(task_data) {
             } else {
                 $("#answer_timeleft").addClass("table-danger").text("Час вичерпано");
             }
-            if(!answer.has){
+            if (!answer.has) {
                 $("#answer_table_mark").hide();
                 $("#answer_table_comment").hide();
                 answerSel.text("Нічого не здано");
@@ -1013,9 +1012,9 @@ function fillAnswerFieldsPupil(task_data) {
                 submitSel.hide();
                 answerSel.text("Здано на оцінення");
                 answerSel.addClass("table-success");
-                if(answer.text===""){
+                if (answer.text === "") {
                     $("#answer_table_comment").hide();
-                } else{
+                } else {
                     $("#answer_container").empty().text(answer.text);
                     $("#answer_table_comment").show();
                 }
@@ -1044,5 +1043,116 @@ function fillAnswerFieldsPupil(task_data) {
             "task_id": task_data.id,
             "pupil_id": localStorage.getItem("authentication")
         })
+    });
+}
+
+
+function submitAnswer(task_id) {
+    const textSel = $("#answer_area");
+    const text = textSel.val();
+    const hyperlink = $("#answer_link_input").val();
+    if(text===""){
+        textSel.addClass('is-invalid');
+    }
+
+    const data = {
+        "id": task_id,
+        "text": text,
+        "hyperlink": hyperlink,
+        "pupil_id": localStorage.getItem('authentication')
+    };
+
+    $.ajax({
+        url: 'http://localhost:2303/submitanswer',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data2) {
+            $("#answer_container").empty().text(data.text);
+            $("#answer_link_container").empty().append(" <a id='answer_link' href='" + data.hyperlink + "'>" + data.hyperlink + "</a>");
+            $("#submit_answer_button").hide().attr("onclick", "submitAnswer('" + answer_id + "')");
+            $("#edit_answer_button").show().attr("onclick", "editAnswer(" + JSON.stringify(data) + ")");
+        },
+        error: function (data2) {
+            console.log(data2.error);
+        },
+        data: JSON.stringify(data)
+    });
+}
+
+
+function addTask() {
+    if (!validEmpty('new_task_title') || !validEmpty('new_task_content') || !validEmpty("new_task_deadline"))
+        return false;
+    let id = sessionStorage.getItem("olympiad");
+    let links = [];
+    $.each($('input', '#add_task_links'), function () {
+        if ($(this).val() !== "")
+            links.push($(this).val());
+    });
+    let data = {
+        "task_caption": $("#new_task_title").val(),
+        "content": $("#new_task_content").val(),
+        "deadline": $("#new_task_deadline").val(),
+        "notes": $("#new_task_notes").val(),
+        "hyperlinks": links,
+        "source_id": id
+    };
+    $.ajax({
+        url: 'http://localhost:2303/addtask',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data2) {
+            data['id'] = data2.id;
+            $("#olympiad_tasks_list").append("<div id='blocktask" + data.id + "' class='hw-active row'>" +
+                "<a id='task" + data.id + "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + JSON.stringify(data) +
+                ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
+                "</span><button class='btn btn-outline-danger bg-hover-red col-md-3' data-target='#delete_task_modal' " +
+                "onclick='addTaskDelButton('" + data.id + "')' data-toggle='modal'>Видалити</button></div>")
+            //TODO @solja addTask
+        },
+        error: function (data2) {
+            console.log(data2.error);
+        },
+        data: JSON.stringify(data)
+    });
+}
+
+
+function editTask(id) {
+    if (!validEmpty('edit_task_title') || !validEmpty('edit_task_content') || !validEmpty("edit_task_deadline"))
+        return false;
+    let links = [];
+    $.each($('input', '#edit_task_links'), function () {
+        if ($(this).val() !== "")
+            links.push($(this).val());
+    });
+
+    const data = {
+        "id": hw_id,
+        "task_caption": $("#edit_task_title").val(),
+        "content": $("#edit_task_content").val(),
+        "notes": $("#edit_task_notes").val(),
+        "deadline": $("#edit_task_deadline").val(),
+        "links": links
+    };
+    $.ajax({
+        url: 'http://localhost:2303/edittask',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data2) {
+            //після едіта щоб вікно закривалось і обновлялись на сторінці значення
+            //data2 нічого не повертає, використовуй data
+            //TODO @solja editTask
+        },
+        error: function (data2) {
+            console.log(data2.error);
+        },
+        data: JSON.stringify(data)
     });
 }

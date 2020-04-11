@@ -225,6 +225,7 @@ function showOlympiadTask(task_data) {
     showPage("task_page");
     fillOlympiadTask(task_data);
 }
+
 function fillTaskFields(data) {
     removeValid("edit_task_form");
     $("#edit_task_title").attr("value", data.task_caption);
@@ -237,12 +238,12 @@ function fillTaskFields(data) {
     for (let i in data.hyperlinks) {
         linkSel.append("<input type='text' id='edit_task_link" + i +
             "' value='" + data.hyperlinks[i] + "' class='form-control col-md-11' max='255'>" +
-            "<button class='btn btn-outline-light col-md-1' id='edit_task_hyperlink_field_del" + i + "' onclick='deleteEditTaskHyperlinkField(" + i + ")'>❌</button>");
+            "<button class='btn btn-outline-light col-md-1' id='edit_task_hyperlink_field_del" + i + "' onclick='deleteEditTaskHyperlinkField('" + i + "')'>❌</button>");
     }
-    linkSel.append("<button id='edit_task_hyperlink_field_button' class='btn btn-dark float-left' onclick='editTaskHyperlinkField("
-        + data.hyperlinks.length + ")'> + </button>");
+    linkSel.append("<button id='edit_task_hyperlink_field_button' class='btn btn-dark float-left' onclick='editTaskHyperlinkField('"
+        + data.hyperlinks.length + "')'> + </button>");
 
-    $("#edit_task_button").attr('onclick', 'editTask(' + data.task_id + ')');
+    $("#edit_task_button").attr('onclick', "editTask('" + data.task_id + "')");
 }
 
 function fillOlympiadTask(data) {
@@ -325,4 +326,14 @@ function editTaskHyperlinkField(id) {
 function deleteEditTaskHyperlinkField(id) {
     $("#edit_task_link" + id).remove();
     $("#edit_task_hyperlink_field_del" + id).remove();
+}
+
+
+function editAnswer(data) {
+    $("#answer_container").empty().append("<textarea id='answer_area' class='text-break form-control' rows='6'>" +
+        data.text + "</textarea>");
+    $("#answer_link_container").empty().append("<input type='text' class='form-control' id='answer_link_input' value='" + data.hyperlink + "'> ");
+
+    $("#submit_answer_button").attr("onclick", "submitAnswer('" + data.id + "')").show();
+    $("#edit_answer_button").attr("onclick", "editAnswer(" + JSON.stringify(data) + ")").hide();
 }

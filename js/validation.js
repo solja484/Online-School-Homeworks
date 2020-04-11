@@ -208,6 +208,9 @@ $("#reg_password2").keyup(function () {
 $("#reg_email").keyup(function () {
     $("#reg_email").css("background", "white");
 });
+$("#answer_area").keyup(function () {
+    $("#answer_area").removeClass('is-invalid');
+});
 // $("#input_admin_login").keyup(function () {
 //     logSelector.removeClass('is-invalid');
 // });

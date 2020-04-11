@@ -180,8 +180,8 @@ function loadAllCompetitionToAddOlimpiad() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
-            data.forEach(compete => selector.append("<option value='"+compete.id+"'><b>"+compete.name+
-                "</b> - "+compete.stage+" - <span style='color: gray'>"+compete.date+"</span></option>"));
+            data.forEach(compete => selector.append("<option value='" + compete.id + "'><b>" + compete.name +
+                "</b> - " + compete.stage + " - <span style='color: gray'>" + compete.date + "</span></option>"));
             selector.append("<option value='0'>Інше...</option>")
         }
     });
