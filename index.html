@@ -126,7 +126,7 @@
             <div class="panel ov-auto">
 
                 <div class="panel-body">
-                    <table class="table table-striped text-13">
+                    <table id='schools_table' class="table table-striped text-13">
                         <thead>
                         <tr>
                             <th scope="col">Ключ</th>
@@ -137,25 +137,10 @@
                         </tr>
                         </thead>
 
-                        <tbody>
-                        <tr class="tableelements">
-                            <th scope="row">#A76FD&6f&T</th>
-                            <td>Києво-Могилянська академія</td>
-                            <td>Контрактова площа</td>
-                            <td>+0445354213</td>
-                            <td>
-                                <button id="edit_school" type="button" class="btn btn-sm btn-info bg-blue"
-                                        data-toggle="modal"
-                                        data-target="#edit_school_modal">
-                                    ️edit
-                                </button>
-                                <button class="btn btn-sm btn-danger bg-red">delete</button>
-
-                            </td>
-                        </tr>
-
+                        <tbody id="table_schools_admin_body">
                         </tbody>
                     </table>
+                    <p id="no_schools_par">В базі даних на даний момент немає жодної іфнормації про школи</p>
                 </div>
             </div>
         </div>
@@ -377,7 +362,8 @@
             <div class="panel-header row">
                 <h5 class="text-25  col-md-10">Олімпіади</h5>
                 <button id="add_olympiad" type="button" class="btn btn-info col-md-5 mg-10 bg-blue"
-                        data-target="#add_olympiad_modal" data-toggle="modal" onclick="loadAllCompetitionToAddOlimpiad()">Додати олімпіаду
+                        data-target="#add_olympiad_modal" data-toggle="modal"
+                        onclick="loadAllCompetitionToAddOlimpiad()">Додати олімпіаду
                 </button>
             </div>
             <div class="list-group col-md-12 mg-v-15" id="teacher_olympiads_list">
@@ -1186,28 +1172,32 @@
             <div class="modal-body">
                 <form id='add_competition_form'>
                     <div class="form-group row">
-                        <label for="new_competition_names" class="col-md-3 col-form-label pd-right-0">Оберіть предмет:</label>
+                        <label for="new_competition_names" class="col-md-3 col-form-label pd-right-0">Оберіть
+                            предмет:</label>
                         <div class="col-md-9">
                             <select id="new_competition_names" class="form-control"></select>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="new_competition_stages" class="col-md-3 col-form-label pd-right-0">Оберіть етап:</label>
+                        <label for="new_competition_stages" class="col-md-3 col-form-label pd-right-0">Оберіть
+                            етап:</label>
                         <div class="col-md-9">
                             <select id="new_competition_stages" class="form-control"></select>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="new_competition_date" class="col-md-3 col-form-label pd-right-0">Дата проведення:</label>
+                        <label for="new_competition_date" class="col-md-3 col-form-label pd-right-0">Дата
+                            проведення:</label>
                         <div class="col-md-9">
                             <input type="date" class="form-control" id="new_competition_date" name="birth_date"
-                                   min="2002-12-31"required>
+                                   min="2002-12-31" required>
                         </div>
                         <div class="invalid-feedback">Введіть коректну назву міста</div>
                     </div>
                     <div class="form-group row">
-                        <label for="new_competition_place" class="col-md-3 col-form-label pd-right-0">Опишiть місце:</label>
+                        <label for="new_competition_place" class="col-md-3 col-form-label pd-right-0">Опишiть
+                            місце:</label>
                         <div class="col-md-9">
                             <textarea id="new_competition_place" class="form-control" maxlength=255></textarea>
                         </div>
@@ -1435,14 +1425,6 @@
                         </div>
                         <div class="invalid-feedback">Це поле не може бути порожнім</div>
                     </div>
-                    <div class="form-group row">
-                        <label for="edit_school_city" class="col-sm-2 col-form-label">Місто:</label>
-                        <div class="col-sm-10">
-                            <select id="edit_school_city" class="form-control"></select>
-                        </div>
-                    </div>
-
-
                     <div class="form-group row">
                         <label for="edit_school_region" class="col-sm-2 col-form-label">Район:</label>
                         <div class="col-sm-10">

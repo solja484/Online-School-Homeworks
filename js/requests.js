@@ -7,7 +7,7 @@ function addNewCity() {
     if (notes !== "")
         data['notes'] = notes;
     $.ajax({
-        url: 'http://localhost:2303/addCity',
+        url: 'http://localhost:2303/addcity',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -112,7 +112,7 @@ function login() {
 
 function setCitiesValueOption(selectorID) {
     $.ajax({
-        url: 'http://localhost:2303/getCities',
+        url: 'http://localhost:2303/getcities',
         type: 'get',
         dataType: 'json',
         contentType: 'application/json',
@@ -183,6 +183,33 @@ function loadAllCompetitionToAddOlimpiad() {
             data.forEach(compete => selector.append("<option value='" + compete.id + "'><b>" + compete.name +
                 "</b> - " + compete.stage + " - <span style='color: gray'>" + compete.date + "</span></option>"));
             selector.append("<option value='0'>Інше...</option>")
+        }
+    });
+}
+
+function setSchoolsTable() {
+    $.ajax({
+        url: 'http://localhost:2303/getallschools',
+        type: 'get',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if(data.length<1){
+                $("#schools_table").hide();
+                $("#no_schools_par").show();
+            } else {
+                $("#schools_table").show();
+                $("#no_schools_par").hide();
+
+                const table = $("#table_schools_admin_body");
+                table.empty();
+                data.forEach(school => table.append("<tr id='row"+school.code+"' class='tableelements'>" +
+                    "<th scope='row'>"+school.code+"</th><td>"+school.name+"</td><td>"+school.address+"</td>" +
+                    "<td>"+school.phone+"</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
+                    "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('"+school.code+"')>️edit</button>" +
+                    "<button class='btn btn-sm btn-danger bg-red' onclick=deleteSchool('"+school.code+"')>delete</button></td>" +
+                    "</tr>"));
+            }
         }
     });
 }

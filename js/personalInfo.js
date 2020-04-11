@@ -60,6 +60,7 @@ function fillAdminInfo(id) {
         accept: 'application/json',
         success: function (data) {
             fillAdminFields(data, id);
+            setSchoolsTable();
         },
         error: function (data) {
             console.log(data.error);
@@ -317,11 +318,13 @@ function addSchool() {
     }
     let data = {
         "name": $("#input_school_name").val(),
+        "region": $("#input_school_region").val(),
         "cityid": $("#input_school_city").val(),
         "street": $("#input_school_street").val(),
         "house": $("#input_school_house").val(),
         "phone": $("#input_school_phone").val()
     };
+    const address = data.street+" "+data.house;
     const notes = $("#input_school_notes").val();
     if (notes !== "") {
         data['notes'] = notes;
@@ -331,14 +334,14 @@ function addSchool() {
         data['region'] = region;
     }
     $.ajax({
-        url: 'http://localhost:2303/addSchool',
+        url: 'http://localhost:2303/addschool',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
-        success: function (data) {
+        success: function (data2) {
             $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
                 "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
-                " <strong>" + data.code + "</strong> - код нової школи. Вітаємо!" +
+                " <strong>" + data2.code + "</strong> - код нової школи. Вітаємо!" +
                 "</div>");
             setClear(["#input_school_name", "#input_school_region", "#input_school_notes", "#input_school_city",
                 "#input_school_phone", "#input_school_street", "#input_school_house"]);
@@ -346,6 +349,12 @@ function addSchool() {
 
             removeValid("add_school_form");
             clearForm("add_school_form");
+            $("#table_schools_admin_body").append("<tr id='row"+data2.code+"' class='tableelements'>" +
+                "<th scope='row'>"+data2.code+"</th><td>"+data.name+"</td><td>"+address+"</td>" +
+                "<td>"+data.phone+"</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
+                "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('"+data2.code+"')>️edit</button>" +
+                "<button class='btn btn-sm btn-danger bg-red' onclick=editSchool('"+data2.code+"')>delete</button></td>" +
+                "</tr>")
         },
         error: function () {
             $("#content").prepend("<div class='alert alert-danger alert-dismissible'>" +
@@ -353,6 +362,67 @@ function addSchool() {
                 " <strong>Error!</strong> Не вдалося додати школу </div>");
             setClear(["#input_school_name", "#input_school_region", "#input_school_notes", "#input_school_city",
                 "#input_school_phone", "#input_school_street", "#input_school_house"]);
+        },
+        data: JSON.stringify(data)
+    });
+}
+
+function deleteSchool(id) {
+    if(!confirm("Точно видалити школу??? Всі вчителі та учні не зможуть відновити свої акаунти!!!")){
+        return false;
+    }
+    $.ajax({
+        url: 'http://localhost:2303/deleteschool',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data2) {
+            $("#row"+id).hide();
+        },
+        error: function (data) {
+            console.log(data.error);
+        },
+        data: JSON.stringify({
+            "id": id
+        })
+    });
+}
+function editSchool() {
+    if (!validName("edit_school_name") || !validFName("edit_school_region") ||
+        !validName("edit_school_street") || !validPhone("edit_school_phone") ||
+        !validHouse("edit_school_house")) {
+        return false;
+    }
+    const school_code = localStorage.getItem("school_code")
+    let data = {
+        "name": $("#edit_school_name").val(),
+        "region": $("#edit_school_region").val(),
+        "cityid": $("#edit_school_city").val(),
+        "street": $("#edit_school_street").val(),
+        "house": $("#edit_school_house").val(),
+        "phone": $("#edit_school_phone").val(),
+        "code": school_code
+    };
+    const address = data.street+" "+data.house;
+    $.ajax({
+        url: 'http://localhost:2303/editschool',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data2) {
+            localStorage.removeItem("school_code");
+            const selector = $("#row"+school_code);
+            selector.empty();
+            selector.append("<th scope='row'>"+data.code+"</th><td>"+data.name+"</td><td>"+address+"</td>" +
+                "<td>"+data.phone+"</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
+                "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('"+data.code+"')>️edit</button>" +
+                "<button class='btn btn-sm btn-danger bg-red' onclick=deleteSchool('"+data.code+"')>delete</button></td>"
+            );
+        },
+        error: function (data2) {
+            console.log(data2.error);
         },
         data: JSON.stringify(data)
     });
@@ -1051,7 +1121,7 @@ function submitAnswer(task_id) {
     const textSel = $("#answer_area");
     const text = textSel.val();
     const hyperlink = $("#answer_link_input").val();
-    if(text===""){
+    if (text === "") {
         textSel.addClass('is-invalid');
     }
 

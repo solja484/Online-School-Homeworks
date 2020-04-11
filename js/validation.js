@@ -63,7 +63,7 @@ function validName(str) {
         selector.addClass('is-invalid');
         return false;
     }
-    let letters = /^[A-Za-zА-Яа-яіІїЇєЄ]+$/;
+    let letters = /^[A-Za-zА-Яа-яіІїЇєЄ ]+$/;
     if (name.match(letters)) {
         selector.removeClass('is-invalid');
         selector.addClass('is-valid');

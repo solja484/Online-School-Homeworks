@@ -14,7 +14,10 @@ $(document).ready(function () {
     if (usertype === 'teacher') showTeacher(userid);
     else if (usertype === 'pupil') showPupil(userid);
     else if (usertype === 'admin') showAdmin(userid);
-    else exit();
+    else {
+        exit();
+        localStorage.setItem("usertype", "pupil");
+    }
 });
 
 function change_entry_type(t) {
@@ -70,9 +73,7 @@ function exit() {
     localStorage.removeItem("authentication");
     localStorage.removeItem("usertype");
     sessionStorage.removeItem("schoolcode");
-
     hideTabs();
-
     //hide all pages
     $("#admin_page").hide();
     $("#teacher_page").hide();
@@ -149,7 +150,6 @@ function showAdmin(id) {
     $("#admin_page_tab").show();
     $("#admin_tables_tab").show();
     showPage("admin_tables");
-
     fillAdminInfo(id);
 }
 
@@ -336,4 +336,8 @@ function editAnswer(data) {
 
     $("#submit_answer_button").attr("onclick", "submitAnswer('" + data.id + "')").show();
     $("#edit_answer_button").attr("onclick", "editAnswer(" + JSON.stringify(data) + ")").hide();
+}
+
+function setSchoolCode(code) {
+    localStorage.setItem("school_code", code);
 }

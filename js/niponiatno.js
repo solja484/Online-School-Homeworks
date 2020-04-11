@@ -13,7 +13,6 @@ function searchSubject() {
 }
 
 
-
 function editMark(data) {
     $("#answer_mark_container").empty().append("<input type='number' id='answer_mark_input' class='form-control' value='" + data.mark + "'>");
     $("#answer_comment_container").empty().append("<textarea id='comment_area' class='text-break form-control' rows='3'>" +
@@ -35,7 +34,6 @@ function submitMark(data) {
     $("#edit_mark_button").show().attr("onclick", "editMark(" + JSON.stringify(data) + ")");
     $("#submit_mark_button").hide().attr("onclick", "submitMark(" + JSON.stringify(data) + ")");
 }
-
 
 
 function fillAnswerFieldsTeacher() {
