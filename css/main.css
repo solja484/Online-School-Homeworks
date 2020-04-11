@@ -63,6 +63,7 @@ body {
 
 .bg-hover-blue:hover, .bg-hover-blue:active, .bg-hover-blue:focus {
     background: #7cdeeb;
+    cursor: pointer;
 !important;
 }
 
@@ -81,6 +82,7 @@ body {
 
 .bg-hover-red:hover, .bg-hover-red:active, .bg-hover-red:focus {
     background: #fd7172;
+    cursor: pointer;
 }
 
 .bg-gray {
@@ -96,6 +98,7 @@ body {
 .bg-hover-yellow:hover, .bg-hover-yellow:active, .bg-hover-yellow:focus {
     background: #fee96a;
     color: white;
+    cursor: pointer;
 }
 
 .text-white {

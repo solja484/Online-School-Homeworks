@@ -316,20 +316,20 @@ function addSchool() {
         !validHouse("input_school_house")) {
         return false;
     }
+    const region = $("#input_school_region").val();
     let data = {
         "name": $("#input_school_name").val(),
-        "region": $("#input_school_region").val(),
+        "region": region,
         "cityid": $("#input_school_city").val(),
         "street": $("#input_school_street").val(),
         "house": $("#input_school_house").val(),
         "phone": $("#input_school_phone").val()
     };
-    const address = data.street+" "+data.house;
+    const address = data.street + " " + data.house;
     const notes = $("#input_school_notes").val();
     if (notes !== "") {
         data['notes'] = notes;
     }
-    const region = $("#input_school_region").val();
     if (notes !== "") {
         data['region'] = region;
     }
@@ -339,6 +339,8 @@ function addSchool() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data2) {
+
+            $('#add_school_modal').modal('toggle');
             $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
                 "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
                 " <strong>" + data2.code + "</strong> - код нової школи. Вітаємо!" +
@@ -349,11 +351,11 @@ function addSchool() {
 
             removeValid("add_school_form");
             clearForm("add_school_form");
-            $("#table_schools_admin_body").append("<tr id='row"+data2.code+"' class='tableelements'>" +
-                "<th scope='row'>"+data2.code+"</th><td>"+data.name+"</td><td>"+address+"</td>" +
-                "<td>"+data.phone+"</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
-                "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('"+data2.code+"')>️edit</button>" +
-                "<button class='btn btn-sm btn-danger bg-red' onclick=editSchool('"+data2.code+"')>delete</button></td>" +
+            $("#table_schools_admin_body").append("<tr id='row" + data2.code + "' class='tableelements'>" +
+                "<th scope='row'>" + data2.code + "</th><td>" + data.name + "</td><td>" + address + "</td>" +
+                "<td>" + data.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
+                "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('" + data2.code + "')>️edit</button>" +
+                "<button class='btn btn-sm btn-danger bg-red' onclick=editSchool('" + data2.code + "')>delete</button></td>" +
                 "</tr>")
         },
         error: function () {
@@ -368,7 +370,7 @@ function addSchool() {
 }
 
 function deleteSchool(id) {
-    if(!confirm("Точно видалити школу??? Всі вчителі та учні не зможуть відновити свої акаунти!!!")){
+    if (!confirm("Точно видалити школу??? Всі вчителі та учні не зможуть відновити свої акаунти!!!")) {
         return false;
     }
     $.ajax({
@@ -378,7 +380,7 @@ function deleteSchool(id) {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data2) {
-            $("#row"+id).hide();
+            $("#row" + id).hide();
         },
         error: function (data) {
             console.log(data.error);
@@ -388,6 +390,7 @@ function deleteSchool(id) {
         })
     });
 }
+
 function editSchool() {
     if (!validName("edit_school_name") || !validFName("edit_school_region") ||
         !validName("edit_school_street") || !validPhone("edit_school_phone") ||
@@ -404,7 +407,7 @@ function editSchool() {
         "phone": $("#edit_school_phone").val(),
         "code": school_code
     };
-    const address = data.street+" "+data.house;
+    const address = data.street + " " + data.house;
     $.ajax({
         url: 'http://localhost:2303/editschool',
         type: 'post',
@@ -412,13 +415,14 @@ function editSchool() {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data2) {
+            $("#edit_school_modal").modal('toggle');
             localStorage.removeItem("school_code");
-            const selector = $("#row"+school_code);
+            const selector = $("#row" + school_code);
             selector.empty();
-            selector.append("<th scope='row'>"+data.code+"</th><td>"+data.name+"</td><td>"+address+"</td>" +
-                "<td>"+data.phone+"</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
-                "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('"+data.code+"')>️edit</button>" +
-                "<button class='btn btn-sm btn-danger bg-red' onclick=deleteSchool('"+data.code+"')>delete</button></td>"
+            selector.append("<th scope='row'>" + data.code + "</th><td>" + data.name + "</td><td>" + address + "</td>" +
+                "<td>" + data.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
+                "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('" + data.code + "')>️edit</button>" +
+                "<button class='btn btn-sm btn-danger bg-red' onclick=deleteSchool('" + data.code + "')>delete</button></td>"
             );
         },
         error: function (data2) {
@@ -1040,6 +1044,8 @@ function fillAnswerFieldsPupil(task_data) {
     $("#submit_mark_button").hide();
     $("#edit_mark_button").hide();
     $("#answer_deadline").text(task_data.deadline);
+    const answerContSel = $("#answer_container");
+    const answerLinksSel = $("#answer_link_container");
 
     $.ajax({
         url: 'http://localhost:2303/getpupilanswer',
@@ -1058,18 +1064,18 @@ function fillAnswerFieldsPupil(task_data) {
                 $("#answer_table_comment").hide();
                 answerSel.text("Нічого не здано");
                 answerSel.removeClass("table-success");
-                $("#answer_container").empty();
-                $("#answer_link_container").empty();
+                answerContSel.empty();
+                answerLinksSel.empty();
                 $("#answer_mark_container").empty().append("<p>Не оцінено</p>");
                 if (task_data.active) {
                     $("#answer_table_link").show();
                     submitSel.show();
-                    $("#answer_container").empty();
-                    $("#answer_link_container").empty();
+                    answerContSel.empty();
+                    answerLinksSel.empty();
                     submitSel.show().attr("onclick", "submitAnswer('" + task_data.id + "')");
                     editSel.hide();
-                    $("#answer_container").append(" <textarea id='answer_area' class='text-break form-control' rows='6'></textarea>");
-                    $("#answer_link_container").append("<input type='text' class='form-control' id='answer_link_input'>");
+                    answerContSel.append(" <textarea id='answer_area' class='text-break form-control' rows='6'></textarea>");
+                    answerLinksSel.append("<input type='text' class='form-control' id='answer_link_input'>");
                 } else {
                     $("#answer_table_link").hide();
                     editSel.hide();
@@ -1216,9 +1222,59 @@ function editTask(id) {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data2) {
-            //після едіта щоб вікно закривалось і обновлялись на сторінці значення
+            $('#edit_olympiad_modal').modal('toggle');
             //data2 нічого не повертає, використовуй data
             //TODO @solja editTask
+        },
+        error: function (data2) {
+            console.log(data2.error);
+        },
+        data: JSON.stringify(data)
+    });
+}
+
+function fillAnswerFieldsTeacher(task_id) {
+    const selector = $("#for_teacher_answer");
+    selector.empty();
+
+    $.ajax({
+        url: 'http://localhost:2303/getallanswersforteacher',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            data.forEach(answer => selector.append(getAnswerComponent(answer)));
+        },
+        error: function (data2) {
+            console.log(data2.error);
+        },
+        data: JSON.stringify({
+            "id": task_id
+        })
+    });
+}
+
+
+function saveAnswerFromTeacher(answer_id) {
+    const data = {
+        "id": answer_id,
+        "mark": $("#pupil_answer_mark").val(),
+        "response": $("#answer_response_notes").val()
+    };
+    if (data.mark === "" && data.response === "") {
+        $('#pupil_answer_for_teacher_modal').modal('toggle');
+        return true;
+    }
+    $.ajax({
+        url: 'http://localhost:2303/changeanswerbyteacher',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data2) {
+            $('#pupil_answer_for_teacher_modal').modal('toggle');
+            if (data.mark !== "") {
+                $("#answer_card" + answer_id).removeClass("bg-red");
+            }
         },
         error: function (data2) {
             console.log(data2.error);

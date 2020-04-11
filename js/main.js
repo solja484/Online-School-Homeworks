@@ -257,12 +257,16 @@ function fillOlympiadTask(data) {
     if (localStorage.getItem("usertype") === "pupil") {
         $("#edit_task_modal_button").hide();
         $("#mark_task_modal_button").hide();
+        $("#pupil_answer_status_table").show();
+        $("#for_teacher_answer").hide();
         fillAnswerFieldsPupil(data);
     } else if (localStorage.getItem("usertype") === "teacher") {
         $("#edit_task_modal_button").show();
         $("#mark_task_modal_button").show();
         fillTaskFields(data);
-        fillAnswerFieldsTeacher(data);
+        $("#pupil_answer_status_table").hide();
+        $("#for_teacher_answer").show();
+        fillAnswerFieldsTeacher(data.id);
     }
 }
 
@@ -340,4 +344,30 @@ function editAnswer(data) {
 
 function setSchoolCode(code) {
     localStorage.setItem("school_code", code);
+}
+
+
+function setModalFields(answer) {
+    const linkSel = $("#pupil_answer_hyperlink");
+    $("#save_answer_button").attr("onclick", "saveAnswerFromTeacher('" + answer.id + "')");
+    $("#pupil_answer_name").text(answer.name);
+    $("#answer_response_notes").val(answer.response);
+    $("#pupil_answer_text").text(answer.text);
+    linkSel.attr("href", answer.hyperlink);
+    linkSel.text(answer.hyperlink);
+    $("#pupil_answer_mark").val(answer.mark);
+}
+
+
+function getAnswerComponent(answer) {
+    let res = "<div class='card'><div id='answer_card" + answer.id;
+    if (answer.mark === "") {
+        res += "' class='card-body bg-red bg-hover-blue' ";
+    } else {
+        res += "' class='card-body bg-hover-blue' ";
+    }
+    res += "onclick='setModalFields(" + JSON.stringify(answer) +
+        ")' data-toggle='modal' data-target='#pupil_answer_for_teacher_modal'>" + answer.name + "</div>" +
+        "</div>";
+    return res;
 }

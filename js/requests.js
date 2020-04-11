@@ -194,7 +194,7 @@ function setSchoolsTable() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
-            if(data.length<1){
+            if (data.length < 1) {
                 $("#schools_table").hide();
                 $("#no_schools_par").show();
             } else {
@@ -203,11 +203,11 @@ function setSchoolsTable() {
 
                 const table = $("#table_schools_admin_body");
                 table.empty();
-                data.forEach(school => table.append("<tr id='row"+school.code+"' class='tableelements'>" +
-                    "<th scope='row'>"+school.code+"</th><td>"+school.name+"</td><td>"+school.address+"</td>" +
-                    "<td>"+school.phone+"</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
-                    "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('"+school.code+"')>️edit</button>" +
-                    "<button class='btn btn-sm btn-danger bg-red' onclick=deleteSchool('"+school.code+"')>delete</button></td>" +
+                data.forEach(school => table.append("<tr id='row" + school.code + "' class='tableelements'>" +
+                    "<th scope='row'>" + school.code + "</th><td>" + school.name + "</td><td>" + school.address + "</td>" +
+                    "<td>" + school.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
+                    "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('" + school.code + "')>️edit</button>" +
+                    "<button class='btn btn-sm btn-danger bg-red' onclick=deleteSchool('" + school.code + "')>delete</button></td>" +
                     "</tr>"));
             }
         }
