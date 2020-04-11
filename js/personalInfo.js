@@ -865,7 +865,7 @@ function fillTeacherOlympiadTasks(ol_data) {
     console.log(ol_data);
     const hwListSel = $("#olympiad_tasks_list");
     hwListSel.empty();
-    const ol_id = ol_data.id;
+    const ol_id = ol_data.olimp_id;
     $.ajax({
         url: 'http://localhost:2303/getolympiadtasksandsources',
         type: 'post',
@@ -901,8 +901,7 @@ function fillTeacherOlympiadTasks(ol_data) {
 function fillPupilOlympiadTasks(ol_data) {
     const hwListSel = $("#olympiad_tasks_list");
     hwListSel.empty();
-    const ol_id = ol_data.id;
-
+    const ol_id = ol_data.olimp_id;
     $("#edit_olympiad_modal_button").hide();
     $("#delete_olympiad_modal_button").hide();
     $("#add_task_modal_button").hide();
@@ -920,7 +919,7 @@ function fillPupilOlympiadTasks(ol_data) {
             sessionStorage.setItem("olympiad", ol_id);
             fillCompetition(ol_data);
             fillSources(datas.sources);
-            datas.forEach(data => {
+            datas.tasks.forEach(data => {
                 if (!data.active)
                     hwListSel.append(" <div id='blocktask" + data.id + "' class='hw-disabled  row'><a id='task" + data.id +
                         "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + JSON.stringify(data) + ")' " +
@@ -965,60 +964,77 @@ function deleteOlympiadTask(id) {
 
 
 function fillAnswerFieldsPupil(task_data) {
+    console.log(task_data);
+    const answerSel = $("#answer_status");
+    const submitSel = $("#submit_answer_button");
+    const editSel = $("#edit_answer_button");
+    $("#submit_mark_button").hide();
+    $("#edit_mark_button").hide();
+    $("#answer_deadline").text(task_data.deadline);
+
     $.ajax({
         url: 'http://localhost:2303/getpupilanswer',
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
         success: function (answer) {
-//TODO
-            const answerSel = $("#answer_status");
-            $("#answer_deadline").text(task_data.deadline);
-            $("#edit_task_modal_button").hide();
-            $("#submit_mark_button").hide();
-            $("#edit_mark_button").hide();
-            const submitSel = $("#submit_answer_button");
-            const editSel = $("#edit_answer_button");
-            submitSel.show();
-            editSel.show();
-
-            if (answer.text === "") {
-                //нічого не здано
+            console.log(answer);
+            if (task_data.active) {
+                $("#answer_timeleft").removeClass("table-danger").text(task_data.remaining_time);
+            } else {
+                $("#answer_timeleft").addClass("table-danger").text("Час вичерпано");
+            }
+            if(!answer.has){
+                $("#answer_table_mark").hide();
+                $("#answer_table_comment").hide();
                 answerSel.text("Нічого не здано");
                 answerSel.removeClass("table-success");
                 $("#answer_container").empty();
                 $("#answer_link_container").empty();
-
-                submitSel.show().attr("onclick", "submitAnswer(" + answer.id + ")");
-                editSel.hide();
-                $("#answer_container").append(" <textarea id='answer_area' class='text-break form-control' rows='6'></textarea>");
-                $("#answer_link_container").append("<input type='text' class='form-control' id='answer_link_input'>");
-            } else if (answer.mark === "") {
-                answerSel.text("Здано на оцінення");
-                answerSel.addClass("table-success");
-                $("#answer_container").empty().text(answer.text);
-                $("#answer_link_container").empty().append(" <a id='answer_link' href='" + answer.hyperlink + "'>" + answer.hyperlink + "</a>");
+                $("#answer_mark_container").empty().append("<p>Не оцінено</p>");
+                if (task_data.active) {
+                    $("#answer_table_link").show();
+                    submitSel.show();
+                    $("#answer_container").empty();
+                    $("#answer_link_container").empty();
+                    submitSel.show().attr("onclick", "submitAnswer('" + task_data.id + "')");
+                    editSel.hide();
+                    $("#answer_container").append(" <textarea id='answer_area' class='text-break form-control' rows='6'></textarea>");
+                    $("#answer_link_container").append("<input type='text' class='form-control' id='answer_link_input'>");
+                } else {
+                    $("#answer_table_link").hide();
+                    editSel.hide();
+                    submitSel.hide();
+                }
+            } else {
+                $("#answer_table_link").show();
+                $("#answer_table_mark").show();
 
                 submitSel.hide();
-                editSel.show().attr("onclick", "editAnswer(" + JSON.stringify(answer) + ")");
-            }
-            if (answer.mark === "") {
-                $("#answer_mark_container").empty().append("<p>Не оцінено</p>");
-            } else {
-                $("#answer_mark_container").empty().append("<p>" + answer.mark + "</p>");
-            }
+                answerSel.text("Здано на оцінення");
+                answerSel.addClass("table-success");
+                if(answer.text===""){
+                    $("#answer_table_comment").hide();
+                } else{
+                    $("#answer_container").empty().text(answer.text);
+                    $("#answer_table_comment").show();
+                }
+                $("#answer_link_container").empty().append(" <a id='answer_link' href='" + answer.hyperlink + "'>" + answer.hyperlink + "</a>");
 
-            if (task.active) {
-                $("#submit_answer_button").removeAttr("disabled");
-                $("#edit_answer_button").removeAttr("disabled");
-                $("#answer_timeleft").removeClass("table-danger").text("Час ще не сплив");
-            } else {
-                $("#submit_answer_button").attr("disabled", "disabled");
-                $("#edit_answer_button").attr("disabled", "disabled");
-                $("#answer_timeleft").addClass("table-danger").text("Час вичерпано");
-            }
+                $("#answer_comment_container").empty().append("<p>" + answer.response + "</p>");
 
-            $("#answer_comment_container").empty().append("<p>" + answer.response + "</p>");
+                if (task_data.active) {
+                    editSel.show().attr("onclick", "editAnswer(" + JSON.stringify(answer) + ")");
+                } else {
+                    editSel.hide();
+                }
+
+                if (answer.mark === "") {
+                    $("#answer_mark_container").empty().append("<p>Не оцінено</p>");
+                } else {
+                    $("#answer_mark_container").empty().append("<p>" + answer.mark + "</p>");
+                }
+            }
 
         },
         error: function (data2) {

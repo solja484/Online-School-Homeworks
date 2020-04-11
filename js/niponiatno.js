@@ -112,9 +112,8 @@ function editTask(id) {
     };
 //TODO @natasha editTask() пропиши сюди код іддентичний до editHometask(), коли пофіксиш editHometask
 }
-
 function fillAnswerFieldsTeacher() {
-//TODO
+//TODO @natahiko
     $("#edit_task_modal_button").show();
     $("#submit_mark_button").hide().attr('onclick', 'submitMark(' + answer.id + ')');
     $("#edit_mark_button").show().attr('onclick', 'editMark(' + JSON.stringify(answer) + ')');
