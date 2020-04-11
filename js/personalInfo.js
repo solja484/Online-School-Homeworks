@@ -622,8 +622,8 @@ function fillPupilHometasks(subject_data) {
             $("#edit_subject_modal_button").hide();
             $("#delete_subject_modal_button").hide();
             $("#add_hometask_modal_button").hide();
-            $("#subject_title").text(subject_data.name + " " + subject_data.class);
-            $("#subject_descr").text(subject_data.descr + "");
+            $("#subject_title").text(subject_data.title + " " + subject_data.class_num);
+            $("#subject_descr").text(subject_data.notes + "");
             sessionStorage.setItem("subject", subject_id);
             //fillSubjectFields(subject_data);
             datas.forEach(data => {
@@ -1255,9 +1255,9 @@ function fillAnswerFieldsTeacher(task_id) {
 }
 
 
-function saveAnswerFromTeacher(answer_id) {
+function saveAnswerFromTeacher(answer) {
     const data = {
-        "id": answer_id,
+        "id": answer.id,
         "mark": $("#pupil_answer_mark").val(),
         "response": $("#answer_response_notes").val()
     };
@@ -1273,8 +1273,11 @@ function saveAnswerFromTeacher(answer_id) {
         success: function (data2) {
             $('#pupil_answer_for_teacher_modal').modal('toggle');
             if (data.mark !== "") {
-                $("#answer_card" + answer_id).removeClass("bg-red");
+                $("#answer_card" + answer.id).removeClass("bg-red");
             }
+            answer['mark'] = data['mark'];
+            answer['response'] = data['response'];
+            $("#answer_card" + answer.id).attr("onclick", "saveAnswerFromTeacher(" + JSON.stringify(answer) + ")");
         },
         error: function (data2) {
             console.log(data2.error);

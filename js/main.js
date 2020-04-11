@@ -156,19 +156,27 @@ function showAdmin(id) {
 
 function show_subject(subject_data) {
     showPage('subject_page');
-    if (localStorage.getItem("usertype") === "teacher")
+    if (localStorage.getItem("usertype") === "teacher") {
+        $("#subject_show_all_pupils_button").show();
+        $("#subject_show_all_pupils_button").attr("onclick","setAllSubjectPupils("+JSON.stringify(subject_data)+")");
         fillTeacherHometasks(subject_data);
-    else if (localStorage.getItem("usertype") === "pupil")
+    }else if (localStorage.getItem("usertype") === "pupil") {
+        $("#subject_show_all_pupils_button").hide();
         fillPupilHometasks(subject_data);
+    }
 }
 
 
 function show_olympiad(ol_data) {
     showPage('olympiad_tasks_page');
-    if (localStorage.getItem("usertype") === "teacher")
+    if (localStorage.getItem("usertype") === "teacher") {
+        $("#olimpiad_show_all_pupils_button").show();
+        $("#olimpiad_show_all_pupils_button").attr("onclick","setAllOlimpiadPupils("+JSON.stringify(ol_data)+")");
         fillTeacherOlympiadTasks(ol_data);
-    else if (localStorage.getItem("usertype") === "pupil")
+    }else if (localStorage.getItem("usertype") === "pupil") {
+        $("#olimpiad_show_all_pupils_button").hide();
         fillPupilOlympiadTasks(ol_data);
+    }
 }
 
 function fillCompetition(ol_data) {
@@ -349,7 +357,7 @@ function setSchoolCode(code) {
 
 function setModalFields(answer) {
     const linkSel = $("#pupil_answer_hyperlink");
-    $("#save_answer_button").attr("onclick", "saveAnswerFromTeacher('" + answer.id + "')");
+    $("#save_answer_button").attr("onclick", "saveAnswerFromTeacher(" + JSON.stringify(answer) + ")");
     $("#pupil_answer_name").text(answer.name);
     $("#answer_response_notes").val(answer.response);
     $("#pupil_answer_text").text(answer.text);
@@ -370,4 +378,28 @@ function getAnswerComponent(answer) {
         ")' data-toggle='modal' data-target='#pupil_answer_for_teacher_modal'>" + answer.name + "</div>" +
         "</div>";
     return res;
+}
+
+
+function showPupilProfile(data) {
+    $("#show_all_pupils_modal").modal('toggle');
+
+    $("#pupil_pib").text(data.name);
+    $("#pupil_email").text(data.email);
+    if (data.phone === "")
+        $("#pupil_phone").text("Не вказано");
+    else
+        $("#pupil_phone").text(data.phone);
+    $("#pupil_class").text(data.class);
+    if (data.birthdate === "")
+        $("#pupil_bday").text("Не вказано");
+    else
+        $("#pupil_bday").text(data.birth_date);
+
+    $("#pupil_notes").text(data.notes);
+    $("#pupil_pupilcode").text(data.id);
+    sessionStorage.setItem("schoolcode", data.school_id)
+    $("#pupil_school_link").text(data.schoolname);
+
+    showPage('pupil_page');
 }

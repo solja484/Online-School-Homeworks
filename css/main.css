@@ -100,6 +100,9 @@ body {
     color: white;
     cursor: pointer;
 }
+.card{
+    cursor: pointer !important;
+}
 
 .text-white {
     color: white !important;

@@ -259,20 +259,18 @@
                 <h5 class="col_md_12 text-muted text-break" id="#subject_descr"></h5>
                 <div class='col-md-12'>
                     <button id='add_hometask_modal_button' data-target='#add_hometask_modal' data-toggle='modal'
-                            class='btn btn-outline-info bg-hover-blue'>
-                        Додати домашнє завдання
+                            class='btn btn-outline-info bg-hover-blue'>Додати домашнє завдання
                     </button>
-
 
                     <button id="edit_subject_modal_button" class="btn btn-outline-warning bg-hover-yellow"
-                            data-target='#edit_sj_modal'
-                            data-toggle='modal'>
-                        Редагувати предмет
+                            data-target='#edit_sj_modal' data-toggle='modal'>Редагувати предмет
                     </button>
                     <button id="delete_subject_modal_button" class='btn btn-outline-danger bg-hover-red '
-                            data-target='#delete_sj_modal'
-                            data-toggle='modal'>
-                        Видалити предмет
+                            data-target='#delete_sj_modal' data-toggle='modal'>Видалити предмет
+                    </button>
+
+                    <button id="subject_show_all_pupils_button" class='btn btn-outline-secondary'
+                            data-target='#show_all_pupils_modal' data-toggle='modal'>Переглянути всіх учнів
                     </button>
                     <br><br>
                 </div>
@@ -392,6 +390,10 @@
                         class='btn btn-outline-danger bg-hover-red mg-v-5 ' data-toggle='modal'>
                     Видалити олімпіаду
                 </button>
+
+                <button id="olimpiad_show_all_pupils_button" class='btn btn-outline-secondary'
+                        data-target='#show_all_pupils_modal' data-toggle='modal'>Переглянути всіх учнів
+                </button>
                 <br><br>
             </div>
             <div class="panel-body row">
@@ -491,6 +493,22 @@
 </div>
 
 
+<!--show all pupils of subject or olimpiad-->
+<div class='modal fade' id='show_all_pupils_modal' role='dialog'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <p id="all_pupils_modal_titile"></p>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            </div>
+            <div id='all_pupil_modal_body' class="modal-body"></div>
+            <div class="modal-footer">
+                <button data-dismiss='modal' type="button" class="btn btn-outline-info">ОК
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--delete olympiad modal-->
 <div class='modal fade' id='delete_olympiad_modal' role='dialog'>
     <div class='modal-dialog'>
@@ -569,7 +587,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Відповідь на завдання<span id="pupil_answer_name"></span></h4>
+                <h4 class="modal-title">Відповідь на завдання<br><p id="pupil_answer_name"></p></h4>
+
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -741,8 +760,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="edit_hw_button" type="button" class="btn btn-outline-info"
-                >Зберегти
+                <button id="edit_hw_button" type="button" class="btn btn-outline-info">Зберегти
                 </button>
             </div>
         </div>
