@@ -259,3 +259,77 @@ function setAllOlimpiadPupils(ol_data) {
         })
     });
 }
+
+function showTeacherProfileOlimpiad(olimp_id) {
+    $.ajax({
+        url: 'http://localhost:2303/getolimpTeacherInfo',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            $("#teacher_school_link").text(data.schoolname);
+            $("#teacher_pib").text(data.name + ' ' + data.surname + ' ' + data.patronymic);
+            $("#teacher_email").text(data.email);
+            if (data.phone === "")
+                $("#teacher_phone").text("Не вказано");
+            else
+                $("#teacher_phone").text(data.phone);
+            $("#teacher_education").text(data.education);
+            if (data.phd)
+                $("#teacher_phd").show();
+            else
+                $("#teacher_phd").hide();
+            if (data[6])
+                $("#new_teacher_phd").attr("checked", "checked");
+
+            $("#teacher_notes").text(data.notes);
+            $("#teacher_teachercode").text(data.id);
+            sessionStorage.setItem("schoolcode", data.schoolid);
+            showPage('teacher_page');
+        },
+        error: function (data2) {
+            console.log(data2.error);
+        },
+        data: JSON.stringify({
+            "id": olimp_id
+        })
+    });
+}
+
+
+function showTeacherProfileSub(sub_id) {
+    $.ajax({
+        url: 'http://localhost:2303/getsubjectTeacherInfo',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            $("#teacher_school_link").text(data.schoolname);
+            $("#teacher_pib").text(data.name + ' ' + data.surname + ' ' + data.patronymic);
+            $("#teacher_email").text(data.email);
+            if (data.phone === "")
+                $("#teacher_phone").text("Не вказано");
+            else
+                $("#teacher_phone").text(data.phone);
+            $("#teacher_education").text(data.education);
+            if (data.phd)
+                $("#teacher_phd").show();
+            else
+                $("#teacher_phd").hide();
+            if (data[6])
+                $("#new_teacher_phd").attr("checked", "checked");
+
+            $("#teacher_notes").text(data.notes);
+            $("#teacher_teachercode").text(data.id);
+            sessionStorage.setItem("schoolcode", data.schoolid);
+            showPage('teacher_page');
+        },
+        error: function (data2) {
+            console.log(data2.error);
+        },
+        data: JSON.stringify({
+            "id": sub_id
+        })
+    });
+}
+

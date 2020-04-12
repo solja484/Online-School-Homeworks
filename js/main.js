@@ -158,10 +158,12 @@ function show_subject(subject_data) {
     showPage('subject_page');
     if (localStorage.getItem("usertype") === "teacher") {
         $("#subject_show_all_pupils_button").show();
+        $("#subject_teacher_link").hide();
         $("#subject_show_all_pupils_button").attr("onclick", "setAllSubjectPupils(" + JSON.stringify(subject_data) + ")");
         fillTeacherHometasks(subject_data);
     } else if (localStorage.getItem("usertype") === "pupil") {
         $("#subject_show_all_pupils_button").hide();
+        $("#subject_teacher_link").show();
         fillPupilHometasks(subject_data);
     }
 }
@@ -171,10 +173,12 @@ function show_olympiad(ol_data) {
     showPage('olympiad_tasks_page');
     if (localStorage.getItem("usertype") === "teacher") {
         $("#olimpiad_show_all_pupils_button").show();
+        $("#olimpiad_teacher_link").hide();
         $("#olimpiad_show_all_pupils_button").attr("onclick", "setAllOlimpiadPupils(" + JSON.stringify(ol_data) + ")");
         fillTeacherOlympiadTasks(ol_data);
     } else if (localStorage.getItem("usertype") === "pupil") {
         $("#olimpiad_show_all_pupils_button").hide();
+        $("#olimpiad_teacher_link").show();
         fillPupilOlympiadTasks(ol_data);
     }
 }

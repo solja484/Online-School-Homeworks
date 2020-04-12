@@ -624,6 +624,7 @@ function fillPupilHometasks(subject_data) {
             $("#add_hometask_modal_button").hide();
             $("#subject_title").text(subject_data.title + " " + subject_data.class_num);
             $("#subject_descr").text(subject_data.notes + "");
+            $("#subject_teacher_link").attr("onclick", "showTeacherProfileSub('" + subject_data.id + "')");
             sessionStorage.setItem("subject", subject_id);
             //fillSubjectFields(subject_data);
             datas.forEach(data => {
@@ -992,6 +993,7 @@ function fillPupilOlympiadTasks(ol_data) {
             sessionStorage.setItem("olympiad", ol_id);
             fillCompetition(ol_data);
             fillSources(datas.sources);
+            $("#olimpiad_teacher_link").attr("onclick", "showTeacherProfileOlimpiad('" + ol_data.olimp_id + "')");
             datas.tasks.forEach(data => {
                 if (!data.active)
                     hwListSel.append(" <div id='blocktask" + data.id + "' class='hw-disabled  row'><a id='task" + data.id +
