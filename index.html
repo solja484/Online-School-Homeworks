@@ -85,14 +85,15 @@
             <div class="panel-header"><h4> Предмети</h4></div>
             <div class="panel-body">
                 <form class="input-group mb-3">
-                    <input id="subject_search_input" type="text" class="form-control " placeholder="Пошук"
+                    <input id="subject_search_input" type="text" class="form-control " placeholder="Введіть код"
                            aria-describedby="button-button">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary " type="button" id="search_button"
-                                onclick="searchSubject();">&#128269;
+                                onclick="addPupilSubject();">➕ Додати
                         </button>
 
                     </div>
+                    <div class="invalid-feedback">Неправильно вказаний номер</div>
                 </form>
                 <h5> Мої предмети</h5>
                 <div class="list-group" id="subject_list">
@@ -343,14 +344,16 @@
             </div>
             <div class="panel-body">
                 <form class="input-group mb-3">
-                    <input id="olympiad_search_input" type="text" class="form-control " placeholder="Пошук"
+                    <input id="olympiad_search_input" type="text" class="form-control " placeholder="Введіть код"
                            aria-describedby="button-button">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary " type="button" onclick="searchOlympiad()"
-                        >&#128269;
+                        <button class="btn btn-outline-secondary " type="button" onclick="addPupilOlympiad()"
+                        >➕ Додати
                         </button>
 
                     </div>
+
+                    <div class="invalid-feedback">Неправильно вказаний номер</div>
                 </form>
                 <h5> Мої олімпіади</h5>
                 <div class="list-group" id="pupil_olympiads_list">

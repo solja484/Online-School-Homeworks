@@ -333,3 +333,54 @@ function showTeacherProfileSub(sub_id) {
     });
 }
 
+function addPupilOlympiad() {
+    const strSel = $("#olympiad_search_input");
+    const code = strSel.val();
+    const userid = localStorage.getItem('authentication');
+    if (!validCode2("olympiad_search_input")) return false;
+    $.ajax({
+        url: 'http://localhost:2303/addpupilolimpiad',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data2) {
+            strSel.val("");
+            fillPupilOlympiads(userid);
+        },
+        error: function (data2) {
+            strSel.addClass('is-invalid');
+            console.log(data2.error);
+        },
+        data: JSON.stringify({
+            "student_id": userid,
+            "olimpiad_id": code
+        })
+    });
+}
+
+function addPupilSubject() {
+    let strSel = $("#subject_search_input");
+    const code = strSel.val();
+    const userid = localStorage.getItem('authentication');
+    if (!validCode2("subject_search_input")) return false;
+    $.ajax({
+        url: 'http://localhost:2303/addpupisubject',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data2) {
+            strSel.val("");
+            fillPupilSubjectsWithoutOlimp(userid);
+        },
+        error: function (data2) {
+            strSel.addClass('is-invalid');
+            console.log(data2.error);
+        },
+        data: JSON.stringify({
+            "student_id": userid,
+            "sub_id": code
+        })
+    });
+}

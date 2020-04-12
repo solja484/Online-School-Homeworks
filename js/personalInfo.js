@@ -546,6 +546,29 @@ function fillPupilSubjects(id) {
     });
 }
 
+function fillPupilSubjectsWithoutOlimp(id) {
+    const subListSel = $("#subject_list");
+    subListSel.empty();
+    $.ajax({
+        url: 'http://localhost:2303/getpupilsubjects',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (datas) {
+            datas.forEach(data => subListSel.append("<a href='#' class='list-group-item list-group-item-action " +
+                "list-group-item-light' data-toggle='list' role='tab' onclick='show_subject(" + JSON.stringify(data)
+                + ");'>" + data.title + "</a>"));
+        },
+        error: function (data) {
+            alert(data.error);
+        },
+        data: JSON.stringify({
+            "id": id
+        })
+    });
+}
+
 function editSubject() {
     if (!validEmpty("edit_subject_name") || !validFreeClass("edit_subject_class"))
         return false;

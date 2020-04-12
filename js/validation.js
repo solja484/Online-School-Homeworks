@@ -101,6 +101,20 @@ function validPass(str) {
     return true;
 }
 
+function validCode2(str) {
+    const selector = $("#" + str);
+    let code = selector.val();
+    let number = /^[0-9]+$/;
+    console.log(code.match(number));
+    if (code.match(number) && code.length === 10) {
+        selector.removeClass('is-invalid');
+        selector.addClass('is-valid');
+        return true;
+    }
+    selector.removeClass('is-valid');
+    selector.addClass('is-invalid');
+    return false
+}
 function validCode(str) {
     const selector = $("#" + str);
     let code = selector.val();
@@ -211,6 +225,15 @@ $("#reg_email").keyup(function () {
 $("#answer_area").keyup(function () {
     $("#answer_area").removeClass('is-invalid');
 });
+$("#subject_search_input").keyup(function () {
+    $("#subject_search_input").removeClass('is-invalid');
+    $("#subject_search_input").removeClass('is-valid');
+});
+$("#olympiad_search_input").keyup(function () {
+    $("#olympiad_search_input").removeClass('is-invalid');
+    $("#olympiad_search_input").removeClass('is-valid');
+});
+
 // $("#input_admin_login").keyup(function () {
 //     logSelector.removeClass('is-invalid');
 // });
