@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:https="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>School</title>
@@ -119,9 +119,15 @@
                     data-target="#add_city_modal" data-toggle="modal"
                     onclick="setCitiesValueOption('#add_city_current')">Додати місто
             </button>
-            <button id="add_competitiom" type="button" class="btn btn-warning col-md-3 text-white bg-gray"
+            <button id="add_competitiom" type="button" class="btn btn-warning col-md-3 text-white bg-blue"
                     data-target="#add_competition_modal" data-toggle="modal"
                     onclick="setNamesAndStages()">Додати конкурс
+            </button>
+            <button id="open_report" type="button" class="btn btn-warning col-md-3 text-white bg-red"
+                    onclick="openReport()">Відкрити звіт
+            </button>
+            <button id="print_report" type="button" class="btn btn-warning col-md-3 text-white bg-yellow"
+                    onclick="printReport()">Надрукувати звіт
             </button>
 
             <div class="panel ov-auto">
@@ -1717,5 +1723,6 @@
 <script src="js/personalInfo.js"></script>
 <script src="js/niponiatno.js"></script>
 <script src="js/main.js"></script>
+<script src="js/print.min.js"></script>
 </body>
 </html>
