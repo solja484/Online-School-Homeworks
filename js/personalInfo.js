@@ -336,7 +336,7 @@ function fillEditSchoolModal(data) {
 }
 
 function addSchool() {
-    if (!validName("input_school_name") || !validFName("input_school_region") ||
+    if (!validEmpty("input_school_name") ||
         !validName("input_school_street") || !validPhone("input_school_phone") ||
         !validHouse("input_school_house")) {
         return false;
@@ -364,7 +364,7 @@ function addSchool() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data2) {
-
+            data['code'] = data2.code;
 
             $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
                 "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
@@ -377,9 +377,9 @@ function addSchool() {
 
             $("#table_schools_admin_body").append("<tr id='row" + data2.code + "' class='tableelements'>" +
                 "<th scope='row'>" + data2.code + "</th><td>" + data.name + "</td><td>" + address + "</td>" +
-                "<td>" + data.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
-                "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('" + data2.code + "')>️edit</button>" +
-                "<button class='btn btn-sm btn-danger bg-red' onclick=editSchool('" + data2.code + "')>delete</button></td>" +
+                "<td>" + data.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm border-none btn-outline-info bg-hover-blue' " +
+                "data-toggle='modal' data-target='#edit_school_modal' onclick='setSchoolCode(" + JSON.stringify(data)  + ")'>️edit</button>" +
+                "<button class='btn btn-sm btn-outline-danger border-none bg-hover-red' onclick=deleteSchool('" + data2.code + "')>delete</button></td>" +
                 "</tr>")
 
             //TODO natasha
@@ -420,7 +420,7 @@ function deleteSchool(id) {
 
 function editSchool() {
 
-    if (!validName("edit_school_name") || !validFName("edit_school_region") ||
+    if (!validEmpty("edit_school_name") ||
         !validName("edit_school_street") || !validPhone("edit_school_phone") ||
         !validHouse("edit_school_house")) {
         return false;
@@ -449,9 +449,9 @@ function editSchool() {
             const selector = $("#row" + school_code);
             selector.empty();
             selector.append("<th scope='row'>" + data.code + "</th><td>" + data.name + "</td><td>" + address + "</td>" +
-                "<td>" + data.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
-                "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('" + data.code + "')>️edit</button>" +
-                "<button class='btn btn-sm btn-danger bg-red' onclick=deleteSchool('" + data.code + "')>delete</button></td>"
+                "<td>" + data.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm border-none btn-outline-info bg-hover-blue' " +
+                "data-toggle='modal' data-target='#edit_school_modal' onclick='setSchoolCode(" + JSON.stringify(data)  + ")'>️edit</button>" +
+                "<button class='btn btn-sm btn-outline-danger border-none bg-hover-red' onclick=deleteSchool('" + data.code + "')>delete</button></td>"
             );
             $("#edit_school_modal").modal('hide');
             clearForm("edit_school_form");

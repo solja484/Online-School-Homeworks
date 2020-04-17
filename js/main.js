@@ -190,6 +190,12 @@ function show_subject(subject_data) {
 }
 
 
+function printReport() {
+    var objFra = document.getElementById('myFrame');
+    objFra.contentWindow.focus();
+    objFra.contentWindow.print();
+}
+
 function show_olympiad(ol_data) {
     showPage('olympiad_tasks_page');
     if (localStorage.getItem("usertype") === "teacher") {
@@ -392,8 +398,14 @@ function editAnswer(data) {
     $("#edit_answer_button").attr("onclick", "editAnswer(" + JSON.stringify(data) + ")").hide();
 }
 
-function setSchoolCode(code) {
-    localStorage.setItem("school_code", code);
+function setSchoolCode(data) {
+    console.log(data);
+    localStorage.setItem("school_code", data.code);
+    $("#edit_school_name").val(data.name);
+    $("#edit_school_region").val(data.region);
+    $("#edit_school_street").val(data.street);
+    $("#edit_school_house").val(data.house);
+    $("#edit_school_phone").val(data.phone);
 }
 
 

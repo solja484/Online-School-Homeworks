@@ -207,7 +207,7 @@ function setSchoolsTable() {
                     "<th scope='row'>" + school.code + "</th><td>" + school.name + "</td><td>" + school.address + "</td>" +
                     "<td>" + school.phone + "</td><td><button id='edit_school" + school.code + "' type='button' " +
                     "class='btn btn-sm border-none btn-outline-info bg-hover-blue' data-toggle='modal' " +
-                    "data-target='#edit_school_modal' onclick=setSchoolCode('" + school.code + "')>️edit</button>" +
+                    "data-target='#edit_school_modal' onclick='setSchoolCode(" + JSON.stringify(school) + ")'>️edit</button>" +
                     "<button class='btn btn-sm btn-outline-danger border-none bg-hover-red' " +
                     "onclick=deleteSchool('" + school.code + "')>delete</button></td>" +
                     "</tr>"));

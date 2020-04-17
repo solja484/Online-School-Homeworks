@@ -9,6 +9,7 @@
     <link href="css/registry.css" rel="stylesheet" media="screen">
     <link href="css/homeworks.css" rel="stylesheet" media="screen">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="container" class="panel panel-default row ">
@@ -139,13 +140,9 @@
                     onclick="setNamesAndStages()">Додати конкурс
             </button>
 
-                <br>
-            <button id="open_report" type="button" class="btn btn-info mg-5 w-30 text-white bg-blue"
-                    onclick="openReport()">Відкрити звіт
-            </button>
-            <button id="print_report" type="button" class="btn btn-info mg-5 w-30 text-white bg-blue"
-                    onclick="printReport()">Надрукувати звіт
-            </button>
+                <button id="print_report" type="button" class="btn btn-info mg-5 w-30 text-white bg-blue"
+                        onclick="printReport()">Надрукувати звіт
+                </button>
             </div>
             <div class="panel ov-auto">
 
@@ -1758,6 +1755,11 @@
 
     </div>
 </div>
+<iframe
+        src="docs/document.pdf" id="myFrame"
+        frameborder="0" style="border:0;display: none"
+        width="300" height="300" >
+</iframe>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
@@ -1766,5 +1768,6 @@
 <script src="js/personalInfo.js"></script>
 <script src="js/niponiatno.js"></script>
 <script src="js/main.js"></script>
+<script src="https://printjs-4de6.kxcdn.com/print.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
