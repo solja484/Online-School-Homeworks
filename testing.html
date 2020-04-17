@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<iframe
+        src="docs/document.pdf" id="myFrame"
+        frameborder="0" style="border:0;display: none"
+        width="300" height="300" >
+</iframe>
+<p>
+    <input type="button" id="bt" onclick="print()" value="Print PDF using document" />
+</p>
+<button type="button" onclick="printJS({printable:'docs/document.pdf', type:'pdf', showModal:true})">
+    Print PDF using print.js
+</button>
+
+<script src="https://printjs-4de6.kxcdn.com/print.min.js" crossorigin="anonymous"></script>
+</body>
+
+<script>
+    function print() {
+        var objFra = document.getElementById('myFrame');
+        objFra.contentWindow.focus();
+        objFra.contentWindow.print();
+    }
+</script>
+</html>
