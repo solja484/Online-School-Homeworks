@@ -185,7 +185,6 @@ function show_subject(subject_data) {
         $("#subject_show_all_pupils_button").hide();
         $("#subject_teacher_link").show();
         fillPupilHometasks(subject_data);
-
     }
 }
 
@@ -201,11 +200,13 @@ function show_olympiad(ol_data) {
     if (localStorage.getItem("usertype") === "teacher") {
         $("#olimpiad_show_all_pupils_button").show();
         $("#olimpiad_teacher_link").hide();
+        $("#add_addition_source_button").show();
         $("#olimpiad_show_all_pupils_button").attr("onclick", "setAllOlimpiadPupils(" + JSON.stringify(ol_data) + ")");
         fillTeacherOlympiadTasks(ol_data);
     } else if (localStorage.getItem("usertype") === "pupil") {
         $("#olimpiad_show_all_pupils_button").hide();
         $("#olimpiad_teacher_link").show();
+        $("#add_addition_source_button").hide();
         fillPupilOlympiadTasks(ol_data);
     }
 }
@@ -260,6 +261,21 @@ function showHometask(hw_id) {
     fillHometask(hw_id);
 }
 
+function setHometaskEditFields(data) {
+    const titSel = $("#edit_hw_title");
+    titSel.val(data.hw_title);
+    titSel.removeClass("is-valid");
+    titSel.removeClass("is-invalid");
+    const conSel = $("#edit_hw_content");
+    conSel.val(data.content);
+    conSel.removeClass("is-valid");
+    conSel.removeClass("is-invalid");
+    const notSel = $("#edit_hw_notes");
+    notSel.val(data.notes);
+    notSel.removeClass("is-valid");
+    notSel.removeClass("is-invalid");
+}
+
 function showOlympiadTask(task_data) {
     showPage("task_page");
     fillOlympiadTask(task_data);
@@ -269,7 +285,7 @@ function fillTaskFields(data) {
     removeValid("edit_task_form");
     $("#edit_task_title").attr("value", data.task_caption);
     $("#edit_task_content").text(data.content);
-    $("#edit_task_deadline").attr("value", data.deadline);
+    $("#edit_task_deadline").attr("value", data.deadline_iso);
     $("#edit_task_notes").text(data.notes);
 
     const linkSel = $("#edit_task_links");

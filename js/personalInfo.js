@@ -725,6 +725,8 @@ function fillHometask(id) {
         success: function (data) {
             $("#hw_title").text(data.hw_title);
             $("#hw_task").text(data.content);
+            $("#hometask_deadline").text(data.deadline);
+            $("#hometask_timeleft").text(data.remaining_time);
             const linkSel = $("#hw_links");
             linkSel.empty();
             data.hyperlinks.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
@@ -749,10 +751,11 @@ function fillHometask(id) {
 
 function fillHometaskFields(data) {
     removeValid("edit_hw_form");
-
+    console.log(data);
     $("#edit_hw_title").attr("value", data.hw_title);
     $("#edit_hw_content").text(data.content);
-    $("#edit_hw_deadline").attr("value", data.deadline);
+    // const dead_date = new Date(data.deadline);
+    $("#edit_hw_deadline").attr("value", data.deadline_iso);
     $("#edit_hw_notes").text(data.notes);
 
 
@@ -767,6 +770,7 @@ function fillHometaskFields(data) {
     linkSel.append("<button id='edit_hyperlink_field_button' class='btn btn-dark float-left' onclick=editHyperlinkField('"
         + data.hyperlinks.length + "')> + </button>");
     $("#edit_hw_button").attr('onclick', "editHomework('" + data.hw_id + "')");
+    $("#edit_hometask_modal_button").attr('onclick', "setHometaskEditFields(" + JSON.stringify(data) + ")")
 }
 
 function addHomework() {
@@ -1176,7 +1180,12 @@ function fillAnswerFieldsPupil(task_data) {
                     $("#answer_container").empty().text(answer.text);
                     $("#answer_table_comment").show();
                 }
-                $("#answer_link_container").empty().append(" <a id='answer_link' href='" + answer.hyperlink + "'>" + answer.hyperlink + "</a>");
+                if (answer.hyperlink !== "") {
+                    $("#answer_table_link").show();
+                    $("#answer_link_container").empty().append(" <a id='answer_link' href='" + answer.hyperlink + "'>" + answer.hyperlink + "</a>");
+                } else {
+                    $("#answer_table_link").hide();
+                }
 
                 $("#answer_comment_container").empty().append("<p>" + answer.response + "</p>");
 
