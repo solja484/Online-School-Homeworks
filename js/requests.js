@@ -390,3 +390,34 @@ function addPupilSubject() {
         })
     });
 }
+
+function findNotin() {
+    if(!validName("notin_surname")){
+        return false;
+    }
+    const surname = $("#notin_surname").val();
+    $.ajax({
+        url: 'http://localhost:2303/getpupilslearnallteachsubjects',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (datas) {
+            const selector = $("#notin_table_body");
+            if(datas.length<1){
+                $("#no_notin_table").show();
+                $("#notin_table").hide();
+            } else {
+                $("#no_notin_table").hide();
+                $("#notin_table").show();
+                datas.forEach(data => selector.append("<tr><td>" + data.id + "</td><td>" + data.name + "</td>" +
+                    "<td>" + data.class + "</td><td>" + data.email + "</td><td>" + data.school_id + "</td></tr>"));
+            }
+        },
+        error: function (data2) {
+            console.log(data2.error);
+        },
+        data: JSON.stringify({
+            "surname": surname
+        })
+    });
+}
