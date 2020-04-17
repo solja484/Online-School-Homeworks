@@ -205,9 +205,11 @@ function setSchoolsTable() {
                 table.empty();
                 data.forEach(school => table.append("<tr id='row" + school.code + "' class='tableelements'>" +
                     "<th scope='row'>" + school.code + "</th><td>" + school.name + "</td><td>" + school.address + "</td>" +
-                    "<td>" + school.phone + "</td><td><button id='edit_school"+school.code+"' type='button' class='btn btn-sm border-none btn-outline-info bg-hover-blue' " +
-                    "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('" + school.code + "')>️edit</button>" +
-                    "<button class='btn btn-sm btn-outline-danger border-none bg-hover-red' onclick=deleteSchool('" + school.code + "')>delete</button></td>" +
+                    "<td>" + school.phone + "</td><td><button id='edit_school" + school.code + "' type='button' " +
+                    "class='btn btn-sm border-none btn-outline-info bg-hover-blue' data-toggle='modal' " +
+                    "data-target='#edit_school_modal' onclick=setSchoolCode('" + school.code + "')>️edit</button>" +
+                    "<button class='btn btn-sm btn-outline-danger border-none bg-hover-red' " +
+                    "onclick=deleteSchool('" + school.code + "')>delete</button></td>" +
                     "</tr>"));
             }
         }
@@ -225,7 +227,9 @@ function setAllSubjectPupils(sub_data) {
         contentType: 'application/json',
         success: function (data) {
             selector.empty();
-            data.forEach(pupil => selector.append("<div class='card' aria-controls='pupil_page' data-toggle='pill' role='tab' href='#pupil_page' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'><div class='card-body'>" + pupil.name + "</div></div>"));
+            data.forEach(pupil => selector.append("<div class='card' aria-controls='pupil_page' data-toggle='pill' " +
+                "role='tab' href='#pupil_page' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'>" +
+                "<div class='card-body'>" + pupil.name + "</div></div>"));
             $("#show_all_pupils_modal").modal('toggle');
         },
         error: function (data2) {
@@ -248,7 +252,9 @@ function setAllOlimpiadPupils(ol_data) {
         contentType: 'application/json',
         success: function (data) {
             selector.empty();
-            data.forEach(pupil => selector.append("<div class='card' aria-controls='pupil_page' data-toggle='pill' role='tab' href='#pupil_page' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'><div class='card-body'>" + pupil.name + "</div></div>"));
+            data.forEach(pupil => selector.append("<div class='card' aria-controls='pupil_page' data-toggle='pill' " +
+                "role='tab' href='#pupil_page' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'>" +
+                "<div class='card-body'>" + pupil.name + "</div></div>"));
             $("#show_all_pupils_modal").modal('toggle');
         },
         error: function (data2) {

@@ -14,18 +14,13 @@ $(document).ready(function () {
     if (usertype === 'teacher') {
         showTeacher(userid);
         $("#edit_teacher_modal_button").show();
-    }
-    else if (usertype === 'pupil') {
+    } else if (usertype === 'pupil') {
         $("#edit_teacher_modal_button").hide();
         showPupil(userid);
-    }
-    else if (usertype === 'admin') {
+    } else if (usertype === 'admin') {
         $("#edit_teacher_modal_button").hide();
         showAdmin(userid);
-    }
-
-
-    else {
+    } else {
         exit();
         localStorage.setItem("usertype", "pupil");
     }
@@ -276,10 +271,10 @@ function fillTaskFields(data) {
     for (let i in data.hyperlinks) {
         linkSel.append("<input type='text' id='edit_task_link" + i +
             "' value='" + data.hyperlinks[i] + "' class='form-control col-md-11' max='255'>" +
-            "<button class='btn btn-outline-light col-md-1' id='edit_task_hyperlink_field_del" + i + "' onclick='deleteEditTaskHyperlinkField('" + i + "')'>❌</button>");
+            "<button class='btn btn-outline-light col-md-1' id='edit_task_hyperlink_field_del" + i + "' onclick=deleteEditTaskHyperlinkField(" + i + ")>❌</button>");
     }
     linkSel.append("<button id='edit_task_hyperlink_field_button' class='btn btn-dark float-left' " +
-        "onclick='editTaskHyperlinkField("+ data.hyperlinks.length + ")'> + </button>");
+        "onclick=editTaskHyperlinkField('" + data.hyperlinks.length + "')> + </button>");
 
 
     $("#edit_task_button").attr('onclick', "editTask('" + data.id + "')");
@@ -316,9 +311,9 @@ function addHyperlinkField(id) {
     const hwSel = $("#add_hw_links");
     hwSel.append(" <input type='text' id='new_hw_link" + id +
         "' class='form-control col-md-11' max='255'>" +
-        "<button class='btn btn-outline-light col-md-1' id='add_hyperlink_field_del" + id + "' onclick='deleteAddHyperlinkField(" + id + ")'>❌</button>");
-    hwSel.append("<button id='add_hyperlink_field_button' class='btn btn-dark float-left' onclick='addHyperlinkField("
-        + (id + 1) + ")'> + </button>");
+        "<button class='btn btn-outline-light col-md-1' id='add_hyperlink_field_del" + id + "' onclick=deleteAddHyperlinkField('" + id + "')>❌</button>");
+    hwSel.append("<button id='add_hyperlink_field_button' class='btn btn-dark float-left' onclick=addHyperlinkField('"
+        + (id + 1) + "')> + </button>");
 }
 
 function deleteAddHyperlinkField(id) {
@@ -331,9 +326,9 @@ function editHyperlinkField(id) {
     const hwSel = $("#edit_hw_links");
     hwSel.append(" <input type='text' id='edit_hw_link" + id +
         "' class='form-control col-md-11' max='255'>" +
-        "<button class='btn btn-outline-light col-md-1' id='edit_hyperlink_field_del" + id + "' onclick='deleteEditHyperlinkField(" + id + ")'>❌</button>");
-    hwSel.append("<button id='edit_hyperlink_field_button' class='btn btn-dark float-left' onclick='editHyperlinkField("
-        + (id + 1) + ")'> + </button>");
+        "<button class='btn btn-outline-light col-md-1' id='edit_hyperlink_field_del" + id + "' onclick=deleteEditHyperlinkField('" + id + "')>❌</button>");
+    hwSel.append("<button id='edit_hyperlink_field_button' class='btn btn-dark float-left' onclick=editHyperlinkField('"
+        + (id + 1) + "')> + </button>");
 }
 
 function deleteEditHyperlinkField(id) {
@@ -347,9 +342,9 @@ function addTaskHyperlinkField(id) {
     const taskSel = $("#add_task_links");
     taskSel.append(" <input type='text' id='new_task_link" + id +
         "' class='form-control col-md-11' max='255'>" +
-        "<button class='btn btn-outline-light col-md-1' id='add_task_hyperlink_field_del" + id + "' onclick='deleteAddTaskHyperlinkField(" + id + ")'>❌</button>");
-    taskSel.append("<button id='add_task_hyperlink_field_button' class='btn btn-dark float-left' onclick='addTaskHyperlinkField("
-        + (id + 1) + ")'> + </button>");
+        "<button class='btn btn-outline-light col-md-1' id='add_task_hyperlink_field_del" + id + "' onclick=deleteAddTaskHyperlinkField('" + id + "')>❌</button>");
+    taskSel.append("<button id='add_task_hyperlink_field_button' class='btn btn-dark float-left' onclick=addTaskHyperlinkField('"
+        + (id + 1) + "')> + </button>");
 }
 
 function deleteAddTaskHyperlinkField(id) {
@@ -362,9 +357,9 @@ function editTaskHyperlinkField(id) {
     const taskSel = $("#edit_task_links");
     taskSel.append(" <input type='text' id='edit_task_link" + id +
         "' class='form-control col-md-11' max='255'>" +
-        "<button class='btn btn-outline-light col-md-1' id='edit_task_hyperlink_field_del" + id + "' onclick='deleteEditTaskHyperlinkField(" + id + ")'>❌</button>");
-    taskSel.append("<button id='edit_task_hyperlink_field_button' class='btn btn-dark float-left' onclick='editTaskHyperlinkField("
-        + (id + 1) + ")'> + </button>");
+        "<button class='btn btn-outline-light col-md-1' id='edit_task_hyperlink_field_del" + id + "' onclick=deleteEditTaskHyperlinkField('" + id + "')>❌</button>");
+    taskSel.append("<button id='edit_task_hyperlink_field_button' class='btn btn-dark float-left' onclick=editTaskHyperlinkField('"
+        + (id + 1) + "')> + </button>");
 }
 
 function deleteEditTaskHyperlinkField(id) {
@@ -379,11 +374,12 @@ function clearSubjectHyperlinks() {
 
 }
 
-function clearOlympiadTaskHyperlinks(){
+function clearOlympiadTaskHyperlinks() {
     $("#add_task_links").empty().append(" <input type='text' id='new_task_link0' class='form-control col-md-11' max='255'>" +
         "<button class='btn btn-outline-light col-md-1' id='add_task_hyperlink_field_del0' onclick='deleteAddTaskHyperlinkField(0)'>❌ </button>" +
         "<button id='add_task_hyperlink_field_button' class='btn btn-dark float-left' onclick='addTaskHyperlinkField(0)'> + </button>");
 }
+
 // HYPERLINKS END
 
 

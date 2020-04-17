@@ -11,14 +11,14 @@ function checkValidity() {
     if (cur_user_type === 'teacher') {
         validDocument("reg_teacher_code");
         validEmpty("reg_education");
-    }else if (cur_user_type === 'pupil') {
+    } else if (cur_user_type === 'pupil') {
         validClass("reg_class");
         validDocument("reg_student_code");
         validEmpty("reg_birth_date");
     }
     if (!validName("reg_lastname") || !validName("reg_firstname") || !validFName("reg_fathername") ||
-        !validEmail("reg_email")  || !validCode2("reg_code")
-        || !validPhone("reg_phone")||!validClass("reg_class")) {
+        !validEmail("reg_email") || !validCode2("reg_code")
+        || !validPhone("reg_phone") || !validClass("reg_class")) {
         return false
     }
 
@@ -32,7 +32,7 @@ function checkValidity() {
             return false;
         }
     }
-    if(!validPass("reg_password")) return false;
+    if (!validPass("reg_password")) return false;
     return true;
 }
 
@@ -95,11 +95,11 @@ function validName(str) {
     }
 }
 
-function validDate(str){
+function validDate(str) {
     const selector = $("#" + str);
     let date = selector.val();
 
-    if(date>"2016-01-01" || date < "2002-01-01") {
+    if (date > "2016-01-01" || date < "2002-01-01") {
         selector.removeClass('is-valid');
         selector.addClass('is-invalid');
         return false;
@@ -149,6 +149,7 @@ function validCode2(str) {
     selector.addClass('is-invalid');
     return false
 }
+
 function validCode(str) {
     const selector = $("#" + str);
     let code = selector.val();

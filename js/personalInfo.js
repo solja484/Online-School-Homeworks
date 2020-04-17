@@ -132,7 +132,7 @@ function fillPupilInfo(id) {
             fillPupilSubjects(id);
         },
         error: function (data) {
-            alert(data.error + " fillPupilInfo()");
+            console.log(data.error);
         },
         data: JSON.stringify({
             id: id
@@ -154,6 +154,8 @@ function fillPupilFields(data, id) {
         $("#pupil_bday").text("не вказано");
     else
         $("#pupil_bday").text(data.birthdate);
+    $("#pupil_age").text(data.age);
+    $("#pupil_avg").text(data.avg);
 
     $("#pupil_notes").text(data.notes);
     $("#pupil_pupilcode").text(id);
@@ -218,7 +220,7 @@ function fillTeacherInfo(id) {
             fillTeacherSubjects(id);
         },
         error: function (data) {
-            alert(data.error + " fillTeacherInfo()");
+            console.log(data.error + " fillTeacherInfo()");
         },
         data: JSON.stringify({
             "id": id
@@ -253,15 +255,15 @@ function fillTeacherFields(data, id) {
     $("#new_teacher_phone").val(data.phone);
     $("#new_teacher_education").val(data.education);
     $("#new_teacher_notes").val(data.notes);
-    $("#edit_teacher_button").attr('onclick', 'editTeacher(' + id + ')');
+    $("#edit_teacher_button").attr('onclick', 'editTeacher("' + id + '")');
 }
 
 function editTeacher(id) {
     if (validName("new_teacher_name") && validName("new_teacher_surname") &&
         validFName("new_teacher_fathername") && validEmail("new_teacher_email") &&
         validPhone("new_teacher_phone") && validEmpty("new_teacher_education")) {
-        let phd=0;
-        if($("#new_teacher_phd").prop('checked')) phd=1;
+        let phd = 0;
+        if ($("#new_teacher_phd").prop('checked')) phd = 1;
 
         let data = {
             "id": id,
@@ -281,7 +283,7 @@ function editTeacher(id) {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data2) {
-                fillTeacherFields( data, id);
+                fillTeacherFields(data, id);
                 $("#edit_teacher_modal").modal('hide');
                 removeValid("edit_teacher_form");
 
@@ -312,7 +314,7 @@ function fillSchoolInfo() {
             $("#school_notes").text(data.notes);
         },
         error: function (data) {
-            alert(data.error + " fillSchoolInfo()");
+            console.log(data.error + " fillSchoolInfo()");
         },
         data: JSON.stringify({
             "id": sessionStorage.getItem("schoolcode")
@@ -322,7 +324,7 @@ function fillSchoolInfo() {
 
 
 //ніде не юзається але потім пригодиться
-function fillEditSchoolModal(data){
+function fillEditSchoolModal(data) {
     $("#edit_school_name").val(data.name);
     $("#edit_school_region").val(data.region);
 
@@ -380,7 +382,7 @@ function addSchool() {
                 "<button class='btn btn-sm btn-danger bg-red' onclick=editSchool('" + data2.code + "')>delete</button></td>" +
                 "</tr>")
 
-                //TODO natasha
+            //TODO natasha
         },
         error: function () {
             $("#content").prepend("<div class='alert alert-danger alert-dismissible'>" +
@@ -488,7 +490,7 @@ function addSubject() {
             clearForm("add_subject_form");
         },
         error: function (data2) {
-            alert(data2.error + " addSubject()");
+            console.log(data2.error + " addSubject()");
         },
         data: JSON.stringify(data)
     });
@@ -549,7 +551,7 @@ function fillTeacherSubjects(id) {
 
         },
         error: function (data) {
-            alert(data.error + " fillTeacherSubjects()");
+            console.log(data.error + " fillTeacherSubjects()");
         },
         data: JSON.stringify({
             "id": id
@@ -575,7 +577,7 @@ function fillPupilSubjects(id) {
             fillPupilOlympiads(id);
         },
         error: function (data) {
-            alert(data.error + " fillPupilSubjects()");
+            console.log(data.error + " fillPupilSubjects()");
         },
         data: JSON.stringify({
             "id": id
@@ -598,7 +600,7 @@ function fillPupilSubjectsWithoutOlimp(id) {
                 + ");'>" + data.title + "</a>"));
         },
         error: function (data) {
-            alert(data.error);
+            console.log(data.error);
         },
         data: JSON.stringify({
             "id": id
@@ -655,13 +657,13 @@ function fillTeacherHometasks(subject_data) {
             //datas = [{id, title, content, deadline, active, notes, remaining_time}, {...}, ...]
             sessionStorage.setItem("subject", subject_id);
             datas.forEach(data => hwListSel.append("<div id='blockhw" + data.id + "' class='hw-active col-md-12 row'>" +
-                "<a id='hw" + data.id + "' class='hw_link col-md-7 ' onclick='showHometask(" + data.id +
-                ")' href='#hometask_page'>" + data.title + "</a><span class='col-md-3'>" + data.deadline +
+                "<a id='hw" + data.id + "' class='hw_link col-md-7 ' onclick=showHometask('" + data.id +
+                "') href='#hometask_page'>" + data.title + "</a><span class='col-md-3'>" + data.deadline +
                 "</span><button class='btn btn-outline-danger bg-hover-red' data-target='#delete_hw_modal' " +
-                "onclick='addHwDelButton(" + data.id + ")' data-toggle='modal'>Видалити</button></div>"));
+                "onclick=addHwDelButton('" + data.id + "') data-toggle='modal'>Видалити</button></div>"));
         },
         error: function (datas) {
-            alert(datas.error + " fillTeacherHometasks()");
+            console.log(datas.error + " fillTeacherHometasks()");
         },
         data: JSON.stringify({
             "id": subject_id
@@ -693,18 +695,18 @@ function fillPupilHometasks(subject_data) {
             datas.forEach(data => {
                 if (data.active)
                     hwListSel.append(" <div class='hw-active col-md-12 row'><a id='hw" + data.id +
-                        "' class='hw_link col-md-7 ' onclick='showHometask(" + data.id + ")' " +
+                        "' class='hw_link col-md-7 ' onclick=showHometask('" + data.id + "') " +
                         "href='#hometask_page'>" + data.title + "</a><span class='col-md-3'>"
                         + data.deadline + "</span></div>");
                 else
                     hwListSel.append(" <div class='hw-disabled col-md-12 row'><a id='hw" + data.id +
-                        "' class='hw_link col-md-7 ' href='#hometask_page' onclick='showHometask(" + data.id +
-                        ")'>" + data.title + "</a><span class='col-md-3'>" + data.deadline + "</span>" +
+                        "' class='hw_link col-md-7 ' href='#hometask_page' onclick=showHometask('" + data.id +
+                        "')>" + data.title + "</a><span class='col-md-3'>" + data.deadline + "</span>" +
                         "</div>")
             });
         },
         error: function (datas) {
-            alert(datas.error + " fillPupilHometasks()");
+            console.log(datas.error + " fillPupilHometasks()");
         },
         data: JSON.stringify({
             "id": subject_id
@@ -753,17 +755,16 @@ function fillHometaskFields(data) {
     $("#edit_hw_notes").text(data.notes);
 
 
-
-
     const linkSel = $("#edit_hw_links");
     linkSel.empty();
     for (let i in data.hyperlinks) {
         linkSel.append("<input type='text' id='edit_hw_link" + i +
             "' value='" + data.hyperlinks[i] + "' class='form-control col-md-11' max='255'>" +
-            "<button class='btn btn-outline-light col-md-1' id='edit_hyperlink_field_del" + i + "' onclick='deleteEditHyperlinkField(" + i + ")'>❌</button>");
+            "<button class='btn btn-outline-light col-md-1' id='edit_hyperlink_field_del" + i + "' " +
+            "onclick=deleteEditHyperlinkField('" + i + "')>❌</button>");
     }
-    linkSel.append("<button id='edit_hyperlink_field_button' class='btn btn-dark float-left' onclick='editHyperlinkField("
-        + data.hyperlinks.length + ")'> + </button>");
+    linkSel.append("<button id='edit_hyperlink_field_button' class='btn btn-dark float-left' onclick=editHyperlinkField('"
+        + data.hyperlinks.length + "')> + </button>");
     $("#edit_hw_button").attr('onclick', "editHomework('" + data.hw_id + "')");
 }
 
@@ -785,7 +786,6 @@ function addHomework() {
         "hyperlinks": links,
         "id": id
     };
-    console.log(data);
 
     $.ajax({
         url: 'http://localhost:2303/addhometask',
@@ -808,7 +808,7 @@ function addHomework() {
 }
 
 function addHwDelButton(hw_id) {
-    $("#delete_hw_button").attr('onclick', 'deleteHometask(' + hw_id + ')');
+    $("#delete_hw_button").attr('onclick', 'deleteHometask("' + hw_id + '")');
 }
 
 function deleteHometask(hw_id) {
@@ -953,7 +953,7 @@ function addOlympiad(id) {
             clearForm("add_olympiad_form");
         },
         error: function (data2) {
-            alert(data2.error);
+            console.log(data2.error);
         },
         data: JSON.stringify(data)
     });
@@ -1035,7 +1035,7 @@ function fillTeacherOlympiadTasks(ol_data) {
                 "<a id='task" + data.id + "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + JSON.stringify(data) +
                 ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
                 "</span><button class='btn btn-outline-danger bg-hover-red ' data-target='#delete_task_modal' " +
-                "onclick='addTaskDelButton(" + data.id + ")' data-toggle='modal'>Видалити</button></div>"));
+                "onclick=addTaskDelButton('" + data.id + "') data-toggle='modal'>Видалити</button></div>"));
             fillSources(datas.sources);
         },
         error: function (datas) {
@@ -1266,7 +1266,7 @@ function addTask() {
                 "<a id='task" + data.id + "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + JSON.stringify(data) +
                 ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
                 "</span><button class='btn btn-outline-danger bg-hover-red col-md-3' data-target='#delete_task_modal' " +
-                "onclick='addTaskDelButton('" + data.id + "')' data-toggle='modal'>Видалити</button></div>")
+                "onclick=addTaskDelButton('" + data.id + "') data-toggle='modal'>Видалити</button></div>")
             $("#add_task_modal").modal('hide');
             removeValid("add_task_form");
             clearForm("add_task_form");
@@ -1280,8 +1280,6 @@ function addTask() {
 }
 
 function editTask(id) {
-
-
     if (!validEmpty('edit_task_title') || !validEmpty('edit_task_content') || !validEmpty("edit_task_deadline"))
         return false;
     let links = [];
@@ -1291,12 +1289,12 @@ function editTask(id) {
     });
 
     const data = {
-        "id": hw_id,
+        "id": id,
         "task_caption": $("#edit_task_title").val(),
         "content": $("#edit_task_content").val(),
         "notes": $("#edit_task_notes").val(),
         "deadline": $("#edit_task_deadline").val(),
-        "links": links
+        "hyperlinks": links
     };
     $.ajax({
         url: 'http://localhost:2303/edittask',
