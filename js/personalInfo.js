@@ -61,6 +61,7 @@ function fillAdminInfo(id) {
         success: function (data) {
             fillAdminFields(data, id);
             setSchoolsTable();
+
         },
         error: function (data) {
             console.log(data.error);
@@ -83,6 +84,7 @@ function fillAdminFields(data, id) {
     $("#new_admin_name").val(data.name);
     $("#new_admin_surname").val(data.surname);
     $("#edit_admin_button").attr('onclick', 'editAdmin(' + id + ')');
+
 }
 
 function editAdmin(id) {
@@ -139,6 +141,8 @@ function fillPupilInfo(id) {
 }
 
 function fillPupilFields(data, id) {
+    $("#edit_pupil_modal_button").show();
+
     $("#pupil_pib").text(data.surname + ' ' + data.name + ' ' + data.patronymic);
     $("#pupil_email").text(data.email);
     if (data.phone === "")
@@ -186,7 +190,7 @@ function editPupil(id) {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data2) {
-                fillPupilFields(data2, id);
+                fillPupilFields(data, id);
                 $("#edit_pupil_modal").modal('hide');
                 removeValid("edit_pupil_form");
             },
@@ -209,6 +213,7 @@ function fillTeacherInfo(id) {
         accept: 'application/json',
         success: function (data) {
             fillTeacherFields(data, id);
+            sessionStorage.setItem("teacher", id);
             sessionStorage.setItem("schoolcode", data.schoolid);
             fillTeacherSubjects(id);
         },
@@ -222,8 +227,9 @@ function fillTeacherInfo(id) {
 }
 
 function fillTeacherFields(data, id) {
+
     $("#teacher_school_link").text(data.schoolname);
-    $("#teacher_pib").text(data.name + ' ' + data.surname + ' ' + data.patronymic);
+    $("#teacher_pib").text(data.surname + ' ' + data.name + ' ' + data.patronymic);
     $("#teacher_email").text(data.email);
     if (data.phone === "")
         $("#teacher_phone").text("не вказано");
@@ -234,7 +240,8 @@ function fillTeacherFields(data, id) {
         $("#teacher_phd").show();
     else
         $("#teacher_phd").hide();
-    if (data[6])
+
+    if (data.phd)
         $("#new_teacher_phd").attr("checked", "checked");
 
     $("#teacher_notes").text(data.notes);
@@ -253,6 +260,8 @@ function editTeacher(id) {
     if (validName("new_teacher_name") && validName("new_teacher_surname") &&
         validFName("new_teacher_fathername") && validEmail("new_teacher_email") &&
         validPhone("new_teacher_phone") && validEmpty("new_teacher_education")) {
+        let phd=0;
+        if($("#new_teacher_phd").prop('checked')) phd=1;
 
         let data = {
             "id": id,
@@ -262,7 +271,7 @@ function editTeacher(id) {
             "email": $("#new_teacher_email").val(),
             "phone": $("#new_teacher_phone").val(),
             "education": $("#new_teacher_education").val(),
-            "phd": $("#new_teacher_phd").val(),
+            "phd": phd,
             "notes": $("#new_teacher_notes").val()
         };
 
@@ -272,7 +281,7 @@ function editTeacher(id) {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data2) {
-                fillTeacherFields(data2, id);
+                fillTeacherFields( data, id);
                 $("#edit_teacher_modal").modal('hide');
                 removeValid("edit_teacher_form");
 
@@ -295,6 +304,7 @@ function fillSchoolInfo() {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data) {
+
             $("#school_name").text(data.name);
             $("#school_city").text(data.city);
             $("#school_address").text(data.region + ' р-н вул. ' + data.street + ' ' + data.house);
@@ -308,6 +318,19 @@ function fillSchoolInfo() {
             "id": sessionStorage.getItem("schoolcode")
         })
     });
+}
+
+
+//ніде не юзається але потім пригодиться
+function fillEditSchoolModal(data){
+    $("#edit_school_name").val(data.name);
+    $("#edit_school_region").val(data.region);
+
+    $("#edit_school_house").val(data.house);
+    $("#edit_school_phone").val(data.phone);
+    $("#edit_school_street").val(data.street);
+
+    $("#edit_school_notes").text(data.notes);
 }
 
 function addSchool() {
@@ -340,30 +363,32 @@ function addSchool() {
         contentType: 'application/json',
         success: function (data2) {
 
-            $('#add_school_modal').modal('toggle');
+
             $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
                 "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
                 " <strong>" + data2.code + "</strong> - код нової школи. Вітаємо!" +
                 "</div>");
-            setClear(["#input_school_name", "#input_school_region", "#input_school_notes", "#input_school_city",
-                "#input_school_phone", "#input_school_street", "#input_school_house"]);
-            $("#add_school_modal").modal('hide');
 
+            $("#add_school_modal").modal('hide');
             removeValid("add_school_form");
             clearForm("add_school_form");
+
             $("#table_schools_admin_body").append("<tr id='row" + data2.code + "' class='tableelements'>" +
                 "<th scope='row'>" + data2.code + "</th><td>" + data.name + "</td><td>" + address + "</td>" +
                 "<td>" + data.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
                 "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('" + data2.code + "')>️edit</button>" +
                 "<button class='btn btn-sm btn-danger bg-red' onclick=editSchool('" + data2.code + "')>delete</button></td>" +
                 "</tr>")
+
+                //TODO natasha
         },
         error: function () {
             $("#content").prepend("<div class='alert alert-danger alert-dismissible'>" +
                 "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
                 " <strong>Error!</strong> Не вдалося додати школу </div>");
-            setClear(["#input_school_name", "#input_school_region", "#input_school_notes", "#input_school_city",
-                "#input_school_phone", "#input_school_street", "#input_school_house"]);
+            removeValid("add_school_form");
+            clearForm("add_school_form");
+
         },
         data: JSON.stringify(data)
     });
@@ -392,12 +417,14 @@ function deleteSchool(id) {
 }
 
 function editSchool() {
+
     if (!validName("edit_school_name") || !validFName("edit_school_region") ||
         !validName("edit_school_street") || !validPhone("edit_school_phone") ||
         !validHouse("edit_school_house")) {
         return false;
     }
-    const school_code = localStorage.getItem("school_code")
+    const school_code = localStorage.getItem("school_code");
+
     let data = {
         "name": $("#edit_school_name").val(),
         "region": $("#edit_school_region").val(),
@@ -415,7 +442,7 @@ function editSchool() {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data2) {
-            $("#edit_school_modal").modal('toggle');
+
             localStorage.removeItem("school_code");
             const selector = $("#row" + school_code);
             selector.empty();
@@ -424,6 +451,9 @@ function editSchool() {
                 "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('" + data.code + "')>️edit</button>" +
                 "<button class='btn btn-sm btn-danger bg-red' onclick=deleteSchool('" + data.code + "')>delete</button></td>"
             );
+            $("#edit_school_modal").modal('hide');
+            clearForm("edit_school_form");
+            removeValid("edit_school_form");
         },
         error: function (data2) {
             console.log(data2.error);
@@ -434,7 +464,7 @@ function editSchool() {
 
 //SUBJECT SECTION
 function addSubject() {
-    if (!validEmpty("new_subject_name") || !validFreeClass("new_subject_class"))
+    if (!validEmpty("new_subject_name") || !validClass("new_subject_class"))
         return false;
 
     const data = {
@@ -466,6 +496,7 @@ function addSubject() {
 
 function deleteSubject() {
     let id = sessionStorage.getItem("subject");
+    let teach_id = sessionStorage.getItem("teacher");
     $.ajax({
         url: 'http://localhost:2303/deletesubject',
         type: 'post',
@@ -473,9 +504,12 @@ function deleteSubject() {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data) {
-            $("#sj" + id).remove();
+
             $("#delete_sj_modal").modal('hide');
+            fillTeacherSubjects(teach_id);
             showPage("teacher_list_page");
+
+
         },
         error: function (data) {
             console.log(data.error);
@@ -493,6 +527,9 @@ function fillSubjectFields(data) {
     $("#edit_subject_name").val(data.title);
     $("#edit_subject_description").text(data.notes);
     $("#edit_subject_class").val(data.class_num);
+
+    clearSubjectHyperlinks();
+
 }
 
 function fillTeacherSubjects(id) {
@@ -602,6 +639,8 @@ function fillTeacherHometasks(subject_data) {
     const hwListSel = $("#hometasks_list");
     hwListSel.empty();
     const subject_id = subject_data.id;
+    $("#subject_code").text(subject_id);
+
     $.ajax({
         url: 'http://localhost:2303/getsubjecthometasks',
         type: 'post',
@@ -632,6 +671,7 @@ function fillTeacherHometasks(subject_data) {
 
 function fillPupilHometasks(subject_data) {
     const hwListSel = $("#hometasks_list");
+    $("#subject_code").empty();
     const subject_id = subject_data.id;
     hwListSel.empty();
 
@@ -712,6 +752,9 @@ function fillHometaskFields(data) {
     $("#edit_hw_deadline").attr("value", data.deadline);
     $("#edit_hw_notes").text(data.notes);
 
+
+
+
     const linkSel = $("#edit_hw_links");
     linkSel.empty();
     for (let i in data.hyperlinks) {
@@ -743,7 +786,7 @@ function addHomework() {
         "id": id
     };
     console.log(data);
-    //TODO @solja clear hyperlinks fields
+
     $.ajax({
         url: 'http://localhost:2303/addhometask',
         type: 'post',
@@ -760,6 +803,8 @@ function addHomework() {
         },
         data: JSON.stringify(data)
     });
+
+    clearSubjectHyperlinks();
 }
 
 function addHwDelButton(hw_id) {
@@ -819,6 +864,7 @@ function editHomework(hw_id) {
             $("#hw_notes").text(data.notes);
 
             removeValid("edit_hw_form");
+            clearForm("edit_hw_form");
             fillHometaskFields(data);
         },
         error: function (data2) {
@@ -855,6 +901,9 @@ function fillTeacherOlympiads(id) {
 }
 
 function deleteOlympiad() {
+    let id = sessionStorage.getItem("olympiad");
+    let teach_id = sessionStorage.getItem("teacher");
+
     $.ajax({
         url: 'http://localhost:2303/deleteolympiad',
         type: 'post',
@@ -862,22 +911,25 @@ function deleteOlympiad() {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data) {
-            $("#ol" + id).remove();
+
             $("#delete_olympiad_modal").modal('hide');
+            fillTeacherOlympiads(teach_id);
             showPage("teacher_olympiads_page");
         },
         error: function (data) {
             console.log(data.error);
         },
         data: JSON.stringify({
-            "id": sessionStorage.getItem("olympiad")
+            "id": id
         })
     });
 }
 
 function addOlympiad(id) {
-    if (!validEmpty("new_olympiad_name") || !validEmpty("new_olympiad_discipline") || !validFreeClass("new_olympiad_class"))
+    if (!validEmpty("new_olympiad_name") || !validEmpty("new_olympiad_discipline") || !validClass("new_olympiad_class"))
         return false;
+
+
     const data = {
         "title": $("#new_olympiad_name").val(),
         "discipline": $("#new_olympiad_discipline").val(),
@@ -963,6 +1015,8 @@ function fillTeacherOlympiadTasks(ol_data) {
     const hwListSel = $("#olympiad_tasks_list");
     hwListSel.empty();
     const ol_id = ol_data.id;
+    $("#olympiad_code").text(ol_id);
+
     $.ajax({
         url: 'http://localhost:2303/getolympiadtasksandsources',
         type: 'post',
@@ -980,8 +1034,8 @@ function fillTeacherOlympiadTasks(ol_data) {
             datas.tasks.forEach(data => hwListSel.append("<div id='blocktask" + data.id + "' class='hw-active row'>" +
                 "<a id='task" + data.id + "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + JSON.stringify(data) +
                 ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
-                "</span><button class='btn btn-outline-danger bg-hover-red col-md-3' data-target='#delete_task_modal' " +
-                "onclick='addTaskDelButton('" + data.id + "')' data-toggle='modal'>Видалити</button></div>"));
+                "</span><button class='btn btn-outline-danger bg-hover-red ' data-target='#delete_task_modal' " +
+                "onclick='addTaskDelButton(" + data.id + ")' data-toggle='modal'>Видалити</button></div>"));
             fillSources(datas.sources);
         },
         error: function (datas) {
@@ -998,6 +1052,7 @@ function fillTeacherOlympiadTasks(ol_data) {
 function fillPupilOlympiadTasks(ol_data) {
     const hwListSel = $("#olympiad_tasks_list");
     hwListSel.empty();
+    $("#olympiad_code").empty();
     const ol_id = ol_data.olimp_id;
     $("#edit_olympiad_modal_button").hide();
     $("#delete_olympiad_modal_button").hide();
@@ -1041,6 +1096,8 @@ function fillPupilOlympiadTasks(ol_data) {
 }
 
 function deleteOlympiadTask(id) {
+
+    //TODO natasha delete task
     $.ajax({
         url: 'http://localhost:2303/deleteolimpiatask',
         type: 'post',
@@ -1059,7 +1116,6 @@ function deleteOlympiadTask(id) {
         })
     });
 }
-
 
 function fillAnswerFieldsPupil(task_data) {
     console.log(task_data);
@@ -1147,7 +1203,6 @@ function fillAnswerFieldsPupil(task_data) {
     });
 }
 
-
 function submitAnswer(task_id) {
     const textSel = $("#answer_area");
     const text = textSel.val();
@@ -1182,7 +1237,6 @@ function submitAnswer(task_id) {
     });
 }
 
-
 function addTask() {
     if (!validEmpty('new_task_title') || !validEmpty('new_task_content') || !validEmpty("new_task_deadline"))
         return false;
@@ -1213,17 +1267,21 @@ function addTask() {
                 ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
                 "</span><button class='btn btn-outline-danger bg-hover-red col-md-3' data-target='#delete_task_modal' " +
                 "onclick='addTaskDelButton('" + data.id + "')' data-toggle='modal'>Видалити</button></div>")
-            //TODO @solja addTask
+            $("#add_task_modal").modal('hide');
+            removeValid("add_task_form");
+            clearForm("add_task_form");
         },
         error: function (data2) {
             console.log(data2.error);
         },
         data: JSON.stringify(data)
     });
+    clearOlympiadTaskHyperlinks();
 }
 
-
 function editTask(id) {
+
+
     if (!validEmpty('edit_task_title') || !validEmpty('edit_task_content') || !validEmpty("edit_task_deadline"))
         return false;
     let links = [];
@@ -1247,9 +1305,11 @@ function editTask(id) {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (data2) {
-            $('#edit_olympiad_modal').modal('toggle');
-            //data2 нічого не повертає, використовуй data
-            //TODO @solja editTask
+            $('#edit_task_modal').modal('hide');
+            removeValid("edit_task_form");
+            clearForm("edit_task_form");
+            fillTaskFields(data);
+
         },
         error: function (data2) {
             console.log(data2.error);
@@ -1278,7 +1338,6 @@ function fillAnswerFieldsTeacher(task_id) {
         })
     });
 }
-
 
 function saveAnswerFromTeacher(answer) {
     const data = {

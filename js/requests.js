@@ -144,7 +144,7 @@ function setNamesAndStages() {
 }
 
 function addNewCompetition() {
-    //TODO @solja addCompetititon validation
+
     const data = {
         "stage_id": $("#new_competition_stages").val(),
         "name_id": $("#new_competition_names").val(),
@@ -205,9 +205,9 @@ function setSchoolsTable() {
                 table.empty();
                 data.forEach(school => table.append("<tr id='row" + school.code + "' class='tableelements'>" +
                     "<th scope='row'>" + school.code + "</th><td>" + school.name + "</td><td>" + school.address + "</td>" +
-                    "<td>" + school.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm btn-info bg-blue' " +
+                    "<td>" + school.phone + "</td><td><button id='edit_school"+school.code+"' type='button' class='btn btn-sm border-none btn-outline-info bg-hover-blue' " +
                     "data-toggle='modal' data-target='#edit_school_modal' onclick=setSchoolCode('" + school.code + "')>️edit</button>" +
-                    "<button class='btn btn-sm btn-danger bg-red' onclick=deleteSchool('" + school.code + "')>delete</button></td>" +
+                    "<button class='btn btn-sm btn-outline-danger border-none bg-hover-red' onclick=deleteSchool('" + school.code + "')>delete</button></td>" +
                     "</tr>"));
             }
         }

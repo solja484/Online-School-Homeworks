@@ -6,11 +6,10 @@
 }
 
 .hw-disabled {
-    margin: 0 15px !important;
+    margin: 5px 15px !important;
     padding: 30px 15px;
-    border-radius: 3px;
-    border-bottom: 1px solid white;
-    background: #9d9d9d;
+    border: 1px solid #fd7172;
+
 }
 
 .hw_link {

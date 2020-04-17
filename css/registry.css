@@ -1,23 +1,33 @@
 .registrypanel {
-    background-image: url("../images/bg.jpg");
-!important;
+   /* background-image: url("../images/bg.jpg");!important;
     background-repeat: repeat !important;
-    background-size: 300px !important;
+   background-size: 300px !important;*/
+    background: #ececec;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     min-height: 100%;
     overflow: auto;
-    padding-top: 80px;
+    padding-top: 20px;
+    border-radius: 0!important;
 }
 
 .registryform {
     padding: 3% 5%;
     background: #7cdeeb;
-    border-radius: 5px;
+}
+#registrypanel *{
+    border-radius: 0!important;
 }
 
+#entrypanel{
+    padding-top: 90px;
+}
+
+#entrypanel *{
+    border-radius: 0!important;
+}
 #entry_pupil_button, #reg_pupil_button {
     background: #7cdeeb;
     color: black;
@@ -49,9 +59,10 @@
     margin-bottom: 15px;
 }
 
-@media (min-height: 375px) {
-    .registrypanel {
-        padding: 0 20px;
-
+@media (max-width: 775px) {
+    #entrypanel{
+        padding: 30px 5px auto 5px;
     }
+
+
 }

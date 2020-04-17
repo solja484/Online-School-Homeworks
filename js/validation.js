@@ -1,10 +1,29 @@
 function checkValidity() {
+    var cur_user_type = localStorage.getItem("usertype");
+    validName("reg_lastname");
+    validName("reg_firstname");
+    validFName("reg_fathername");
+    validEmail("reg_email");
+    validCode2("reg_code");
+    validPhone("reg_phone");
+    validClass("reg_class");
+    validDate("reg_birth_date");
+    if (cur_user_type === 'teacher') {
+        validDocument("reg_teacher_code");
+        validEmpty("reg_education");
+    }else if (cur_user_type === 'pupil') {
+        validClass("reg_class");
+        validDocument("reg_student_code");
+        validEmpty("reg_birth_date");
+    }
     if (!validName("reg_lastname") || !validName("reg_firstname") || !validFName("reg_fathername") ||
-        !validEmail("reg_email") || !validPass("reg_password") || !validCode("reg_code") || !validPhone("reg_phone")) {
+        !validEmail("reg_email")  || !validCode2("reg_code")
+        || !validPhone("reg_phone")||!validClass("reg_class")) {
         return false
     }
-    var cur_user_type = localStorage.getItem("usertype");
+
     if (cur_user_type === 'teacher') {
+
         if (!validDocument("reg_teacher_code") || !validEmpty("reg_education")) {
             return false;
         }
@@ -13,6 +32,7 @@ function checkValidity() {
             return false;
         }
     }
+    if(!validPass("reg_password")) return false;
     return true;
 }
 
@@ -73,6 +93,20 @@ function validName(str) {
         selector.addClass('is-invalid');
         return false;
     }
+}
+
+function validDate(str){
+    const selector = $("#" + str);
+    let date = selector.val();
+
+    if(date>"2016-01-01" || date < "2002-01-01") {
+        selector.removeClass('is-valid');
+        selector.addClass('is-invalid');
+        return false;
+    }
+    selector.removeClass('is-invalid');
+    selector.addClass('is-valid');
+    return true;
 }
 
 function validFName(str) {
@@ -159,6 +193,7 @@ function validFreeClass(str) {
 function validDocument(str) {
     const selector = $("#" + str);
     let val = selector.val();
+    console.log(val);
     let pattern = /^\d+$/;//^[0-9]*$
     if (val.length === 8 && val.match(pattern)) {
         selector.removeClass('is-invalid');
