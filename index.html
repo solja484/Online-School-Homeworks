@@ -28,35 +28,35 @@
                     </li>
                     <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="teacher_page_tab" onclick="showPage('teacher_page');"
-                           aria-controls="teacher_page" data-toggle="pill"  href="#teacher_page">
+                           aria-controls="teacher_page" data-toggle="pill" href="#teacher_page">
                             👩‍🏫Вчитель</a>
                     </li>
 
                     <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="teacher_list_page_tab" aria-controls="teacher_list_page"
-                           data-toggle="pill"  href="#teacher_list_page"
+                           data-toggle="pill" href="#teacher_list_page"
                            onclick="showPage('teacher_list_page');">📓Предмети</a>
                     </li>
 
                     <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="pupil_page_tab" onclick="showPage('pupil_page');"
-                           aria-controls="pupil_page" data-toggle="pill"  href="#pupil_page">
+                           aria-controls="pupil_page" data-toggle="pill" href="#pupil_page">
                             👤Учень</a>
                     </li>
                     <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="subject_list_page_tab" aria-controls="subject_list_page"
-                           data-toggle="pill"  href="#subject_list_page"
+                           data-toggle="pill" href="#subject_list_page"
                            onclick="showPage('subject_list_page');">📚Предмети</a>
                     </li>
 
                     <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="admin_page_tab" aria-controls="admin_page"
-                           data-toggle="pill"  href="#admin_page"
+                           data-toggle="pill" href="#admin_page"
                            onclick="showPage('admin_page');">👩‍💻Адміністратор</a>
                     </li>
                     <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="admin_tables_tab" aria-controls="admin_tables"
-                           data-toggle="pill"  href="#"
+                           data-toggle="pill" href="#"
                            onclick="showPage('admin_tables');">📒Школи</a>
                     </li>
 
@@ -68,7 +68,7 @@
 
                     <li class="nav-item width-100">
                         <a class="nav-link btn-light " id="olympiads_tab" aria-controls="olympiads_list"
-                           data-toggle="pill"  href="#"
+                           data-toggle="pill" href="#"
                            onclick="showPage('olympiads_page');">🥇Олімпіади</a>
                     </li>
 
@@ -117,28 +117,28 @@
             <h4 id="adminLabel" class="font-left col-md-12 panel-heading">Hello admin!</h4>
 
             <div class="col-md-12">
-            <button id="add_admin" type="button" class="btn btn-light mg-5 w-30 bg-light-gray" data-toggle="modal"
-                    data-target="#add_admin_modal">Додати адміна
-            </button>
+                <button id="add_admin" type="button" class="btn btn-light mg-5 w-30 bg-light-gray" data-toggle="modal"
+                        data-target="#add_admin_modal">Додати адміна
+                </button>
 
-            <button id="add_school" type="button" class="btn btn-light mg-5 w-30 bg-light-gray"
-                    data-target="#add_school_modal" data-toggle="modal"
-                    onclick="setCitiesValueOption('#input_school_city')">Додати школу
-            </button>
+                <button id="add_school" type="button" class="btn btn-light mg-5 w-30 bg-light-gray"
+                        data-target="#add_school_modal" data-toggle="modal"
+                        onclick="setCitiesValueOption('#input_school_city')">Додати школу
+                </button>
                 <button id="notin_notin" type="button" class="btn btn-outline-warning  bg-hover-yellow mg-5 w-30 "
                         data-target="#notin_modal" data-toggle="modal"
                         onclick="">Запит на два нот
                 </button>
                 <br>
-            <button id="add_city" type="button" class="btn btn-light mg-5 w-30 bg-light-gray"
-                    data-target="#add_city_modal" data-toggle="modal"
-                    onclick="setCitiesValueOption('#add_city_current')">Додати місто
-            </button>
+                <button id="add_city" type="button" class="btn btn-light mg-5 w-30 bg-light-gray"
+                        data-target="#add_city_modal" data-toggle="modal"
+                        onclick="setCitiesValueOption('#add_city_current')">Додати місто
+                </button>
 
-            <button id="add_competitiom" type="button" class="btn btn-light mg-5 w-30 bg-light-gray"
-                    data-target="#add_competition_modal" data-toggle="modal"
-                    onclick="setNamesAndStages()">Додати конкурс
-            </button>
+                <button id="add_competitiom" type="button" class="btn btn-light mg-5 w-30 bg-light-gray"
+                        data-target="#add_competition_modal" data-toggle="modal"
+                        onclick="setNamesAndStages()">Додати конкурс
+                </button>
 
                 <button id="print_report" type="button" class="btn btn-info mg-5 w-30 text-white bg-blue"
                         onclick="printReport()">Надрукувати звіт
@@ -319,7 +319,7 @@
                     <input id="subject_search_input" type="text" class="form-control " placeholder="Введіть код"
                            aria-describedby="button-button">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary "  id="search_button"
+                        <button class="btn btn-outline-secondary " id="search_button"
                                 onclick="addPupilSubject();">➕ Додати
                         </button>
 
@@ -365,7 +365,7 @@
             <div class="panel-header row">
                 <div class="col-md-8"></div>
                 <div class="col-md-4 ">
-                <h3 id="subject_code" class="hw_link "></h3>
+                    <h3 id="subject_code" class="hw_link "></h3>
                 </div>
                 <h5 id="subject_title" class="text-25 bold col-md-10"></h5>
                 <h5 class="col_md_12 text-muted text-break" id="#subject_descr"></h5>
@@ -380,7 +380,8 @@
                     </button>
 
                     <button id='add_hometask_modal_button' data-target='#add_hometask_modal' data-toggle='modal'
-                            class='btn btn-secondary w-40 mg-5 ' onclick="clearSubjectHyperlinks()">Додати домашнє завдання
+                            class='btn btn-secondary w-40 mg-5 ' onclick="clearSubjectHyperlinks()">Додати домашнє
+                        завдання
                     </button>
 
                     <button id='subject_teacher_link' aria-controls='teacher_page' data-toggle='pill' role='tab'
@@ -1083,7 +1084,7 @@
                         <label for="edit_school_name" class="col-sm-2 col-form-label">Назва:</label>
                         <div class="col-sm-10">
                             <input id="edit_school_name" type="text" class="form-control"
-                                    maxlength=255>
+                                   maxlength=255>
                         </div>
                         <div class="invalid-feedback">Це поле не може бути порожнім</div>
                     </div>
@@ -1099,7 +1100,7 @@
                         <label for="edit_school_street" class="col-sm-2 col-form-label">Вулиця:</label>
                         <div class="col-sm-10">
                             <input id="edit_school_street" type="text" class="form-control"
-                                    maxlength=45>
+                                   maxlength=45>
                         </div>
                         <div class="invalid-feedback">Введіть коректну назву вулиці</div>
                     </div>
@@ -1142,6 +1143,56 @@
     </div>
 </div>
 
+<!--add source modal-->
+<div class="modal fade" id="add_source_modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Додати додаткове джерело</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add_source_form" class="needs-validation" novalidate>
+
+                    <div id="add_source_form_body" class="form-group row">
+                        <div class="col-md-12">
+                            <label for="new_source_caption">Заголовок:</label>
+                            <input id="new_source_caption" class="form-control" required>
+                            <div class="invalid-feedback">Це обов'язкове поле</div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="new_source_content">Зміст:</label>
+                            <textarea id="new_source_content" class="form-control"></textarea>
+                            <div class="invalid-feedback">Це обов'язкове поле</div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="new_source_notes">Примітки:</label>
+                            <textarea id="new_source_notes" class="form-control"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <p>Посилання:</p>
+                            <div id="add_source_links" class="row mg-10">
+                                <input type='text' id='new_source_link0' class='form-control col-md-11' max='255'>
+                                <button class='btn btn-outline-light col-md-1' id='add_source_hyperlink_field_del0'
+                                        onclick='deleteAddSourceHyperlinkField(0)'>❌
+                                </button>
+                                <button id='add_source_hyperlink_field_button' class='btn btn-dark float-left'
+                                        onclick='addSourceHyperlinkField(0)'> +
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="add_source_button" type="button" class="btn btn-outline-info"
+                        onclick="addSource();">Додати
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--add task modal-->
 <div class="modal fade" id="add_task_modal" role="dialog">
     <div class="modal-dialog">
@@ -1469,7 +1520,7 @@
                         <label for="input_school_name" class="col-sm-2 col-form-label">Назва:</label>
                         <div class="col-sm-10">
                             <input id="input_school_name" type="text" class="form-control"
-                                  maxlength=255>
+                                   maxlength=255>
                         </div>
                         <div class="invalid-feedback">Це обов'язкове поле</div>
                     </div>
@@ -1501,7 +1552,7 @@
                         <label for="input_school_house" class="col-sm-2 col-form-label">Будинок:</label>
                         <div class="col-sm-10">
                             <input id="input_school_house" type="text" class="form-control"
-                                    maxlength=9>
+                                   maxlength=9>
                         </div>
                         <div class="invalid-feedback">Невірно вказаний номер будинку</div>
                     </div>
@@ -1597,7 +1648,7 @@
 
 <!-- registry-->
 <div id="registrypanel" class="registrypanel  row mg-0 ">
-    <div  class="col-md-3 "></div>
+    <div class="col-md-3 "></div>
     <div class="col-md-6 pd-0 ">
         <a id="reg_pupil_button" class="btn" onclick="change_reg_type(2)">Учень</a>
         <a id="reg_teacher_button" onclick="change_reg_type(1)" class="btn ">Вчитель</a>
@@ -1758,7 +1809,7 @@
 <iframe
         src="docs/document.pdf" id="myFrame"
         frameborder="0" style="border:0;display: none"
-        width="300" height="300" >
+        width="300" height="300">
 </iframe>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>

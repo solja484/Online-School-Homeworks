@@ -312,6 +312,7 @@ function fillSchoolInfo() {
             $("#school_address").text(data.region + ' р-н вул. ' + data.street + ' ' + data.house);
             $("#school_phone").text("Телефон: +38 " + data.phone);
             $("#school_notes").text(data.notes);
+            $("#school_pupils_num").text(data.school_pupils_num);
         },
         error: function (data) {
             console.log(data.error + " fillSchoolInfo()");
@@ -378,7 +379,7 @@ function addSchool() {
             $("#table_schools_admin_body").append("<tr id='row" + data2.code + "' class='tableelements'>" +
                 "<th scope='row'>" + data2.code + "</th><td>" + data.name + "</td><td>" + address + "</td>" +
                 "<td>" + data.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm border-none btn-outline-info bg-hover-blue' " +
-                "data-toggle='modal' data-target='#edit_school_modal' onclick='setSchoolCode(" + JSON.stringify(data)  + ")'>️edit</button>" +
+                "data-toggle='modal' data-target='#edit_school_modal' onclick='setSchoolCode(" + JSON.stringify(data) + ")'>️edit</button>" +
                 "<button class='btn btn-sm btn-outline-danger border-none bg-hover-red' onclick=deleteSchool('" + data2.code + "')>delete</button></td>" +
                 "</tr>")
 
@@ -450,7 +451,7 @@ function editSchool() {
             selector.empty();
             selector.append("<th scope='row'>" + data.code + "</th><td>" + data.name + "</td><td>" + address + "</td>" +
                 "<td>" + data.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm border-none btn-outline-info bg-hover-blue' " +
-                "data-toggle='modal' data-target='#edit_school_modal' onclick='setSchoolCode(" + JSON.stringify(data)  + ")'>️edit</button>" +
+                "data-toggle='modal' data-target='#edit_school_modal' onclick='setSchoolCode(" + JSON.stringify(data) + ")'>️edit</button>" +
                 "<button class='btn btn-sm btn-outline-danger border-none bg-hover-red' onclick=deleteSchool('" + data.code + "')>delete</button></td>"
             );
             $("#edit_school_modal").modal('hide');

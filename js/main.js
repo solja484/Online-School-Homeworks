@@ -460,3 +460,26 @@ function showPupilProfile(data) {
     $("#edit_pupil_modal_button").hide();
     showPage('pupil_page');
 }
+
+
+function clearOlympiadSourceHyperlinks() {
+    $("#add_source_links").empty().append(" <input type='text' id='new_source_link0' class='form-control col-md-11' max='255'>" +
+        "<button class='btn btn-outline-light col-md-1' id='add_source_hyperlink_field_del0' onclick='deleteAddSourceHyperlinkField(0)'>❌ </button>" +
+        "<button id='add_source_hyperlink_field_button' class='btn btn-dark float-left' onclick='addSourceHyperlinkField(0)'> + </button>");
+}
+
+function addSourceHyperlinkField(id) {
+    $("#add_source_hyperlink_field_button").remove();
+    const taskSel = $("#add_source_links");
+    taskSel.append(" <input type='text' id='new_task_link" + id +
+        "' class='form-control col-md-11' max='255'>" +
+        "<button class='btn btn-outline-light col-md-1' id='add_source_hyperlink_field_del" + id +
+        "' onclick=deleteAddSourceHyperlinkField('" + id + "')>❌</button>");
+    taskSel.append("<button id='add_source_hyperlink_field_button' class='btn btn-dark float-left' " +
+        "onclick=addSourceHyperlinkField('" + (id + 1) + "')> + </button>");
+}
+
+function deleteAddSourceHyperlinkField(id) {
+    $("#new_source_link" + id).remove();
+    $("#add_source_hyperlink_field_del" + id).remove();
+}
