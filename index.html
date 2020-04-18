@@ -81,7 +81,7 @@
         </div>
     </div>
     <div id="content" class="col-md-9 row">
-        <div id="breadcrumbs" class="col-md-10"></div>
+        <div id="breadcrumbs" class="col-md-12"></div>
         <div id="admin_page" class="col-md-10 shadow  tab-pane panel page" role="tabpanel"
              aria-labelledby="admin_page_tab">
             <div class="panel-header row">
@@ -195,6 +195,10 @@
         <div id="teacher_page" class="col-md-10 shadow  tab-pane panel  page show" role="tabpanel"
              aria-labelledby="teacher_page_tab">
             <div class="panel-header row">
+
+                <div class="col-md-2">
+                    <button class="btn btn-light rounded-circle" id="back_teacher_page">🡰</button>
+                </div>
                 <h5 id="teacher_pib" class="text-25 bold col-md-10"></h5>
                 <div class="col-md-12">
                     <a id="teacher_school_link" href="#school_page" onclick="showPage('school_page')"></a>
@@ -269,6 +273,11 @@
         <div id="pupil_page" class="col-md-10 shadow  tab-pane panel page show" role="tabpanel"
              aria-labelledby="pupil_page_tab">
             <div class="panel-header row">
+                <div class="col-md-2">
+                    <button class="btn btn-light rounded-circle" id="back_pupil_page"
+                            onclick="showPage(sessionStorage.getItem('lastpage'))">🡰
+                    </button>
+                </div>
                 <h5 id="pupil_pib" class="text-25 bold col-md-10"></h5>
                 <div class="col-md-12">
                     <a id="pupil_school_link" href="#school_page" onclick="showPage('school_page')"></a>
@@ -412,6 +421,9 @@
         </div>
         <div id="hometask_page" class="col-md-10 shadow  panel page">
             <div class="panel-header row">
+                <div class="col-md-2">
+                    <button class="btn btn-light rounded-circle" onclick="showPage('subject_page')">🡰</button>
+                </div>
                 <h5 id="hw_title" class="text-25 col-md-10"></h5>
                 <button id='edit_hometask_modal_button' data-target='#edit_hometask_modal' data-toggle='modal'
                         class='btn btn-outline-info col-md-5 bg-hover-blue'>
@@ -510,6 +522,9 @@
         </div>
         <div id="task_page" class="col-md-10 shadow  panel page">
             <div class="panel-header row">
+                <div class="col-md-2">
+                    <button class="btn btn-light rounded-circle" onclick="showPage('olympiads_page')">🡰</button>
+                </div>
                 <h5 id="task_title" class="text-25 col-md-10"></h5>
                 <div>
                     <button id='edit_task_modal_button' data-target='#edit_task_modal' data-toggle='modal'

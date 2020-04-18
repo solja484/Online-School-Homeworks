@@ -231,6 +231,8 @@ function setAllSubjectPupils(sub_data) {
                 "role='tab' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'>" +
                 "<div class='card-body'>" + pupil.name + "</div></div>"));
             // $("#show_all_pupils_modal").modal('toggle');
+
+            sessionStorage.setItem("lastpage", "subject_page");
         },
         error: function (data2) {
             console.log(data2.error);
@@ -256,6 +258,8 @@ function setAllOlimpiadPupils(ol_data) {
                 "role='tab' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'>" +
                 "<div class='card-body'>" + pupil.name + "</div></div>"));
             $("#show_all_pupils_modal").modal('toggle');
+            sessionStorage.setItem("lastpage", "olympiad_tasks_page");
+
         },
         error: function (data2) {
             console.log(data2.error);

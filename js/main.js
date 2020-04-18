@@ -146,8 +146,8 @@ function gotologin() {
 
 
 function showTeacher(id) {
-
-
+    $("#back_pupil_page").show();
+    $("#back_teacher_page").hide();
     hideTabs();
     showPage("teacher_list_page");
     $("#teacher_page_tab").show();
@@ -158,6 +158,8 @@ function showTeacher(id) {
 
 function showPupil(id) {
     hideTabs();
+    $("#back_pupil_page").hide();
+    $("#back_teacher_page").show();
     $("#subject_list_page_tab").show();
     $("#pupil_page_tab").show();
     $("#olympiads_tab").show();
@@ -206,12 +208,14 @@ function show_olympiad(ol_data) {
         $("#olimpiad_show_all_pupils_button").show();
         $("#olimpiad_teacher_link").hide();
         $("#add_addition_source_button").show();
+        $("#olimpiad_delete_pupil_button").hide();
         $("#olimpiad_show_all_pupils_button").attr("onclick", "setAllOlimpiadPupils(" + JSON.stringify(ol_data) + ")");
         fillTeacherOlympiadTasks(ol_data);
     } else if (localStorage.getItem("usertype") === "pupil") {
         $("#olimpiad_show_all_pupils_button").hide();
         $("#olimpiad_teacher_link").show();
         $("#add_addition_source_button").hide();
+        $("#olimpiad_delete_pupil_button").show();
         fillPupilOlympiadTasks(ol_data);
     }
 }
@@ -457,8 +461,6 @@ function getAnswerComponent(answer) {
 
 
 function showPupilProfile(data) {
-
-
     $("#show_all_pupils_modal").modal('toggle');
 
     $("#pupil_pib").text(data.name);
@@ -479,6 +481,7 @@ function showPupilProfile(data) {
     $("#pupil_school_link").text(data.schoolname);
 
     $("#edit_pupil_modal_button").hide();
+    $("#delete_pupil_modal_button").hide();
     showPage('pupil_page');
 }
 
