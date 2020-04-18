@@ -136,10 +136,10 @@
                         data-target="#add_competition_modal" data-toggle="modal"
                         onclick="setNamesAndStages()">Додати конкурс
                 </button>
-<br>
+                <br>
                 <button id="notin_notin" type="button" class="btn btn-outline-warning  bg-hover-yellow mg-5 w-30 "
                         data-target="#notin_modal" data-toggle="modal"
-                        onclick="">Пошук учнів
+                        onclick="$('#notin_table').hide(); $('#no_notin_table').hide()">Пошук учнів
                 </button>
                 <button id="print_report" type="button" class="btn btn-info mg-5 w-30 text-white bg-blue"
                         onclick="printReport()">Надрукувати звіт
@@ -566,7 +566,7 @@
 
 <!--not in modal-->
 <div class='modal fade' id='notin_modal' role='dialog'>
-    <div class='modal-dialog'>
+    <div class='modal-dialog' style="max-width: 800px">
         <div class='modal-content'>
             <div class='modal-header'>
                 <p>Знайти учнів, що вивчають всі предмети вчителя...</p>
@@ -580,11 +580,12 @@
 
                 <div class="col-md-12">
                     <br>
-                    <button class=" float-right btn btn-info bg-blue " type="button"   onclick="findNotin()">
-                        Знайти   </button>
+                    <button class=" float-right btn btn-info bg-blue " type="button" onclick="findNotin()">
+                        Знайти
+                    </button>
                 </div>
                 <div class="col-sm-12">
-                    <table id='notin_table' class="table table-striped text-13 fade">
+                    <table id='notin_table' class="table table-striped text-13">
                         <thead>
                         <tr>
                             <th scope="col">Номер учнівського</th>
@@ -597,7 +598,7 @@
                         <tbody id="notin_table_body">
                         </tbody>
                     </table>
-                    <p id="no_notin_table"></p>
+                    <p id="no_notin_table">Не знайдено жодного такого учня</p>
                 </div>
             </div>
         </div>

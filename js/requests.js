@@ -392,7 +392,7 @@ function addPupilSubject() {
 }
 
 function findNotin() {
-    if(!validName("notin_surname")){
+    if (!validName("notin_surname")) {
         return false;
     }
     const surname = $("#notin_surname").val();
@@ -402,13 +402,16 @@ function findNotin() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (datas) {
+            console.log(datas);
             const selector = $("#notin_table_body");
-            if(datas.length<1){
+            selector.empty();
+            if (datas.length < 1) {
                 $("#no_notin_table").show();
                 $("#notin_table").hide();
             } else {
                 $("#no_notin_table").hide();
                 $("#notin_table").show();
+                console.log("here");
                 datas.forEach(data => selector.append("<tr><td>" + data.id + "</td><td>" + data.name + "</td>" +
                     "<td>" + data.class + "</td><td>" + data.email + "</td><td>" + data.school_id + "</td></tr>"));
             }

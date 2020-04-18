@@ -50,7 +50,7 @@ function change_reg_type(t) {
         $('#teacher_form').show();
         removeValid("registryform");
         clearForm("registryform");
-
+        $("#reg_button").attr("value", "Зареєструвати мене!");
     } else {
         $('#registryform').css("background", "#7cdeeb");
         localStorage.setItem("usertype", "pupil");
@@ -58,6 +58,7 @@ function change_reg_type(t) {
         $('#teacher_form').hide();
         removeValid("registryform");
         clearForm("registryform");
+        $("#reg_button").attr("value", "Зареєструвати мене!");
     }
 }
 
