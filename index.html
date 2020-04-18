@@ -397,6 +397,9 @@
                     <button id='subject_teacher_link' aria-controls='teacher_page' data-toggle='pill' role='tab'
                             class='btn btn-secondary w-40 mg-5  '>Переглянути профіль вчителя
                     </button>
+                    <button id="subject_delete_pupil_button" class='btn w-40 mg-5  btn-secondary'
+                            data-target='#delete_pupil_subject' data-toggle='modal'>Виписатись з Предмету
+                    </button>
 
                     <button id="subject_show_all_pupils_button" class='btn w-40 mg-5  btn-secondary'
                             data-target='#show_all_pupils_modal' data-toggle='modal'>Переглянути всіх учнів
@@ -448,6 +451,10 @@
 
                 <button id='olimpiad_teacher_link' aria-controls='teacher_page' data-toggle='pill' role='tab'
                         class='btn btn-secondary'>Переглянути профіль вчителя
+                </button>
+
+                <button id="olimpiad_delete_pupil_button" class='btn w-40 mg-5  btn-secondary'
+                        data-target='#delete_pupil_olimpiad' data-toggle='modal'>Виписатись з Предмету
                 </button>
 
             </div>
@@ -662,6 +669,44 @@
                 </button>
                 <div class="col-md-2"></div>
                 <button class='btn btn-light col-md-4 ' type='button' data-dismiss='modal'>Відмінити</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--delete subject for pupil modal-->
+<div class='modal fade' id='delete_pupil_subject' role='dialog'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <p>Ви впевнені???</p>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            </div>
+            <div class='modal-body row'>
+                <div class="col-md-1"></div>
+                <button id="delete_pupil_subject_button" class='btn btn-danger bg-red bg-hover-red col-md-4'
+                        onclick="deletePupilSubject()">Так
+                </button>
+                <div class="col-md-2"></div>
+                <button class='btn btn-light col-md-4 ' type='button' data-dismiss='modal'>Ні</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--delete olimpiad for pupil modal-->
+<div class='modal fade' id='delete_pupil_olimpiad' role='dialog'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <p>Ви впевнені???</p>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            </div>
+            <div class='modal-body row'>
+                <div class="col-md-1"></div>
+                <button id="delete_pupil_olimpiad_button" class='btn btn-danger bg-red bg-hover-red col-md-4'
+                        onclick="deletePupilOlimpiad()">Так
+                </button>
+                <div class="col-md-2"></div>
+                <button class='btn btn-light col-md-4 ' type='button' data-dismiss='modal'>Ні</button>
             </div>
         </div>
     </div>

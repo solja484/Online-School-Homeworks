@@ -180,11 +180,15 @@ function show_subject(subject_data) {
     if (localStorage.getItem("usertype") === "teacher") {
         $("#subject_show_all_pupils_button").show();
         $("#subject_teacher_link").hide();
+        $("#subject_delete_pupil_button").hide();
+        $("#olimpiad_delete_pupil_button").hide();
         $("#subject_show_all_pupils_button").attr("onclick", "setAllSubjectPupils(" + JSON.stringify(subject_data) + ")");
         fillTeacherHometasks(subject_data);
     } else if (localStorage.getItem("usertype") === "pupil") {
         $("#subject_show_all_pupils_button").hide();
         $("#subject_teacher_link").show();
+        $("#subject_delete_pupil_button").show();
+        $("#olimpiad_delete_pupil_button").show();
         fillPupilHometasks(subject_data);
     }
 }

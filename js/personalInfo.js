@@ -422,9 +422,7 @@ function addSchool() {
                 "<td>" + data.phone + "</td><td><button id='edit_school' type='button' class='btn btn-sm border-none btn-outline-info bg-hover-blue' " +
                 "data-toggle='modal' data-target='#edit_school_modal' onclick='setSchoolCode(" + JSON.stringify(data) + ")'>️edit</button>" +
                 "<button class='btn btn-sm btn-outline-danger border-none bg-hover-red' onclick=deleteSchool('" + data2.code + "')>delete</button></td>" +
-                "</tr>")
-
-            //TODO natasha
+                "</tr>");
         },
         error: function () {
             $("#content").prepend("<div class='alert alert-danger alert-dismissible'>" +
@@ -902,7 +900,6 @@ function editHomework(hw_id) {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data2) {
-            //TODO @solja edithometask
             $("#hw_title").text(data.hw_title);
             $("#hw_task").text(data.content);
             const linkSel = $("#hw_links");
@@ -946,6 +943,50 @@ function fillTeacherOlympiads(id) {
         data: JSON.stringify({"id": id})
     });
 
+}
+
+function deletePupilOlimpiad() {
+    $.ajax({
+        url: 'http://localhost:2303/deletepupilolympiad',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+            $("#delete_pupil_olimpiad").modal('toggle');
+            showPage('olympiads_page');
+            fillPupilOlympiads(localStorage.getItem('authentication'));
+        },
+        error: function (data) {
+            console.log(data.error);
+        },
+        data: JSON.stringify({
+            "olimp_id": sessionStorage.getItem("olympiad"),
+            "student_id": localStorage.getItem('authentication')
+        })
+    });
+}
+
+function deletePupilSubject() {
+    $.ajax({
+        url: 'http://localhost:2303/deletepupilsubject',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+            $("#delete_pupil_subject").modal('toggle');
+            showPage('subject_list_page');
+            fillPupilSubjectsWithoutOlimp(localStorage.getItem('authentication'));
+        },
+        error: function (data) {
+            console.log(data.error);
+        },
+        data: JSON.stringify({
+            "sub_id": sessionStorage.getItem("subject"),
+            "student_id": localStorage.getItem('authentication')
+        })
+    });
 }
 
 function deleteOlympiad() {
@@ -1144,8 +1185,6 @@ function fillPupilOlympiadTasks(ol_data) {
 }
 
 function deleteOlympiadTask(id) {
-
-    //TODO natasha delete task
     $.ajax({
         url: 'http://localhost:2303/deleteolimpiatask',
         type: 'post',
