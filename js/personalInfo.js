@@ -142,6 +142,7 @@ function fillPupilInfo(id) {
 
 function fillPupilFields(data, id) {
     $("#edit_pupil_modal_button").show();
+    $("#delete_pupil_modal_button").show();
 
     $("#pupil_pib").text(data.surname + ' ' + data.name + ' ' + data.patronymic);
     $("#pupil_email").text(data.email);
@@ -202,6 +203,46 @@ function editPupil(id) {
             data: JSON.stringify(data)
         });
     }
+}
+
+function deletePupil() {
+    $.ajax({
+        url: 'http://localhost:2303/deletepupil',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+            $("#delete_pupil_modal").modal("toggle");
+            exit();
+        },
+        error: function (data) {
+            console.log(data.error);
+        },
+        data: JSON.stringify({
+            "id": localStorage.getItem("authentication")
+        })
+    });
+}
+
+function deleteTeacher() {
+    $.ajax({
+        url: 'http://localhost:2303/deleteteacher',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+            $("#delete_teacher_modal").modal("toggle");
+            exit();
+        },
+        error: function (data) {
+            console.log(data.error);
+        },
+        data: JSON.stringify({
+            "id": localStorage.getItem("authentication")
+        })
+    });
 }
 
 //TEACHER SECTION

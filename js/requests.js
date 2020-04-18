@@ -228,9 +228,9 @@ function setAllSubjectPupils(sub_data) {
         success: function (data) {
             selector.empty();
             data.forEach(pupil => selector.append("<div class='card' aria-controls='pupil_page' data-toggle='pill' " +
-                "role='tab' href='#pupil_page' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'>" +
+                "role='tab' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'>" +
                 "<div class='card-body'>" + pupil.name + "</div></div>"));
-            $("#show_all_pupils_modal").modal('toggle');
+            // $("#show_all_pupils_modal").modal('toggle');
         },
         error: function (data2) {
             console.log(data2.error);
@@ -253,7 +253,7 @@ function setAllOlimpiadPupils(ol_data) {
         success: function (data) {
             selector.empty();
             data.forEach(pupil => selector.append("<div class='card' aria-controls='pupil_page' data-toggle='pill' " +
-                "role='tab' href='#pupil_page' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'>" +
+                "role='tab' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'>" +
                 "<div class='card-body'>" + pupil.name + "</div></div>"));
             $("#show_all_pupils_modal").modal('toggle');
         },

@@ -198,6 +198,11 @@
                 <h5 id="teacher_pib" class="text-25 bold col-md-10"></h5>
                 <div class="col-md-12">
                     <a id="teacher_school_link" href="#school_page" onclick="showPage('school_page')"></a>
+
+                    <button id="delete_teacher_modal_button" class="float-right btn btn-outline-danger"
+                            data-target="#delete_teacher_modal"
+                            data-toggle="modal">Видалити
+                    </button>
                     <button id="edit_teacher_modal_button" class="float-right btn btn-outline-info"
                             data-target="#edit_teacher_modal"
                             data-toggle="modal">Редагувати
@@ -267,6 +272,10 @@
                 <h5 id="pupil_pib" class="text-25 bold col-md-10"></h5>
                 <div class="col-md-12">
                     <a id="pupil_school_link" href="#school_page" onclick="showPage('school_page')"></a>
+
+                    <button class=" btn btn-outline-danger float-right" data-target="#delete_pupil_modal"
+                            id="delete_pupil_modal_button" data-toggle="modal">Видалити
+                    </button>
                     <button class=" btn btn-outline-info float-right" data-target="#edit_pupil_modal"
                             id="edit_pupil_modal_button" data-toggle="modal">Редагувати
                     </button>
@@ -386,7 +395,6 @@
                     </button>
 
                     <button id='subject_teacher_link' aria-controls='teacher_page' data-toggle='pill' role='tab'
-                            href='#teacher_page'
                             class='btn btn-secondary w-40 mg-5  '>Переглянути профіль вчителя
                     </button>
 
@@ -439,7 +447,6 @@
                 <p id="ol_discipline" class="text-muted col-md-10"></p>
 
                 <button id='olimpiad_teacher_link' aria-controls='teacher_page' data-toggle='pill' role='tab'
-                        href='#teacher_page'
                         class='btn btn-secondary'>Переглянути профіль вчителя
                 </button>
 
@@ -633,6 +640,44 @@
                 <div class="col-md-1"></div>
                 <button id="delete_olympiad_button" class='btn btn-danger bg-red bg-hover-red col-md-4'
                         onclick="deleteOlympiad()">Видалити
+                </button>
+                <div class="col-md-2"></div>
+                <button class='btn btn-light col-md-4 ' type='button' data-dismiss='modal'>Відмінити</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--delete pupil modal-->
+<div class='modal fade' id='delete_pupil_modal' role='dialog'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <p>Видалити вашу сторінку?</p>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            </div>
+            <div class='modal-body row'>
+                <div class="col-md-1"></div>
+                <button id="delete_pupil_button" class='btn btn-danger bg-red bg-hover-red col-md-4'
+                        onclick="deletePupil()">Видалити
+                </button>
+                <div class="col-md-2"></div>
+                <button class='btn btn-light col-md-4 ' type='button' data-dismiss='modal'>Відмінити</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--delete teacher modal-->
+<div class='modal fade' id='delete_teacher_modal' role='dialog'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <p>Видалити вашу сторінку?</p>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            </div>
+            <div class='modal-body row'>
+                <div class="col-md-1"></div>
+                <button id="delete_teacher_button" class='btn btn-danger bg-red bg-hover-red col-md-4'
+                        onclick="deleteTeacher()">Видалити
                 </button>
                 <div class="col-md-2"></div>
                 <button class='btn btn-light col-md-4 ' type='button' data-dismiss='modal'>Відмінити</button>
