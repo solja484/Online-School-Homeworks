@@ -685,6 +685,7 @@ function fillPupilHometasks(subject_data) {
         contentType: 'application/json',
         accept: 'application/json',
         success: function (datas) {
+
             $("#edit_subject_modal_button").hide();
             $("#delete_subject_modal_button").hide();
             $("#add_hometask_modal_button").hide();
@@ -700,7 +701,7 @@ function fillPupilHometasks(subject_data) {
                         "href='#hometask_page'>" + data.title + "</a><span class='col-md-3'>"
                         + data.deadline + "</span></div>");
                 else
-                    hwListSel.append(" <div class='hw-disabled col-md-12 row'><a id='hw" + data.id +
+                    hwListSel.append(" <div class='hw-active col-md-12 row'><a id='hw" + data.id +
                         "' class='hw_link col-md-7 ' href='#hometask_page' onclick=showHometask('" + data.id +
                         "')>" + data.title + "</a><span class='col-md-3'>" + data.deadline + "</span>" +
                         "</div>")
@@ -868,6 +869,7 @@ function editHomework(hw_id) {
             links.forEach(link => linkSel.append("<a class='italic' href='" + link + "'>" + link + " </a><br>"));
             $("#hw_notes").text(data.notes);
 
+            $("#edit_hometask_modal").modal('hide');
             removeValid("edit_hw_form");
             clearForm("edit_hw_form");
             fillHometaskFields(data);

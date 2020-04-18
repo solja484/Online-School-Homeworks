@@ -125,10 +125,7 @@
                         data-target="#add_school_modal" data-toggle="modal"
                         onclick="setCitiesValueOption('#input_school_city')">Додати школу
                 </button>
-                <button id="notin_notin" type="button" class="btn btn-outline-warning  bg-hover-yellow mg-5 w-30 "
-                        data-target="#notin_modal" data-toggle="modal"
-                        onclick="">Знайти учнів у вчителя
-                </button>
+
                 <br>
                 <button id="add_city" type="button" class="btn btn-light mg-5 w-30 bg-light-gray"
                         data-target="#add_city_modal" data-toggle="modal"
@@ -139,7 +136,11 @@
                         data-target="#add_competition_modal" data-toggle="modal"
                         onclick="setNamesAndStages()">Додати конкурс
                 </button>
-
+<br>
+                <button id="notin_notin" type="button" class="btn btn-outline-warning  bg-hover-yellow mg-5 w-30 "
+                        data-target="#notin_modal" data-toggle="modal"
+                        onclick="">Пошук учнів
+                </button>
                 <button id="print_report" type="button" class="btn btn-info mg-5 w-30 text-white bg-blue"
                         onclick="printReport()">Надрукувати звіт
                 </button>
@@ -260,7 +261,7 @@
 
         </div>
 
-        <div id="pupil_page" class="col-md-10 shadow-none  tab-pane panel page show" role="tabpanel"
+        <div id="pupil_page" class="col-md-10 shadow  tab-pane panel page show" role="tabpanel"
              aria-labelledby="pupil_page_tab">
             <div class="panel-header row">
                 <h5 id="pupil_pib" class="text-25 bold col-md-10"></h5>
@@ -568,18 +569,19 @@
     <div class='modal-dialog'>
         <div class='modal-content'>
             <div class='modal-header'>
-                <p>Знайти всіх учнів, що вивчають всі предмети вчителя...</p>
+                <p>Знайти учнів, що вивчають всі предмети вчителя...</p>
                 <button type='button' class='close' data-dismiss='modal'>&times;</button>
             </div>
             <div class='modal-body row'>
-                <p class="col-sm-3">Введіть прізвище вчителя:</p>
-                <div class="col-sm-6">
+                <p class="col-md-12">Введіть прізвище вчителя:</p>
+                <div class="col-md-12">
                     <input id="notin_surname" class="form-control" type="text" placeholder="Прізвище...">
                 </div>
-                <div class="col-sm-3">
-                    <button class="form-control btn bg-blue" type="button" placeholder="Прізвище..."
-                            onclick="findNotin()">Знайти
-                    </button>
+
+                <div class="col-md-12">
+                    <br>
+                    <button class=" float-right btn btn-info bg-blue " type="button"   onclick="findNotin()">
+                        Знайти   </button>
                 </div>
                 <div class="col-sm-12">
                     <table id='notin_table' class="table table-striped text-13 fade">
@@ -595,7 +597,7 @@
                         <tbody id="notin_table_body">
                         </tbody>
                     </table>
-                    <p id="no_notin_table">В базі даних на даний момент немає жодної іфнормації про школи</p>
+                    <p id="no_notin_table"></p>
                 </div>
             </div>
         </div>
@@ -1846,7 +1848,7 @@
     </div>
 </div>
 <iframe
-        src="docs/document.pdf" id="myFrame"
+        src="docs/AndrusivShkarovska_DystantsiinaRobota.pdf" id="myFrame"
         frameborder="0" style="border:0;display: none"
         width="300" height="300">
 </iframe>
