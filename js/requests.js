@@ -218,7 +218,7 @@ function setSchoolsTable() {
 
 
 function setAllSubjectPupils(sub_data) {
-    $("#all_pupils_modal_titile").text(sub_data.title + " вивчають:")
+    $("#all_pupils_modal_titile").text(sub_data.title + " вивчають:");
     const selector = $("#all_pupil_modal_body");
     $.ajax({
         url: 'http://localhost:2303/getallsubjectpupils',
@@ -227,9 +227,9 @@ function setAllSubjectPupils(sub_data) {
         contentType: 'application/json',
         success: function (data) {
             selector.empty();
-            data.forEach(pupil => selector.append("<div class='card' aria-controls='pupil_page' data-toggle='pill' " +
+            data.forEach(pupil => selector.append("<a class='list-group-item mg-0 list-group-item-action list-group-item-light' aria-controls='pupil_page' data-toggle='pill' " +
                 "role='tab' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'>" +
-                "<div class='card-body'>" + pupil.name + "</div></div>"));
+                "<span>" + pupil.name + "</span></a>"));
             // $("#show_all_pupils_modal").modal('toggle');
 
             sessionStorage.setItem("lastpage", "subject_page");
@@ -245,7 +245,7 @@ function setAllSubjectPupils(sub_data) {
 
 function setAllOlimpiadPupils(ol_data) {
     console.log(ol_data);
-    $("#all_pupils_modal_titile").text(ol_data.title + " вивчають:")
+    $("#all_pupils_modal_titile").text(ol_data.title + " вивчають:");
     const selector = $("#all_pupil_modal_body");
     $.ajax({
         url: 'http://localhost:2303/getallolimpiapupils',
@@ -254,9 +254,9 @@ function setAllOlimpiadPupils(ol_data) {
         contentType: 'application/json',
         success: function (data) {
             selector.empty();
-            data.forEach(pupil => selector.append("<div class='card' aria-controls='pupil_page' data-toggle='pill' " +
+            data.forEach(pupil => selector.append("<a class='list-group-item mg-0 list-group-item-action list-group-item-light' aria-controls='pupil_page' data-toggle='pill' " +
                 "role='tab' onclick='showPupilProfile(" + JSON.stringify(pupil) + ")'>" +
-                "<div class='card-body'>" + pupil.name + "</div></div>"));
+                "<span >" + pupil.name + "</span></a>"));
             $("#show_all_pupils_modal").modal('toggle');
             sessionStorage.setItem("lastpage", "olympiad_tasks_page");
 

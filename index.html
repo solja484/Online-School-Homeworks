@@ -81,7 +81,7 @@
         </div>
     </div>
     <div id="content" class="col-md-9 row">
-        <div id="breadcrumbs" class="col-md-12"></div>
+
         <div id="admin_page" class="col-md-10 shadow  tab-pane panel page" role="tabpanel"
              aria-labelledby="admin_page_tab">
             <div class="panel-header row">
@@ -203,11 +203,11 @@
                 <div class="col-md-12">
                     <a id="teacher_school_link" href="#school_page" onclick="showPage('school_page')"></a>
 
-                    <button id="delete_teacher_modal_button" class="float-right btn btn-outline-danger"
+                    <button id="delete_teacher_modal_button" class="float-right btn mg-5 bg-hover-red btn-outline-danger"
                             data-target="#delete_teacher_modal"
                             data-toggle="modal">Видалити
                     </button>
-                    <button id="edit_teacher_modal_button" class="float-right btn btn-outline-info"
+                    <button id="edit_teacher_modal_button" class="float-right mg-5 btn bg-hover-blue btn-outline-info"
                             data-target="#edit_teacher_modal"
                             data-toggle="modal">Редагувати
                     </button>
@@ -282,10 +282,10 @@
                 <div class="col-md-12">
                     <a id="pupil_school_link" href="#school_page" onclick="showPage('school_page')"></a>
 
-                    <button class=" btn btn-outline-danger float-right" data-target="#delete_pupil_modal"
+                    <button class=" btn btn-outline-danger mg-5 float-right" data-target="#delete_pupil_modal"
                             id="delete_pupil_modal_button" data-toggle="modal">Видалити
                     </button>
-                    <button class=" btn btn-outline-info float-right" data-target="#edit_pupil_modal"
+                    <button class=" btn btn-outline-info mg-5 float-right" data-target="#edit_pupil_modal"
                             id="edit_pupil_modal_button" data-toggle="modal">Редагувати
                     </button>
                 </div>
@@ -406,8 +406,8 @@
                     <button id='subject_teacher_link' aria-controls='teacher_page' data-toggle='pill' role='tab'
                             class='btn btn-secondary w-40 mg-5  '>Переглянути профіль вчителя
                     </button>
-                    <button id="subject_delete_pupil_button" class='btn w-40 mg-5  btn-secondary'
-                            data-target='#delete_pupil_subject' data-toggle='modal'>Виписатись з Предмету
+                    <button id="subject_delete_pupil_button" class='btn w-40 mg-5  btn-outline-danger bg-hover-red'
+                            data-target='#delete_pupil_subject' data-toggle='modal'>Виписатися
                     </button>
 
                     <button id="subject_show_all_pupils_button" class='btn w-40 mg-5  btn-secondary'
@@ -421,19 +421,21 @@
         </div>
         <div id="hometask_page" class="col-md-10 shadow  panel page">
             <div class="panel-header row">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <button class="btn btn-light rounded-circle" onclick="showPage('subject_page')">🡰</button>
                 </div>
-                <h5 id="hw_title" class="text-25 col-md-10"></h5>
+                <h5 id="hw_title" class="text-25 col-md-11"></h5>
                 <button id='edit_hometask_modal_button' data-target='#edit_hometask_modal' data-toggle='modal'
-                        class='btn btn-outline-info col-md-5 bg-hover-blue'>
+                        class='btn btn-outline-info col-md-5 mg-10 bg-hover-blue'>
                     Редагувати домашнє завдання
                 </button>
-            </div>
+
+                <br> <br></div>
             <div class="panel-body row">
                 <p class="text-break col-md-12" id="hw_task"></p>
-                <p class="text-14 text-mutes col-md-12" id="hw_notes"></p>
+
                 <div class="col-md-12" id="hw_links"></div>
+                <p class="text-14 text-mutes col-md-12" id="hw_notes"></p>
                 <div class="col-md-12">
                     <table class="table table-striped table-hover table-borderless text-14">
                         <tbody class="answer-table">
@@ -462,11 +464,11 @@
                 <p id="ol_discipline" class="text-muted col-md-10"></p>
 
                 <button id='olimpiad_teacher_link' aria-controls='teacher_page' data-toggle='pill' role='tab'
-                        class='btn btn-secondary'>Переглянути профіль вчителя
+                        class='btn btn-secondary w-40 mg-5 '>Переглянути профіль вчителя
                 </button>
 
-                <button id="olimpiad_delete_pupil_button" class='btn w-40 mg-5  btn-secondary'
-                        data-target='#delete_pupil_olimpiad' data-toggle='modal'>Виписатись з Предмету
+                <button id="olimpiad_delete_pupil_button" class='btn w-40 mg-5  btn-outline-danger bg-hover-red'
+                        data-target='#delete_pupil_olimpiad' data-toggle='modal'>Виписатися
                 </button>
 
             </div>
@@ -522,24 +524,25 @@
         </div>
         <div id="task_page" class="col-md-10 shadow  panel page">
             <div class="panel-header row">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <button class="btn btn-light rounded-circle" onclick="showPage('olympiads_page')">🡰</button>
                 </div>
-                <h5 id="task_title" class="text-25 col-md-10"></h5>
-                <div>
+                <h5 id="task_title" class="text-25 text-break col-md-8"></h5>
+
                     <button id='edit_task_modal_button' data-target='#edit_task_modal' data-toggle='modal'
-                            class='btn btn-outline-info bg-hover-blue' onclick="clearOlympiadTaskHyperlinks()">
+                            class='btn btn-outline-info  col-md-3 bg-hover-blue' onclick="clearOlympiadTaskHyperlinks()">
                         Редагувати завдання
                     </button>
-
+                    <div>
                     <br><br>
                 </div>
             </div>
 
             <div class="panel-body row">
                 <p class="text-break col-md-12" id="task_task"></p>
-                <p class="text-14 text-mutes col-md-12" id="task_notes"></p>
                 <div class="col-md-12" id="task_links"></div>
+                <p class="text-14 text-mutes col-md-12" id="task_notes"></p>
+
                 <br>
                 <br>
                 <br>

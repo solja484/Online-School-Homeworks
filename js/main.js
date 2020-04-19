@@ -154,6 +154,7 @@ function showTeacher(id) {
     $("#teacher_list_page_tab").show();
     $("#teacher_olympiads_tab").show();
     fillTeacherInfo(id);
+    $("#delete_teacher_modal_button").show();
 }
 
 function showPupil(id) {
@@ -164,7 +165,7 @@ function showPupil(id) {
     $("#pupil_page_tab").show();
     $("#olympiads_tab").show();
     showPage("subject_list_page");
-
+    $("#delete_teacher_modal_button").hide();
     fillPupilInfo(id);
 }
 
