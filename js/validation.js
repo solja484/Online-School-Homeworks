@@ -1,29 +1,12 @@
 function checkValidity() {
     var cur_user_type = localStorage.getItem("usertype");
-    validName("reg_lastname");
-    validName("reg_firstname");
-    validFName("reg_fathername");
-    validEmail("reg_email");
-    validCode2("reg_code");
-    validPhone("reg_phone");
-    validClass("reg_class");
-    validDate("reg_birth_date");
-    if (cur_user_type === 'teacher') {
-        validDocument("reg_teacher_code");
-        validEmpty("reg_education");
-    } else if (cur_user_type === 'pupil') {
-        validClass("reg_class");
-        validDocument("reg_student_code");
-        validEmpty("reg_birth_date");
-    }
     if (!validName("reg_lastname") || !validName("reg_firstname") || !validFName("reg_fathername") ||
         !validEmail("reg_email") || !validCode2("reg_code")
-        || !validPhone("reg_phone") || !validClass("reg_class")) {
+        || !validPhone("reg_phone")) {
         return false
     }
-
+    console.log("here now - 24");
     if (cur_user_type === 'teacher') {
-
         if (!validDocument("reg_teacher_code") || !validEmpty("reg_education")) {
             return false;
         }
@@ -32,6 +15,8 @@ function checkValidity() {
             return false;
         }
     }
+
+    console.log("here now - 36");
     if (!validPass("reg_password")) return false;
     return true;
 }

@@ -29,15 +29,18 @@ function addNewCity() {
 }
 
 function register() {
+    console.log("here");
     var passSel = $('#reg_password');
     var pass2Sel = $('#reg_password2');
     let pass = passSel.val();
     let pass2 = pass2Sel.val();
     if (checkValidity()) {
+        console.log("here");
         if (pass2 !== pass) {
             pass2Sel.removeClass('is-valid');
             pass2Sel.addClass('is-invalid');
             setClear(["#reg_password2", "#reg_password"]);
+            console.log("pass incorect");
             return;
         }
 
@@ -50,6 +53,7 @@ function register() {
             "phone": $("#reg_phone").val(),
             "school_id": $("#reg_code").val()
         };
+        console.log(data);
         var cur_user_type = localStorage.getItem("usertype");
         if (cur_user_type === 'teacher') {
             data.education = $("#reg_education").val();

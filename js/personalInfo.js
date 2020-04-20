@@ -563,6 +563,7 @@ function deleteSubject() {
 }
 
 function fillSubjectFields(data) {
+    console.log(data);
     $("#subject_title").text(data.title + " " + data.class_num);
     $("#subject_descr").text(data.notes + "");
 
@@ -665,9 +666,9 @@ function editSubject() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data2) {
-            fillSubjectFields(data2);
+            fillSubjectFields(data);
             $("#edit_sj_modal").modal('hide');
-            removeValid("edit_subject_form");
+            // removeValid("edit_subject_form");
         },
         error: function (data2) {
             console.log(data2.error);
