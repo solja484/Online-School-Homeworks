@@ -43,13 +43,13 @@ function register() {
             console.log("pass incorect");
             return;
         }
-
         let data = {
             "name": $("#reg_firstname").val(),
             "surname": $("#reg_lastname").val(),
             "patronymic": $("#reg_fathername").val(),
             "email": $("#reg_email").val(),
             "password": pass,
+            "class": $("#reg_class").val(),
             "phone": $("#reg_phone").val(),
             "school_id": $("#reg_code").val()
         };
@@ -348,6 +348,7 @@ function showTeacherProfileSub(sub_id) {
 }
 
 function addPupilOlympiad() {
+    console.log("here");
     const strSel = $("#olympiad_search_input");
     const code = strSel.val();
     const userid = localStorage.getItem('authentication');
@@ -377,7 +378,7 @@ function addPupilSubject() {
     let strSel = $("#subject_search_input");
     const code = strSel.val();
     const userid = localStorage.getItem('authentication');
-    if (!validCode2("subject_search_input")) return false;
+    // if (!validCode2("subject_search_input")) return false;
     $.ajax({
         url: 'http://localhost:2303/addpupisubject',
         type: 'post',
@@ -430,5 +431,41 @@ function findNotin() {
         data: JSON.stringify({
             "surname": surname
         })
+    });
+}
+
+function addSource() {
+    let links = [];
+    $.each($('input', '#add_source_links'), function () {
+        if ($(this).val() !== "")
+            links.push($(this).val());
+    });
+    const data = {
+        "source_id": sessionStorage.getItem("olympiad"),
+        "caption": $("#new_source_caption").val(),
+        "content": $("#new_source_content").val(),
+        "hyperlinks": links,
+        "notes": $("#new_source_notes").val()
+    };
+    $.ajax({
+        url: 'http://localhost:2303/addadditionalsource',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (datas) {
+            const sources = $("#additional_sources_block");
+            let str = "<div class='card mg-10'><p class='card-header'>" + data.caption + "</p><div class='pd-7'><p class='text-14'>" + data.content + "</p>" +
+                "<p class='text-muted text-13'>" + data.notes + "</p>";
+            if (data.hyperlinks.length > 0)
+                for (let j of data.hyperlinks)
+                    str += "<a class='text-a text-13' href='" + j + "'>" + j + "</a>";
+            str += "</div></div>";
+            sources.append(str);
+            $("#add_source_modal").modal("toggle");
+        },
+        error: function (data2) {
+            console.log(data2.error);
+        },
+        data: JSON.stringify(data)
     });
 }

@@ -27,7 +27,6 @@ function addAdmin() {
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
-        "accept": 'application/json',
         success: function () {
             $("#content").prepend("<div class='alert alert-success alert-dismissible'>" +
                 "<button type='button' class='close' data-dismiss='alert'>&times;</button>" +
@@ -36,7 +35,7 @@ function addAdmin() {
             //setClear(["#input_admin_password"]);
             $("add_admin_modal").modal('hide');
             removeValid("add_admin_form");
-            clearForm("add_admin_form");
+            // clearForm("add_admin_form");
         },
         error: function () {
             $("#content").prepend("<div class='alert alert-danger alert-dismissible'>" +
@@ -103,13 +102,13 @@ function editAdmin(id) {
             type: 'post',
             dataType: 'json',
             contentType: 'application/json',
-            success: function (data) {
+            success: function (data2) {
                 fillAdminFields(data, id);
                 $("#edit_admin_modal").modal('hide');
-                removeValid("edit_admin_form");
+                // removeValid("edit_admin_form");
             },
-            error: function (data) {
-                console.log(data.error);
+            error: function (data2) {
+                console.log(data2.error);
             },
             data: JSON.stringify(data)
 
@@ -1358,7 +1357,7 @@ function addTask() {
             $("#olympiad_tasks_list").append("<div id='blocktask" + data.id + "' class='hw-active row'>" +
                 "<a id='task" + data.id + "' class='hw_link col-md-9 ' onclick='showOlympiadTask(" + JSON.stringify(data) +
                 ")' href='#content'>" + data.task_caption + "</a><span class='col-md-3'>" + data.deadline +
-                "</span><button class='btn btn-outline-danger bg-hover-red col-md-3' data-target='#delete_task_modal' " +
+                "</span><button class='btn btn-outline-danger bg-hover-red col-md-4' data-target='#delete_task_modal' " +
                 "onclick=addTaskDelButton('" + data.id + "') data-toggle='modal'>Видалити</button></div>")
             $("#add_task_modal").modal('hide');
             removeValid("add_task_form");
